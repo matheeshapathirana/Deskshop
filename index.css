@@ -36,7 +36,9 @@ img.hero-image {
     transform: scaleX(-1) scaleY(-1); /* Flips the image horizontally and vertically */
 }
 header.header {
-    position: relative;
+    position: fixed; /* Makes the header fixed at the top */
+    top: 0; /* Positions the header at the top */
+    width: 100%; /* Ensures the header spans the full width of the viewport */
     background-color: rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
@@ -45,12 +47,12 @@ header.header {
     justify-content: center;
     padding: 19px 70px;
     backdrop-filter: blur(17.5px);
-    /* width: 1440px; */
     height: 85px;
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
     padding-left: 0px;
+    z-index: 1000; /* Ensures the header stays on top of other elements */
 }
 @media (max-width: 991px) {
     header.header {
@@ -85,15 +87,69 @@ nav.nav-menu {
     line-height: 1;
     justify-content: center;
     flex-wrap: wrap;
-    margin: auto 0;
-    padding: 11px 10px;
-    margin-top: 0px;
+    margin-top: 25px;
     margin-bottom: 0px;
     width: 584px;
     height: 25px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
+/***************************Products Dropdown menu***********************************/
+nav.nav-menu a:hover {
+    background-color: #575757;
+}
+/* Dropdown container */
+    div.products-dropdown {
+    float: left;
+    overflow: hidden;
+    }
+
+    /* Dropdown button */
+    div.products-dropdown .products-dropdown-button {
+    font-size: 18px;
+    border: none;
+    outline: none;
+    color: #2B1B12;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    }
+
+    /* Dropdown content */
+    div.products-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+
+    /* Links inside the dropdown */
+    div.products-dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    }
+
+    div.products-dropdown-content a:hover {
+    background-color: #ddd;
+    }
+
+    /* Show the dropdown content on hover */
+    div.products-dropdown:hover .products-dropdown-content {
+    display: block;
+    }
+
+    div.products-dropdown:hover .dropbtn {
+    background-color: #575757;
+    }
+/**************************************************************/
 @media (max-width: 991px) {
     nav.nav-menu {
     max-width: 100%;
@@ -102,18 +158,6 @@ nav.nav-menu {
 a.nav-item {
 align-self: stretch;
 margin: auto 0;
-}
-a.nav-item-products {
-align-self: stretch;
-min-height: 24px;
-gap: 5px;
-white-space: nowrap;
-margin: auto 0;
-}
-@media (max-width: 991px) {
-    a.nav-item-products {
-white-space: initial;
-}
 }
 button.signup-btn {
 border-radius: 8px;
