@@ -334,7 +334,6 @@ h2.section-title {
     font: 700 50px Montserrat, sans-serif;
     margin-bottom: 0px;
     margin-top: 50px;
-    margin-top: 50px;
     z-index: 999;
 }
 
@@ -888,18 +887,6 @@ padding: 18px 60px;
     padding: 0 20px;
 }
 }
-.featured-products-section {
-    margin-top: 41px;
-    width: 100%;
-    max-width: 1065px;
-}
-@media (max-width: 991px) {
-.featured-products-section {
-    max-width: 100%;
-    margin-top: 40px;
-}
-}
-
 .featured-products-section {
     margin-top: 41px;
     width: 100%;
