@@ -1,20 +1,19 @@
 <!doctype html>
 <html>
-    <head>
-        <title>DeskShop</title>
-            <link rel="icon" type="image/x-icon" href="Assets/icons/favicon.ico?v=2"> <!-- Add this line -->
-            <link rel="stylesheet" type="text/css" href="index.css">
-        </head>
-            <body>
-                <div class="homepage">
-                    <section class="hero-section">
-                    <img src="Assets/home-bg-tr.png" class="hero-image" alt="Hero background" />
-                    <header class="header">
-                    <div class="header-content">
-                        <h1 class="logo">DeskShop</h1>
-                        <nav class="nav-menu">
+<head>
+    <title>DeskShop</title>
+    <link rel="icon" type="image/x-icon" href="Assets/icons/favicon.ico?v=2">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div class="homepage">
+        <section class="hero-section">
+            <img src="Assets/home-bg-tr.png" class="hero-image" alt="Hero background" />
+            <header class="header">
+                <div class="header-content">
+                    <h1 class="logo">DeskShop</h1>
+                    <nav class="nav-menu">
                         <a href="#" class="nav-item">Home</a>
-                        <!-- <a href="#" class="nav-item-products">Products</a> -->
                         <div class="products-dropdown">
                             <button class="products-dropdown-button">Products</button>
                             <div class="products-dropdown-content">
@@ -26,41 +25,63 @@
                         <a href="#" class="nav-item">Delivery</a>
                         <a href="#" class="nav-item">About us</a>
                         <a href="#" class="nav-item">Contact us</a>
-                        </nav>
-                        <button class="signup-btn">Sign up</button>
-                    </div>
-                    </header>
-                    <div class="hero-content">
-                    <h2 class="hero-title">Your Learning<br />Essentials</h2>
-                    <p class="hero-description">Discover essential tools designed to enhance your learning experience effortlessly.</p>
-                    <button class="hero-cta">Sign up</button>
-                    </div>
-                    </section>
+                    </nav>
+                    <button class="signup-btn">Sign up</button>
+                </div>
+            </header>
+            <div class="hero-content">
+                <h2 class="hero-title">Your Learning<br />Essentials</h2>
+                <p class="hero-description">Discover essential tools designed to enhance your learning experience effortlessly.</p>
+                <button class="hero-cta">Sign up</button>
+            </div>
+        </section>
 
-                <h2 class="section-title">Shop by Categories</h2>
-                <section class="categories-section">
-                    <div class="categories-row">
-                    <div class="category-column">
-                        <div class="category-item-1">
-                            <!-- <div class="image-container-1"> -->
-                                <a class="wtools-image" href="#writing-tools">
-                                    <img class="w-img"loading="lazy" src="Assets/writing-tools.png" alt="Writing Tools" />
-                                    <p class="overlay-text-1">Writing Tools</p>
-                                </a>
-                            <!-- </div> -->
-                        </div>
+        <h2 class="section-title">Shop by Categories</h2>
+        <section class="categories-section">
+            <div class="categories-row">
+                <div class="category-column">
+                    <div class="category-item-1">
+                        <a class="wtools-image" href="#writing-tools">
+                            <img class="w-img" loading="lazy" src="Assets/writing-tools.png" alt="Writing Tools" />
+                            <img class="w-arrow" loading="lazy" src="Assets/Arrows/writing-tools-arrow.png" alt="Arrow" />
+                            <p class="overlay-text-1">Writing Tools</p>
+                        </a>
                     </div>
-                    <div class="category-column-wide">
-                        <div class="category-item-2">
-                            <!-- <div class="image-container-2"> -->
-                                <a class="wtools-image-2" href="#desk-accessories">
-                                    <img class="desk-img" loading="lazy" src="Assets/desk-accessories.png" alt="Desk Accessories" />
-                                    <p class="overlay-text-2">Desk Accessories</p>
-                                </a>
-                            <!-- </div> -->
-                        </div>
+                </div>
+                <div class="category-column-wide">
+                    <div class="category-item-2">
+                        <a class="wtools-image-2" href="#desk-accessories">
+                            <img class="desk-img" loading="lazy" src="Assets/desk-accessories.png" alt="Desk Accessories" />
+                            <img class="desk-arrow" src="Assets/Arrows/desk-accessories-arrow.png" alt="Arrow">
+                            <p class="overlay-text-2">Desk Accessories</p>
+                        </a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories-section">    
+            <div class="categories-row">
+                <div class="category-column-wide">
+                    <div class="category-item-3">
+                        <a href="#office-essentials">
+                            <img loading="lazy" src="Assets/office-essentials.png" alt="Office Essentials" />
+                            <img class="office-arrow" src="Assets/Arrows/office-essentials-arrow.png" alt="Arrow">
+                            <p class="overlay-text-3">Office Essentials</p>
+                        </a>
                     </div>
-                </section>
-            </body>
+                </div>
+                <div class="category-column">
+                    <div class="category-item-4">
+                        <a href="#art-supplies">
+                            <img loading="lazy" src="Assets/art-supplies.png" alt="Art Supplies" />
+                            <img class="art-arrow" src="Assets/Arrows/art-supplies-arrow.png" alt="Arrow">
+                            <p class="overlay-text-4">Art Supplies</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
 </html>

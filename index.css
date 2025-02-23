@@ -435,6 +435,13 @@ p.overlay-text-1 {
     padding: 4px 8px;
     border-radius: 4px;
 }
+img.w-arrow {
+    position: relative;
+    top: -15px;
+    left: -300px;
+    width: 50px;
+    height: 50px;
+}
 /****************************/
 div.category-item-2 {
 display: flex;
@@ -499,4 +506,109 @@ a.wtools-image-2 {
 }
 a.wtools-image, a.wtools-image-2 {
     text-decoration: none;
+}
+img.desk-arrow {
+    position: relative;
+    top: -80px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+}
+p.overlay-text-2 {
+    position: relative;
+    top: -320px;
+}
+/*******************************************/
+div.category-column-wide:nth-child(1) > div:nth-child(1) > img:nth-child(1) {
+    position: relative;
+    top: 0px;
+    height: 26vh;
+    width: 487px;
+    left: 37px;
+}
+
+section.categories-section:nth-child(4) > div:nth-child(1) {
+    position: relative;
+    top: -270px;
+}
+
+div.category-column:nth-child(2) > div:nth-child(1) > img:nth-child(1) {
+    position: relative;
+    top: -30px;
+    left: -214px;
+    width: 23vw;
+    height: 26vh;
+}
+
+div.category-column-wide:nth-child(1) > div:nth-child(1) > img:nth-child(1) {
+    position: relative;
+    top: 0px;
+    height: 26vh;
+    width: 487px;
+    left: 37px;
+}
+
+div.category-column:nth-child(2) > div:nth-child(1) > img:nth-child(1) {
+    position: relative;
+    top: -30px;
+    left: -214px;
+    width: 23vw;
+    height: 26vh;
+}
+
+p.overlay-text-3 {
+    position: absolute;
+    width: 300px;
+    top: -20px;
+    left: 75px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2B1B12;
+    font: 700 36px Montserrat, sans-serif;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+p.overlay-text-4 {
+    position: absolute;
+    width: 300px;
+    top: -50px;
+    left: -60px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2B1B12;
+    font: 700 36px Montserrat, sans-serif;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.category-item-3 > a:nth-child(1) > img:nth-child(1) {
+    height: 26vh;
+    position: relative;
+    left: 37px;
+    width: 29vw;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25); /* Added drop shadow */
+    border-radius: 20px; /* Makes corners rounded */
+}
+.category-item-4 > a:nth-child(1) > img:nth-child(1) {
+    height: 26vh;
+    position: relative;
+    top: -29px;
+    left: -71px;
+    width: 383px;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25); /* Added drop shadow */
+    border-radius: 20px; /* Makes corners rounded */
+}
+img.office-arrow {
+    z-index: 1000;
+    position: relative;
+    left: -427px;
+    scale: 80%;
+    top: 0;
+}
+img.art-arrow {
+    position: relative;
+    z-index: 1000;
+    left: -430px;
+    top: -35px;
+    scale: 72%;
 }
