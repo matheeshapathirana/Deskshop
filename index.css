@@ -33,7 +33,7 @@ img.hero-image {
     width: 100vw; /* Full width of the viewport */
     height: 100vh; /* Full height of the viewport */
     object-fit: cover; /* Ensures the image covers the viewport without distortion */
-    transform: scaleX(-1) scaleY(-1); /* Flips the image horizontally and vertically */
+    
 }
 header.header {
     position: fixed; /* Makes the header fixed at the top */
