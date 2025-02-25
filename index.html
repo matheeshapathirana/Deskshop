@@ -119,6 +119,9 @@
                 <div class="product-column">
                 <div class="product-card">
                     <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+                    <div class="wishlist-icon">
+                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                    </div>
                     <div class="product-details">
                     <h3 class="product-title">Atlas Eraser</h3>
                     <div class="product-actions">
@@ -131,6 +134,9 @@
                 <div class="product-column">
                 <div class="product-card">
                     <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+                    <div class="wishlist-icon">
+                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                    </div>
                     <div class="product-details">
                     <h3 class="product-title">Atlas Eraser</h3>
                     <div class="product-actions">
@@ -143,6 +149,9 @@
                 <div class="product-column">
                 <div class="product-card">
                     <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+                    <div class="wishlist-icon">
+                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                    </div>
                     <div class="product-details">
                     <h3 class="product-title">Atlas Eraser</h3>
                     <div class="product-actions">
@@ -159,6 +168,9 @@
                 <div class="product-column">
                 <div class="product-card">
                     <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+                    <div class="wishlist-icon">
+                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                    </div>
                     <div class="product-details">
                     <h3 class="product-title">Atlas Eraser</h3>
                     <div class="product-actions">
@@ -171,6 +183,9 @@
                 <div class="product-column">
                 <div class="product-card">
                     <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+                    <div class="wishlist-icon">
+                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                    </div>
                     <div class="product-details">
                     <h3 class="product-title">Atlas Eraser</h3>
                     <div class="product-actions">
@@ -183,6 +198,9 @@
                 <div class="product-column">
                 <div class="product-card">
                     <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+                    <div class="wishlist-icon">
+                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                    </div>
                     <div class="product-details">
                     <h3 class="product-title">Atlas Eraser</h3>
                     <div class="product-actions">
@@ -218,6 +236,9 @@
     <div class="product-column">
         <div class="product-card">
         <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+        <div class="wishlist-icon">
+            <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+        </div>
         <div class="product-details">
             <h3 class="product-title">Atlas Eraser</h3>
             <div class="product-actions">
@@ -230,6 +251,9 @@
     <div class="product-column">
         <div class="product-card">
         <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+        <div class="wishlist-icon">
+            <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+        </div>
         <div class="product-details">
             <h3 class="product-title">Atlas Eraser</h3>
             <div class="product-actions">
@@ -242,6 +266,9 @@
     <div class="product-column">
         <div class="product-card">
         <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+        <div class="wishlist-icon">
+            <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+        </div>
         <div class="product-details">
             <h3 class="product-title">Atlas Eraser</h3>
             <div class="product-actions">
@@ -259,6 +286,9 @@
         <div class="product-column">
         <div class="product-card">
             <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+            <div class="wishlist-icon">
+                <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+            </div>
             <div class="product-details">
             <h3 class="product-title">Atlas Eraser</h3>
             <div class="product-actions">
@@ -271,6 +301,9 @@
         <div class="product-column">
         <div class="product-card">
             <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+            <div class="wishlist-icon">
+                <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+            </div>
             <div class="product-details">
             <h3 class="product-title">Atlas Eraser</h3>
             <div class="product-actions">
@@ -283,6 +316,9 @@
         <div class="product-column">
         <div class="product-card">
             <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
+            <div class="wishlist-icon">
+                <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+            </div>
             <div class="product-details">
             <h3 class="product-title">Atlas Eraser</h3>
             <div class="product-actions">
@@ -386,5 +422,15 @@
         </div>
     </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const wishlistIcons = document.querySelectorAll('.wishlist-icon');
+        wishlistIcons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                this.classList.toggle('red-fill');
+            });
+        });
+    });
+</script>
 </body>
 </html>
