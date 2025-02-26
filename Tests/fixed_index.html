@@ -1,0 +1,1326 @@
+<style>
+    .homepage {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      align-items: center;
+    }
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-self: stretch;
+      position: relative;
+      min-height: 886px;
+      width: 100%;
+      padding-bottom: 323px;
+      font-family: Montserrat, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .hero-section {
+        max-width: 100%;
+        padding-bottom: 100px;
+      }
+    }
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .header {
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      color: #2b1b12;
+      justify-content: center;
+      padding: 19px 70px;
+    }
+    @media (max-width: 991px) {
+      .header {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .header-content {
+      display: flex;
+      width: 100%;
+      max-width: 1065px;
+      gap: 40px 91px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 991px) {
+      .header-content {
+        max-width: 100%;
+      }
+    }
+    .logo {
+      flex-grow: 1;
+      font: 400 40px Mynerve, sans-serif;
+    }
+    .nav-menu {
+      display: flex;
+      min-height: 45px;
+      align-items: center;
+      gap: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: auto 0;
+      padding: 11px 10px;
+    }
+    @media (max-width: 991px) {
+      .nav-menu {
+        max-width: 100%;
+      }
+    }
+    .nav-item {
+      align-self: stretch;
+      margin: auto 0;
+    }
+    .nav-item-products {
+      align-self: stretch;
+      min-height: 24px;
+      gap: 5px;
+      white-space: nowrap;
+      margin: auto 0;
+    }
+    @media (max-width: 991px) {
+      .nav-item-products {
+        white-space: initial;
+      }
+    }
+    .signup-btn {
+      border-radius: 8px;
+      background-color: #2b1b12;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+      padding: 14px 29px;
+    }
+    @media (max-width: 991px) {
+      .signup-btn {
+        padding: 0 20px;
+      }
+    }
+    .hero-content {
+      position: relative;
+      display: flex;
+      width: 708px;
+      max-width: 100%;
+      flex-direction: column;
+      align-items: start;
+      font-size: 18px;
+      margin: 103px 0 -65px 188px;
+    }
+    @media (max-width: 991px) {
+      .hero-content {
+        margin: 40px 0 10px;
+      }
+    }
+    .hero-title {
+      color: #2b1b12;
+      font-size: 95px;
+      font-weight: 800;
+      align-self: stretch;
+    }
+    @media (max-width: 991px) {
+      .hero-title {
+        max-width: 100%;
+        font-size: 40px;
+      }
+    }
+    .hero-description {
+      color: #4f3527;
+      font-weight: 700;
+      line-height: 29px;
+      width: 435px;
+    }
+    @media (max-width: 991px) {
+      .hero-description {
+        max-width: 100%;
+      }
+    }
+    .hero-cta {
+      border-radius: 8px;
+      background-color: #2b1b12;
+      margin-top: 27px;
+      color: #fff;
+      font-weight: 600;
+      padding: 18px 52px;
+    }
+    @media (max-width: 991px) {
+      .hero-cta {
+        padding: 0 20px;
+      }
+    }
+    .section-title {
+      color: #2b1b12;
+      font: 700 50px Montserrat, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .section-title {
+        max-width: 100%;
+        font-size: 40px;
+      }
+    }
+    .categories-section {
+      margin-top: 41px;
+      width: 100%;
+      max-width: 1065px;
+    }
+    @media (max-width: 991px) {
+      .categories-section {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .categories-row {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .categories-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .category-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 41%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .category-column {
+        width: 100%;
+      }
+    }
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border-radius: 20px;
+      min-height: 298px;
+      flex-grow: 1;
+      color: #2b1b12;
+      padding: 36px 27px 218px;
+      font: 700 36px Montserrat, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .category-item {
+        max-width: 100%;
+        margin-top: 15px;
+        padding: 0 20px 100px;
+      }
+    }
+    .category-column-wide {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 59%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .category-column-wide {
+        width: 100%;
+      }
+    }
+    .hot-deals-section {
+      align-self: stretch;
+      display: flex;
+      margin-top: 102px;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 80px 76px;
+    }
+    @media (max-width: 991px) {
+      .hot-deals-section {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+    }
+    .hot-deals-content {
+      display: flex;
+      width: 100%;
+      max-width: 1065px;
+      flex-direction: column;
+    }
+    @media (max-width: 991px) {
+      .hot-deals-content {
+        max-width: 100%;
+      }
+    }
+    .hot-deals-title {
+      color: #2b1b12;
+      align-self: center;
+      font: 700 50px Montserrat, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .hot-deals-title {
+        font-size: 40px;
+      }
+    }
+    .product-grid {
+      margin-top: 40px;
+    }
+    @media (max-width: 991px) {
+      .product-grid {
+        max-width: 100%;
+      }
+    }
+    .product-row {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .product-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .product-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 33%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .product-column {
+        width: 100%;
+      }
+    }
+    .product-card {
+      border-radius: 18px;
+      background-color: #ddc7bb;
+      box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-grow: 1;
+      padding-bottom: 19px;
+      flex-direction: column;
+      font-family: Montserrat, sans-serif;
+      width: 100%;
+    }
+    @media (max-width: 991px) {
+      .product-card {
+        margin-top: 40px;
+      }
+    }
+    .product-image {
+      aspect-ratio: 1.33;
+      object-fit: contain;
+      object-position: center;
+      width: 100%;
+      border-radius: 18px 18px 0px 0px;
+    }
+    .product-details {
+      display: flex;
+      margin-top: 13px;
+      width: 100%;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+    .product-title {
+      color: #2b1b12;
+      font-size: 20px;
+      font-weight: 700;
+      align-self: start;
+    }
+    .product-actions {
+      display: flex;
+      margin-top: 46px;
+      gap: 40px 49px;
+    }
+    @media (max-width: 991px) {
+      .product-actions {
+        margin-top: 40px;
+      }
+    }
+    .add-to-cart-btn {
+      border-radius: 8px;
+      background-color: #2b1b12;
+      font-size: 14px;
+      color: #fff;
+      font-weight: 600;
+      padding: 12px 17px;
+    }
+    .product-price {
+      color: #4f3527;
+      font-size: 22px;
+      font-weight: 700;
+      align-self: start;
+      margin-top: 20px;
+      flex-grow: 1;
+      width: 80px;
+    }
+    .banner-section {
+      margin-top: 65px;
+      width: 100%;
+      max-width: 1066px;
+    }
+    @media (max-width: 991px) {
+      .banner-section {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .banner-row {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .banner-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .banner-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 50%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .banner-column {
+        width: 100%;
+      }
+    }
+    .banner-image {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 100%;
+      border-radius: 45px;
+    }
+    @media (max-width: 991px) {
+      .banner-image {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .banner-content {
+      display: flex;
+      flex-direction: column;
+      font-family: Montserrat, sans-serif;
+      color: #000;
+      font-weight: 700;
+    }
+    @media (max-width: 991px) {
+      .banner-content {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .banner-title {
+      font-size: 50px;
+    }
+    @media (max-width: 991px) {
+      .banner-title {
+        max-width: 100%;
+        font-size: 40px;
+      }
+    }
+    .banner-description {
+      font-size: 20px;
+      margin: 24px 32px 0 0;
+    }
+    @media (max-width: 991px) {
+      .banner-description {
+        max-width: 100%;
+        margin-right: 10px;
+      }
+    }
+    .banner-cta {
+      border-radius: 8px;
+      background-color: #2b1b12;
+      align-self: start;
+      margin-top: 50px;
+      font-size: 18px;
+      color: #fff;
+      font-weight: 600;
+      padding: 18px 60px;
+    }
+    @media (max-width: 991px) {
+      .banner-cta {
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+    }
+    .featured-products-section {
+      margin-top: 41px;
+      width: 100%;
+      max-width: 1065px;
+    }
+    @media (max-width: 991px) {
+      .featured-products-section {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .about-section {
+      align-self: stretch;
+      display: flex;
+      margin-top: 128px;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px 208px;
+    }
+    @media (max-width: 991px) {
+      .about-section {
+        max-width: 100%;
+        margin-top: 40px;
+        padding: 0 20px 100px;
+      }
+    }
+    .about-content {
+      z-index: 10;
+      display: flex;
+      width: 100%;
+      max-width: 1066px;
+      flex-direction: column;
+      align-items: center;
+      margin: -6px 0 -42px;
+    }
+    @media (max-width: 991px) {
+      @media (max-width: 991px) {
+      .about-content {
+        max-width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+    .about-row {
+      align-self: stretch;
+      margin-left: 12px;
+    }
+    @media (max-width: 991px) {
+      .about-row {
+        max-width: 100%;
+      }
+    }
+    .about-columns {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .about-columns {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .about-text-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 60%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .about-text-column {
+        width: 100%;
+      }
+    }
+    .about-text-content {
+      display: flex;
+      margin-top: 42px;
+      flex-direction: column;
+      font-family: Montserrat, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .about-text-content {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .about-title {
+      color: #10111a;
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 5px;
+      align-self: start;
+    }
+    @media (max-width: 991px) {
+      .about-title {
+        font-size: 40px;
+      }
+    }
+    .about-description {
+      color: #97918b;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 29px;
+      margin-top: 54px;
+    }
+    @media (max-width: 991px) {
+      .about-description {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .about-image-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 21%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .about-image-column {
+        width: 100%;
+      }
+    }
+    .about-image {
+      aspect-ratio: 0.79;
+      object-fit: contain;
+      object-position: center;
+      width: 215px;
+      border-radius: 30px;
+      max-width: 100%;
+    }
+    @media (max-width: 991px) {
+      .about-image {
+        margin-top: 9px;
+      }
+    }
+    .about-image-column-2 {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 19%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .about-image-column-2 {
+        width: 100%;
+      }
+    }
+    .about-image-2 {
+      aspect-ratio: 0.72;
+      object-fit: contain;
+      object-position: center;
+      width: 197px;
+      border-radius: 30px;
+      margin-top: 157px;
+      max-width: 100%;
+      flex-grow: 1;
+    }
+    @media (max-width: 991px) {
+      .about-image-2 {
+        margin-top: 40px;
+      }
+    }
+    .workspace-section {
+      align-self: stretch;
+      margin: 32px 32px 0 0;
+    }
+    @media (max-width: 991px) {
+      .workspace-section {
+        max-width: 100%;
+        margin-right: 10px;
+      }
+    }
+    .workspace-row {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .workspace-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .workspace-image-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 50%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .workspace-image-column {
+        width: 100%;
+      }
+    }
+    .workspace-image {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 100%;
+      border-radius: 45px;
+    }
+    @media (max-width: 991px) {
+      .workspace-image {
+        margin-top: 40px;
+      }
+    }
+    .workspace-content-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 50%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .workspace-content-column {
+        width: 100%;
+      }
+    }
+    .workspace-content {
+      display: flex;
+      margin-top: 27px;
+      flex-direction: column;
+      font-family: Montserrat, sans-serif;
+      color: #000;
+      font-weight: 700;
+    }
+    @media (max-width: 991px) {
+      .workspace-content {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .workspace-title {
+      font-size: 50px;
+    }
+    @media (max-width: 991px) {
+      .workspace-title {
+        max-width: 100%;
+        font-size: 40px;
+      }
+    }
+    .workspace-description {
+      font-size: 20px;
+      margin-top: 24px;
+    }
+    @media (max-width: 991px) {
+      .workspace-description {
+        max-width: 100%;
+      }
+    }
+    .workspace-cta {
+      border-radius: 8px;
+      background-color: #2b1b12;
+      align-self: start;
+      margin-top: 50px;
+      font-size: 18px;
+      color: #fff;
+      font-weight: 600;
+      padding: 18px 57px;
+    }
+    @media (max-width: 991px) {
+      .workspace-cta {
+        margin-top: 40px;
+        padding: 0 20px;
+      }
+    }
+    .faq-title {
+      color: #2b1b12;
+      text-align: center;
+      width: 666px;
+      margin: 105px 0 0 18px;
+      font: 800 40px/56px Montserrat, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .faq-title {
+        max-width: 100%;
+        margin-top: 40px;
+      }
+    }
+    .faq-link {
+      display: flex;
+      margin-top: 13px;
+      width: 187px;
+      max-width: 100%;
+      gap: 8px;
+      color: #543e32;
+      font: 700 18px Montserrat, sans-serif;
+    }
+    .faq-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 26px;
+    }
+    .faq-text {
+      flex-grow: 1;
+      width: 148px;
+      margin: auto 0;
+    }
+    .newsletter-form {
+      display: flex;
+      width: 681px;
+      max-width: 100%;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 62px 0 0 18px;
+      font: 600 18px Montserrat, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .newsletter-form {
+        margin-top: 40px;
+      }
+    }
+    .newsletter-input-wrapper {
+      border-radius: 8px;
+      background-color: #ddc7bb;
+      box-shadow: 0px 4px 30px rgba(43, 27, 18, 0.12);
+      display: flex;
+      gap: 8px;
+      color: #543e32;
+      flex-wrap: wrap;
+      flex-grow: 1;
+      flex-basis: auto;
+      padding: 17px 24px;
+    }
+    @media (max-width: 991px) {
+      .newsletter-input-wrapper {
+        padding: 0 20px;
+      }
+    }
+    .newsletter-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 24px;
+    }
+    .newsletter-input {
+      flex-basis: auto;
+      flex-grow: 1;
+    }
+    @media (max-width: 991px) {
+      .newsletter-input {
+        max-width: 100%;
+      }
+    }
+    .newsletter-submit {
+      border-radius: 8px;
+      background-color: #2b1b12;
+      color: #fff;
+      white-space: nowrap;
+      padding: 18px 44px;
+    }
+    @media (max-width: 991px) {
+      .newsletter-submit {
+        white-space: initial;
+        padding: 0 20px;
+      }
+    }
+    .footer {
+      align-self: stretch;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 70px 93px;
+    }
+    @media (max-width: 991px) {
+      .footer {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    .footer-content {
+      width: 100%;
+      max-width: 1058px;
+    }
+    @media (max-width: 991px) {
+      .footer-content {
+        max-width: 100%;
+      }
+    }
+    .footer-row {
+      gap: 20px;
+      display: flex;
+    }
+    @media (max-width: 991px) {
+      .footer-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+      }
+    }
+    .footer-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 30%;
+      margin-left: 0px;
+    }
+    @media (max-width: 991px) {
+      .footer-column {
+        width: 100%;
+      }
+    }
+    .footer-logo-wrapper {
+      display: flex;
+      flex-direction: column;
+      color: #2b1b12;
+      font: 400 12px/2 Poppins, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .footer-logo-wrapper {
+        margin-top: 40px;
+      }
+    }
+    .footer-logo {
+      aspect-ratio: 1.06;
+      object-fit: contain;
+      object-position: center;
+      width: 90px;
+    }
+    .footer-social {
+      aspect-ratio: 6.37;
+      object-fit: contain;
+      object-position: center;
+      width: 172px;
+      margin-top: 108px;
+    }
+    @media (max-width: 991px) {
+      .footer-social {
+        margin: 40px 4px 0 0;
+      }
+    }
+    .footer-copyright {
+      opacity: 0.5;
+      margin-top: 13px;
+    }
+    .footer-links-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 24%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .footer-links-column {
+        width: 100%;
+      }
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      font-family: Poppins, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .footer-links {
+        margin-top: 40px;
+      }
+    }
+    .footer-links-title {
+      color: #2b1b12;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .footer-link-list {
+      color: #2b1b12;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 32px;
+      margin-top: 44px;
+    }
+    @media (max-width: 991px) {
+      .footer-link-list {
+        margin-top: 40px;
+      }
+    }
+    .footer-contact-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 46%;
+      margin-left: 20px;
+    }
+    @media (max-width: 991px) {
+      .footer-contact-column {
+        width: 100%;
+      }
+    }
+    .footer-contact {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+      align-items: start;
+      color: #2b1b12;
+      font: 400 20px/32px Poppins, sans-serif;
+    }
+    @media (max-width: 991px) {
+      .footer-contact {
+        margin-top: 40px;
+      }
+    }
+    .footer-contact-title {
+      color: #2b1b12;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .footer-contact-phone {
+      margin-top: 53px;
+      width: 246px;
+    }
+    @media (max-width: 991px) {
+      .footer-contact-phone {
+        margin-top: 40px;
+      }
+    }
+    .footer-contact-email {
+      align-self: stretch;
+      margin-top: 45px;
+    }
+    @media (max-width: 991px) {
+      .footer-contact-email {
+          margin-top: 40px;
+        }
+      }
+  </style>
+      
+      <div class="homepage">
+    <section class="hero-section">
+      <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/5cbb8347b0fa34ad151f7742c1c9732ec421344018efa09d092e6116d3eaad06?apiKey=2430957f6a9342adb406d80ebc430d91&" class="hero-image" alt="Hero background" />
+      <header class="header">
+        <div class="header-content">
+          <h1 class="logo">DeskShop</h1>
+          <nav class="nav-menu">
+            <a href="#" class="nav-item">Home</a>
+            <a href="#" class="nav-item nav-item-products">Products</a>
+            <a href="#" class="nav-item">Delivery</a>
+            <a href="#" class="nav-item">About us</a>
+            <a href="#" class="nav-item">Contact us</a>
+          </nav>
+          <button class="signup-btn">Sign up</button>
+        </div>
+      </header>
+      <div class="hero-content">
+        <h2 class="hero-title">Your Learning<br />Essentials</h2>
+        <p class="hero-description">Discover essential tools designed to enhance your learning experience effortlessly.</p>
+        <button class="hero-cta">Sign up</button>
+      </div>
+    </section>
+  
+    <h2 class="section-title">Shop by Categories</h2>
+    <section class="categories-section">
+      <div class="categories-row">
+        <div class="category-column">
+          <div class="category-item">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/ccade7059a295b12800bdc6604b56b6ab70453698c9713c854fa8c03c1746261?apiKey=2430957f6a9342adb406d80ebc430d91&" alt="Writing Tools" />
+            Writing Tools
+          </div>
+        </div>
+        <div class="category-column-wide">
+          <div class="category-item">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/8a1f94c3415065e708df3885b899a5dd340ca3b5d80b7196332364bd40636066?apiKey=2430957f6a9342adb406d80ebc430d91&" alt="Desk Accessories" />
+            Desk Accessories
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="categories-section">
+      <div class="categories-row">
+        <div class="category-column-wide">
+          <div class="category-item">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e44a5af8de8001bef8ce48619efb2dacf95b566d7787518f540ca84f547b6411?apiKey=2430957f6a9342adb406d80ebc430d91&" alt="Office Essentials" />
+            Office Essentials
+          </div>
+        </div>
+        <div class="category-column">
+          <div class="category-item">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/4ea6e914dc18626135794253e382e704c2c16c05b520a4ffbdfd5252dc70c389?apiKey=2430957f6a9342adb406d80ebc430d91&" alt="Art Supplies" />
+            Art Supplies
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="hot-deals-section">
+      <div class="hot-deals-content">
+        <h2 class="hot-deals-title">Hot Deals</h2>
+        <div class="product-grid">
+          <div class="product-row">
+            <div class="product-column">
+              <div class="product-card">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+                <div class="product-details">
+                  <h3 class="product-title">Atlas Eraser</h3>
+                  <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <span class="product-price">Rs. 30.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-column">
+              <div class="product-card">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+                <div class="product-details">
+                  <h3 class="product-title">Atlas Eraser</h3>
+                  <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <span class="product-price">Rs. 30.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-column">
+              <div class="product-card">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+                <div class="product-details">
+                  <h3 class="product-title">Atlas Eraser</h3>
+                  <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <span class="product-price">Rs. 30.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-grid">
+          <div class="product-row">
+            <div class="product-column">
+              <div class="product-card">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+                <div class="product-details">
+                  <h3 class="product-title">Atlas Eraser</h3>
+                  <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <span class="product-price">Rs. 30.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-column">
+              <div class="product-card">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+                <div class="product-details">
+                  <h3 class="product-title">Atlas Eraser</h3>
+                  <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <span class="product-price">Rs. 30.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-column">
+              <div class="product-card">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+                <div class="product-details">
+                  <h3 class="product-title">Atlas Eraser</h3>
+                  <div class="product-actions">
+                    <button class="add-to-cart-btn">Add to cart</button>
+                    <span class="product-price">Rs. 30.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="banner-section">
+      <div class="banner-row">
+        <div class="banner-column">
+          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/a000f3124ece28c45e0ab854123642b14c296bd9937834752c9f54673331010e?apiKey=2430957f6a9342adb406d80ebc430d91&" class="banner-image" alt="Classroom essentials" />
+        </div>
+        <div class="banner-column">
+          <div class="banner-content">
+            <h2 class="banner-title">Everything for the<br />Classroom</h2>
+            <p class="banner-description">Find all the essentials to create a perfect learning environment.</p>
+            <button class="banner-cta">Shop Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <h2 class="section-title">Featured Products</h2>
+    <section class="featured-products-section">
+      <div class="product-row">
+        <div class="product-column">
+          <div class="product-card">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+            <div class="product-details">
+              <h3 class="product-title">Atlas Eraser</h3>
+              <div class="product-actions">
+                <button class="add-to-cart-btn">Add to cart</button>
+                <span class="product-price">Rs. 30.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-column">
+          <div class="product-card">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+            <div class="product-details">
+              <h3 class="product-title">Atlas Eraser</h3>
+              <div class="product-actions">
+                <button class="add-to-cart-btn">Add to cart</button>
+                <span class="product-price">Rs. 30.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-column">
+          <div class="product-card">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+            <div class="product-details">
+              <h3 class="product-title">Atlas Eraser</h3>
+              <div class="product-actions">
+                <button class="add-to-cart-btn">Add to cart</button>
+                <span class="product-price">Rs. 30.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="featured-products-section">
+      <div class="product-row">
+        <div class="product-column">
+          <div class="product-card">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+            <div class="product-details">
+              <h3 class="product-title">Atlas Eraser</h3>
+              <div class="product-actions">
+                <button class="add-to-cart-btn">Add to cart</button>
+                <span class="product-price">Rs. 30.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-column">
+          <div class="product-card">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+            <div class="product-details">
+              <h3 class="product-title">Atlas Eraser</h3>
+              <div class="product-actions">
+                <button class="add-to-cart-btn">Add to cart</button>
+                <span class="product-price">Rs. 30.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-column">
+          <div class="product-card">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e620d11b77df16d7ca3748920bd615796e02f06edb1725e1fb8942f70226dc1a?apiKey=2430957f6a9342adb406d80ebc430d91&" class="product-image" alt="Atlas Eraser" />
+            <div class="product-details">
+              <h3 class="product-title">Atlas Eraser</h3>
+              <div class="product-actions">
+                <button class="add-to-cart-btn">Add to cart</button>
+                <span class="product-price">Rs. 30.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="about-section">
+      <div class="about-content">
+        <div class="about-row">
+          <div class="about-columns">
+            <div class="about-text-column">
+              <div class="about-text-content">
+                <h2 class="about-title">About Us</h2>
+                <p class="about-description">
+                  Welcome to DeskShop!<br />
+                  We provide high-quality school and office supplies to support students, teachers, and professionals. Our mission is to simplify your shopping experience with reliable products and exceptional service. Whether for classrooms or workspaces, we've got you covered!
+                </p>
+              </div>
+            </div>
+            <div class="about-image-column">
+              <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/5fd440b75e8d4e59659c78d4d79b0bb5bf658d80bbf5a271d7566b41c9c4899f?apiKey=2430957f6a9342adb406d80ebc430d91&" class="about-image" alt="About us image 1" />
+            </div>
+            <div class="about-image-column-2">
+              <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/3b7e935d8164af62d01cefb62085b0174060a0030d99f10ede3a1b2aacba103d?apiKey=2430957f6a9342adb406d80ebc430d91&" class="about-image-2" alt="About us image 2" />
+            </div>
+          </div>
+        </div>
+        <div class="workspace-section">
+          <div class="workspace-row">
+            <div class="workspace-image-column">
+              <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/901a99abcf8749d8cf388dcfd69bde2ef3639b46ff2c13c1064ed8180307bca5?apiKey=2430957f6a9342adb406d80ebc430d91&" class="workspace-image" alt="Workspace essentials" />
+            </div>
+            <div class="workspace-content-column">
+              <div class="workspace-content">
+                <h2 class="workspace-title">Streamline Your Workspace</h2>
+                <p class="workspace-description">Upgrade your workspace with tools and essentials for efficiency.</p>
+                <button class="workspace-cta">Order Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2 class="faq-title">Do You Have Any Questions?<br />Get Help From Us</h2>
+        <div class="faq-link">
+          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/b4d8821b7a66aff21cdd71f00fe276e82b32231cbd351d6e64f0720806043ccb?apiKey=2430957f6a9342adb406d80ebc430d91&" class="faq-icon" alt="FAQ icon" />
+          <span class="faq-text">Browse our FAQ</span>
+        </div>
+        <form class="newsletter-form">
+          <div class="newsletter-input-wrapper">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/5a62a59a7117d1409d6aec34dae64f59709c992b1351f2b9b18efe5e964c7d0f?apiKey=2430957f6a9342adb406d80ebc430d91&" class="newsletter-icon" alt="Email icon" />
+            <input type="email" class="newsletter-input" placeholder="Enter your email address..." aria-label="Enter your email address" />
+          </div>
+          <button type="submit" class="newsletter-submit">Submit</button>
+        </form>
+      </div>
+    </section>
+  
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-row">
+          <div class="footer-column">
+            <div class="footer-logo-wrapper">
+              <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/e7a3dcd8418796378538e7c8e14ec1e12480aec581ea875a7881e77ca194d1ef?apiKey=2430957f6a9342adb406d80ebc430d91&" class="footer-logo" alt="DeskShop logo" />
+              <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/b67c9bcab195110a7e91ce80818081654d43cc7b2188795662db5c0bd1a05bc9?apiKey=2430957f6a9342adb406d80ebc430d91&" class="footer-social" alt="Social media icons" />
+              <p class="footer-copyright">©2025 Matheesha Pathirana</p>
+            </div>
+          </div>
+          <div class="footer-links-column">
+            <div class="footer-links">
+              <h3 class="footer-links-title">Information</h3>
+              <nav class="footer-link-list">
+                <a href="#">Main</a><br />
+                <a href="#">Products</a><br />
+                <a href="#">About us</a><br />
+                <a href="#">Contact us</a>
+              </nav>
+            </div>
+          </div>
+          <div class="footer-contact-column">
+            <div class="footer-contact">
+              <h3 class="footer-contact-title">Contact</h3>
+              <p class="footer-contact-phone">
+                <strong>Phone:</strong><br />
+                (123)456-7890
+              </p>
+              <p class="footer-contact-email">
+                <strong>Email:</strong><br />
+                pathiranamatheesha@gmail.com
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>

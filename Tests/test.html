@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hover Dropdown Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Styling the navigation bar */
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    .navbar a {
+      float: left;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background-color: #575757;
+    }
+
+    /* Dropdown container */
+    .dropdown {
+      float: left;
+      overflow: hidden;
+    }
+
+    /* Dropdown button */
+    .dropdown .dropbtn {
+      font-size: 16px;
+      border: none;
+      outline: none;
+      color: white;
+      padding: 14px 16px;
+      background-color: inherit;
+      font-family: inherit;
+      margin: 0;
+    }
+
+    /* Dropdown content */
+    .dropdown-content {
+      visibility: hidden;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      opacity: 0;
+      transform: rotateX(-90deg);
+      transform-origin: top;
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    /* Show the dropdown content on hover */
+    .dropdown:hover .dropdown-content {
+      visibility: visible;
+      opacity: 1;
+      transform: rotateX(0);
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #575757;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <div class="dropdown">
+      <button class="dropbtn">Services</button>
+      <div class="dropdown-content">
+        <a href="#service1">Service 1</a>
+        <a href="#service2">Service 2</a>
+        <a href="#service3">Service 3</a>
+      </div>
+    </div>
+    <a href="#contact">Contact</a>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" width="29" height="25" viewBox="0 0 29 25" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 3.83558C11.8009 0.81517 7.29066 -0.118266 3.90885 2.64752C0.527019 5.4133 0.0509037 10.0375 2.70667 13.3087C4.91476 16.0283 11.5972 21.7644 13.7874 23.621C14.0323 23.8287 14.1549 23.9326 14.2978 23.9733C14.4225 24.0089 14.559 24.0089 14.6838 23.9733C14.8267 23.9326 14.9491 23.8287 15.1942 23.621C17.3844 21.7644 24.0667 16.0283 26.2749 13.3087C28.9306 10.0375 28.5126 5.38421 25.0726 2.64752C21.6327 -0.089171 17.1991 0.81517 14.5 3.83558Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  
+  <script>
+    const wishlistIcon = document.getElementById('wishlist-icon');
+  
+    wishlistIcon.addEventListener('click', () => {
+      const isRed = wishlistIcon.getAttribute('fill') === 'red';
+      wishlistIcon.setAttribute('fill', isRed ? 'white' : 'red');
+    });
+  </script>
+  
+  
+</body>
+</html>
