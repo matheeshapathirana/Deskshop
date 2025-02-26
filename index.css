@@ -226,19 +226,24 @@ button.signup-btn:active::after {
 }
 
 div.hero-content {
-    position: relative;
+    position: absolute; /* Change to absolute to keep it fixed relative to its container */
     display: flex;
     width: 708px;
     max-width: 100%;
     flex-direction: column;
     align-items: start;
     font-size: 18px;
-    margin: 103px 0 -65px 188px;
+    top: 40%; /* Center vertically */
+    left: 35%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust position to center */
 }
 
 @media (max-width: 991px) {
     div.hero-content {
-        margin: 40px 0 10px;
+        top: auto; /* Reset top position */
+        left: auto; /* Reset left position */
+        transform: none; /* Reset transform */
+        margin: 40px 0 10px; /* Apply margin for smaller screens */
     }
 }
 
