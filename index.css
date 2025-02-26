@@ -29,13 +29,13 @@ body {
     }
 }
 
-img.hero-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 113vh;
-    object-fit: cover;
+.hero-section {
+    background: linear-gradient(180deg, #000 57.5%, rgba(0, 0, 0, 0) 100%);
+    height: 886px;
+    padding: 188px 200px;
+    background-image: url("Assets/home-bg-tr.png");
+    background-size: cover;
+    background-position: center left -400px; /* Move the image to the left by 30px */
 }
 
 header.header {
@@ -52,6 +52,7 @@ header.header {
     backdrop-filter: blur(17.5px);
     height: 40px;
     z-index: 1000;
+    left: 0;
 }
 
 @media (max-width: 991px) {
@@ -234,7 +235,7 @@ div.hero-content {
     align-items: start;
     font-size: 18px;
     top: 40%; /* Center vertically */
-    left: 35%; /* Center horizontally */
+    left: 25%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Adjust position to center */
 }
 
@@ -726,6 +727,7 @@ section.hot-deals-section {
     flex-direction: column;
     align-items: center;
     padding: 40px 0px 76px;
+    z-index: 10;
 }
 
 @media (max-width: 991px) {
@@ -824,6 +826,8 @@ img.product-image {
     object-position: center;
     width: 100%;
     border-radius: 18px 18px 0px 0px;
+    position: relative;
+    top: -2px;
 }
 
 div.product-details {
@@ -840,6 +844,8 @@ h3.product-title {
     font-family: Montserrat, sans-serif;
     font-weight: 700;
     align-self: start;
+    position: relative;
+    top: 25.3px;
 }
 
 div.product-actions {
@@ -889,16 +895,24 @@ span.product-price {
     object-fit: contain;
     object-position: center;
     width: 29px;
-    margin-bottom: -804px;
+    margin-bottom: -70px;
     position: relative;
     z-index: 1;
-    top: -623.0px;
-    scale: 4.7%;
-    left: 266.7px;
+    top: -232.3px;
+    scale: 100.0%;
+    left: 289.7px;
 }
 
 .wishlist-icon.red-fill img {
     fill: red;
+}
+
+.wishlist-icon img {
+    transition: transform 0.3s ease;
+}
+
+.wishlist-icon img.animate {
+    transform: scale(1.2);
 }
 
 .banner-section {
@@ -1571,6 +1585,8 @@ margin-top: 10px;
     font-size: 24px;
     font-weight: 500;
     line-height: 1;
+    font-family: Montserrat;
+    font-weight: 700;
 }
 
 .footer-link-list {
@@ -1619,6 +1635,8 @@ margin-top: 10px;
     font-size: 24px;
     font-weight: 500;
     line-height: 1;
+    font-family: Montserrat;
+    font-weight: 700;
 }
 
 .footer-contact-phone {
