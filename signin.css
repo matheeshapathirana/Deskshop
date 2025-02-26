@@ -193,6 +193,11 @@ nav.nav-menu a:hover {
     font-size: 14px;
 }
 
+.signup-prompt a {
+    text-decoration: none;
+    color: #0c2a92;
+}
+
 p {
     display: block;
     margin-block-start: 1em;
@@ -356,6 +361,13 @@ font-size: 32px;
 font-weight: 500;
 margin-bottom: 30px;
 color: #000;
+}
+
+.form-description {
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: -25px;
+    margin-bottom: 30px;
 }
 
 .form-group {

@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
-    <head>
+<head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>DeskShop Landing Page</title>
         <link rel="stylesheet" href="signin.css" />
-    </head>
-    <body>
+</head>
+<body>
         <div class="main-container">
                 <header class="header">
                         <div class="header-content">
                                 <h1 class="logo">DeskShop</h1>
                                 <nav class="nav-menu">
-                                        <a href="#" class="nav-item">Home</a>
+                                        <a href="index.html" class="nav-item">Home</a>
                                         <div class="products-dropdown">
                                                 <button class="products-dropdown-button">Products</button>
                                                 <div class="products-dropdown-content">
@@ -25,53 +25,53 @@
                                         <a href="#" class="nav-item">About us</a>
                                         <a href="#" class="nav-item">Contact us</a>
                                 </nav>
-                                <button class="signup-btn">Sign up</button>
+                                <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
                         </div>
                 </header>
 
-            <main class="content-wrapper">
-                <section class="right-section">
-                    <form class="signup-form">
-                        <div class="form-group">
-                          <label for="email" class="form-label">Email address</label>
-                          <div class="input-wrapper">
-                            <input
-                              type="email"
-                              id="email"
-                              placeholder="Enter your email"
-                              class="form-input"
-                            />
-                          </div>
+        <main class="content-wrapper">
+        <section class="right-section">
+                <form class="signup-form">
+                        <h2 class="form-title">Welcome back!</h2>
+                        <h2 class="form-description">Enter your credentials to access your account</h2>
+                <div class="form-group">
+                        <label for="email" class="form-label">Email address</label>
+                        <div class="input-wrapper">
+                        <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        class="form-input"
+                        />
                         </div>
-              
-                        <div class="form-group">
-                          <label for="password" class="form-label">Password</label>
-                          <div class="input-wrapper password">
-                            <input
-                              type="password"
-                              id="password"
-                              placeholder="Password"
-                              class="form-input"
-                            />
+                </div>
+        
+                <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-wrapper password">
+                        <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        class="form-input"/>
                         <img src="Assets/icons/eye-off.svg" alt="Show/Hide Password" class="eye-icon" id="togglePassword" />
-                          </div>
-                          <a href="#" class="forgot-password">forgot password</a>
+                                </div>
+                        <a href="#" class="forgot-password">forgot password</a>
                         </div>
-              
-                        <button type="submit" class="login-button">Login</button>
-              
-                        <p class="signup-prompt">
-                          Don't have an account?
-                          <a href="#" class="signup-link">Sign Up</a>
-                        </p>
-                      </form>
 
-                </section>
-            </main>
+                        <button type="submit" class="login-button">Login</button>
+                        <p class="signup-prompt">
+                                Don't have an account?
+                                <a href="signup.html" class="signup-link">Sign Up</a>
+                        </p>
+                        </form>
+
+                        </section>
+                </main>
         </div>
 
         <div class="footer-container">
-            <footer class="footer" style="background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);">
+                <footer class="footer" style="background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);">
                 <div class="footer-content">
                         <div class="footer-row">
                                 <div class="footer-column">
@@ -86,7 +86,7 @@
                                                 <div class="footer-links">
                                                         <h3 class="footer-links-title">Information</h3>
                                                         <nav class="footer-link-list">
-                                                                <a href="#">Main</a><br />
+                                                                <a href="index.html">Main</a><br />
                                                                 <a href="#">Products</a><br />
                                                                 <a href="#">About us</a><br />
                                                                 <a href="#">Contact us</a>
@@ -109,21 +109,21 @@
                                 </div>
                         </div>
                 </div>
-            </footer>
-        </div>
-        <script>
-            document.getElementById('togglePassword').addEventListener('click', function () {
-                const passwordField = document.getElementById('password');
-                const eyeIcon = document.getElementById('togglePassword');
-                
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    eyeIcon.src = 'Assets/icons/eye-on.svg';
-                } else {
-                    passwordField.type = 'password';
-                    eyeIcon.src = 'Assets/icons/eye-off.svg';
-                }
-            });
-        </script>
-    </body>
+        </footer>
+</div>
+<script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('togglePassword');
+        
+        if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.src = 'Assets/icons/eye-on.svg';
+        } else {
+                passwordField.type = 'password';
+                eyeIcon.src = 'Assets/icons/eye-off.svg';
+        }
+        });
+</script>
+</body>
 </html>
