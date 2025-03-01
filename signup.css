@@ -24,6 +24,17 @@ body {
     left: 0;
 }
 
+.cart-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 24px;
+    margin: auto 0;
+    flex-shrink: 0;
+    position: relative;
+    left: 50px;
+    }
+
 header.header {
     position: fixed;
     top: 0;

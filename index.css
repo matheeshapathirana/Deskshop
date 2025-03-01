@@ -17,6 +17,17 @@ section.hero-section {
     font-family: Montserrat, sans-serif;
 }
 
+.cart-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 24px;
+    margin: auto 0;
+    flex-shrink: 0;
+    position: relative;
+    left: 50px;
+    }
+
 body {
     margin: 0;
     height: 100vh;

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collapsible Article</title>
+    <link rel   ="stylesheet" href="col.css">
+</head>
+<body>
+    <button class="collapsible">Read Article</button>
+    <div class="content">
+        <article>
+            <h2>Collapsible Article Title</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dictum, magna nec venenatis facilisis, lectus dui volutpat lectus, a vehicula arcu felis at lectus. Curabitur et libero et lorem aliquet volutpat.</p>
+        </article>
+    </div>
+
+    <script>
+        const collapsible = document.querySelector(".collapsible");
+        const content = document.querySelector(".content");
+
+        collapsible.addEventListener("click", () => {
+            content.classList.toggle("show");
+            collapsible.textContent = content.classList.contains("show") ? "Hide Article" : "Read Article";
+        });
+    </script>
+</body>
+</html>
