@@ -4,42 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atlas Eraser - Product Page</title>
-    <link rel="stylesheet" href="product-t.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Mynerve&family=Poppins:wght@400;500;600&family=Satoshi:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="product.css" />
   </head>
   <body>
     <div class="products-page">
-      <header class="main-header">
-        <div class="header-container">
-          <h1 class="logo">DeskShop</h1>
-          <div class="header-right">
-            <nav class="main-nav">
-              <ul class="nav-list">
-                <li><a href="#" class="nav-link">Home</a></li>
-                <li><a href="#" class="nav-link active">Products</a></li>
-                <li><a href="#" class="nav-link">Delivery</a></li>
-                <li><a href="#" class="nav-link">About us</a></li>
-                <li><a href="#" class="nav-link">Contact us</a></li>
-              </ul>
+      <header class="header">
+        <div class="header-content">
+            <h1 class="logo">DeskShop</h1>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">Home</a>
+                <div class="products-dropdown">
+                    <button class="products-dropdown-button">Products</button>
+                    <div class="products-dropdown-content">
+                        <a href="#product1">Test Product 1</a>
+                        <a href="#product2">Test Product 2</a>
+                        <a href="#product3">Test Product 3</a>
+                    </div>
+                </div>
+                <a href="#" class="nav-item">About Us</a>
+                <a href="faq.html" class="nav-item">FAQ</a>
+                <a href="#" class="nav-item">Contact us</a>
+                <img
+                src="Assets/icons/add-to-cart.svg"
+                alt="Cart"
+                class="cart-icon"
+                />
             </nav>
-            <img
-              src="Assets/icons/add-to-cart.svg"
-              alt="Cart icon"
-              class="cart-icon"
-            />
-            <a href="#" class="signup-btn">Sign up</a>
-          </div>
+            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
         </div>
-      </header>
+    </header>
 
       <main class="main-content">
         <div class="search-container">
           <div class="search-box">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/779bedb81dcbca5fbe0baa95c27f7200cb91c11371da183aee06ff2867ee4f88?placeholderIfAbsent=true"
+              src="Assets/icons/search.svg"
               alt="Search icon"
               class="search-icon"
             />
@@ -55,7 +54,7 @@
           <div class="product-container">
             <div class="product-image-column">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/4f37dabb1e49da45664c83d11a2bb48c45eb09766394915252618b0182a7ea5c?placeholderIfAbsent=true"
+                src="Assets/Product Page/Atlas-eraser.png "
                 alt="Atlas Eraser"
                 class="product-image"
               />
@@ -67,25 +66,23 @@
                 <div class="product-actions">
                   <div class="quantity-selector">
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/ff7287e695f360cadf48069ea43f38b9d0b35eaece79ec8f6ee1a6ee202a9bcd?placeholderIfAbsent=true"
+                      src="Assets/icons/minus.svg"
                       alt="Decrease"
                       class="quantity-btn"
+                      id="decrease-quantity"
                     />
-                    <span class="quantity-value">1</span>
+                    <span class="quantity-value" id="quantity-value">1</span>
                     <img
-                      src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/fb45ce99e12f21e8f1f5a8aed0503f382b6b8b0355673197373727fc5f37a016?placeholderIfAbsent=true"
+                      src="Assets/icons/plus.svg"
                       alt="Increase"
                       class="quantity-btn"
+                      id="increase-quantity"
                     />
                   </div>
                   <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
                 <div class="wishlist-action">
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/d2540bca8ad8f63ca07827bc1f7e161fbb999ab93f7769263b0f37961f9228be?placeholderIfAbsent=true"
-                    alt="Wishlist"
-                    class="wishlist-icon"
-                  />
+                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
                   <span class="wishlist-text">Add to Wish List</span>
                 </div>
               </div>
@@ -96,11 +93,18 @@
         <section class="reviews-section">
           <h3 class="section-title">Rating & Reviews</h3>
           <div class="rating-display">
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/29a59a9854da5da15b7735dfdb370cf76de2e33e625fcb7af2ff7b894975fda8?placeholderIfAbsent=true"
-              alt="Rating stars"
-              class="rating-stars"
-            />
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+              <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+              <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+              <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+              <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+              <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+              <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+              <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+              <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+              <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+          </fieldset>
           </div>
 
           <h4 class="review-form-title">Your Review</h4>
@@ -116,27 +120,27 @@
                   <div class="review-header">
                     <div class="rating-stars-small">
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/2b8eed7536202f4e17b896e8f5698eba0a8205b320b4586f2431bab11a3e4259?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/01ef0f97f7042cac9c907955c995be76edab1a59b8d3338079d83310cb26eb6e?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/18b2a2b8650e561733c18f882ae8ac983a7d0534ac4f09556a58e41dd4e173aa?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/de62c22a896c2f36fc2b9dabe84b71fe93f8951d6adfc7e8c677ca854336509d?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/4d1acf7170934322141941bce2ad4a8dbee066f0fb0c65193fe73d19ab042ee9?placeholderIfAbsent=true"
+                        src="Assets/icons/half-star.svg"
                         alt="Half star"
                         class="star-icon-half"
                       />
@@ -159,27 +163,27 @@
                   <div class="review-header">
                     <div class="rating-stars-small">
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/2b8eed7536202f4e17b896e8f5698eba0a8205b320b4586f2431bab11a3e4259?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/5f94dfde428824029f6d14b6c93ca1909c478723aa575274610667e88127c157?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/18b2a2b8650e561733c18f882ae8ac983a7d0534ac4f09556a58e41dd4e173aa?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/de62c22a896c2f36fc2b9dabe84b71fe93f8951d6adfc7e8c677ca854336509d?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/4d1acf7170934322141941bce2ad4a8dbee066f0fb0c65193fe73d19ab042ee9?placeholderIfAbsent=true"
+                        src="Assets/icons/half-star.svg"
                         alt="Half star"
                         class="star-icon-half"
                       />
@@ -205,27 +209,27 @@
                   <div class="review-header">
                     <div class="rating-stars-small">
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/2b8eed7536202f4e17b896e8f5698eba0a8205b320b4586f2431bab11a3e4259?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/01ef0f97f7042cac9c907955c995be76edab1a59b8d3338079d83310cb26eb6e?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/18b2a2b8650e561733c18f882ae8ac983a7d0534ac4f09556a58e41dd4e173aa?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/de62c22a896c2f36fc2b9dabe84b71fe93f8951d6adfc7e8c677ca854336509d?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/4d1acf7170934322141941bce2ad4a8dbee066f0fb0c65193fe73d19ab042ee9?placeholderIfAbsent=true"
+                        src="Assets/icons/half-star.svg"
                         alt="Half star"
                         class="star-icon-half"
                       />
@@ -248,27 +252,27 @@
                   <div class="review-header">
                     <div class="rating-stars-small">
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/2b8eed7536202f4e17b896e8f5698eba0a8205b320b4586f2431bab11a3e4259?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/5f94dfde428824029f6d14b6c93ca1909c478723aa575274610667e88127c157?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/18b2a2b8650e561733c18f882ae8ac983a7d0534ac4f09556a58e41dd4e173aa?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/de62c22a896c2f36fc2b9dabe84b71fe93f8951d6adfc7e8c677ca854336509d?placeholderIfAbsent=true"
+                        src="Assets\icons\star.svg"
                         alt="Star"
                         class="star-icon"
                       />
                       <img
-                        src="https://cdn.builder.io/api/v1/image/assets/2430957f6a9342adb406d80ebc430d91/4d1acf7170934322141941bce2ad4a8dbee066f0fb0c65193fe73d19ab042ee9?placeholderIfAbsent=true"
+                        src="Assets/icons/half-star.svg"
                         alt="Half star"
                         class="star-icon-half"
                       />
@@ -293,7 +297,7 @@
         </section>
       </main>
 
-      <footer class="main-footer">
+      <!-- <footer class="main-footer">
         <div class="footer-container">
           <div class="footer-columns">
             <div class="footer-column brand-column">
@@ -333,7 +337,92 @@
             </div>
           </div>
         </div>
-      </footer>
+      </footer> -->
+
+      <footer class="footer" style="background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);">
+        <div class="footer-content">
+            <div class="footer-row">
+                <div class="footer-column">
+                    <div class="footer-logo-wrapper">
+                        <img loading="lazy" src="Assets/DeskShop Logo.png" class="footer-logo" alt="DeskShop logo" />
+                        <img loading="lazy" src="Assets/icons/social-media-icons.svg" class="footer-social" alt="Social media icons" />
+                        <p class="footer-copyright">©2025 Matheesha Pathirana</p>
+                    </div>
+                </div>
+                <div class="footer-columns-wrapper">
+                    <div class="footer-links-column">
+                        <div class="footer-links">
+                            <h3 class="footer-links-title">Information</h3>
+                            <nav class="footer-link-list">
+                                <a href="#">Main</a><br />
+                                <a href="#">Products</a><br />
+                                <a href="#">About us</a><br />
+                                <a href="#">Contact us</a>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="footer-contact-column">
+                        <div class="footer-contact">
+                            <h3 class="footer-contact-title">Contact</h3>
+                            <p class="footer-contact-phone">
+                                <strong>Phone:</strong><br />
+                                (123)456-7890
+                            </p>
+                            <p class="footer-contact-email">
+                                <strong>Email:</strong><br />
+                                pathiranamatheesha@gmail.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const wishlistIcons = document.querySelectorAll('.wishlist-action img');
+          const wishlistTexts = document.querySelectorAll('.wishlist-text');
+
+          wishlistIcons.forEach((icon, index) => {
+              icon.addEventListener('click', function() {
+                  if (this.src.includes('wishlist.svg')) {
+                      this.src = 'Assets/icons/wishlist-select.svg';
+                      wishlistTexts[index].textContent = 'Added to wishlist';
+                      setTimeout(() => {
+                          wishlistTexts[index].textContent = 'Remove from wishlist';
+                      }, 3000);
+                  } else {
+                      this.src = 'Assets/icons/wishlist.svg';
+                      wishlistTexts[index].textContent = 'Add to Wish List';
+                  }
+                  this.classList.add('animate');
+                  setTimeout(() => {
+                      this.classList.remove('animate');
+                  }, 300);
+              });
+          });
+      });
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const decreaseButton = document.getElementById('decrease-quantity');
+    const increaseButton = document.getElementById('increase-quantity');
+    const quantityValue = document.getElementById('quantity-value');
+
+    decreaseButton.addEventListener('click', function() {
+        let currentValue = parseInt(quantityValue.textContent);
+        if (currentValue > 1) {
+            quantityValue.textContent = currentValue - 1;
+        }
+    });
+
+    increaseButton.addEventListener('click', function() {
+        let currentValue = parseInt(quantityValue.textContent);
+        quantityValue.textContent = currentValue + 1;
+    });
+});
+</script>
   </body>
 </html>
