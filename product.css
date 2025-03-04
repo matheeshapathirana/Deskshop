@@ -976,6 +976,20 @@ button.signup-btn:active::after {
   width: 246px;
 } */
 
+body {
+  font-family:
+    "Montserrat",
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  margin: 0px;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 150px; /* Adjust based on footer height */
+  box-sizing: border-box;
+}
+
 footer.footer {
   align-self: stretch;
   display: flex;
@@ -987,7 +1001,13 @@ footer.footer {
   padding-top: 0px;
   padding-left: 0px;
   padding-right: 0px;
+  position: absolute;
+  bottom: -150px;
+  left: 0;
+  background-color: #fff; /* Ensure the footer has a background color */
+  z-index: 1000; /* Ensure the footer is above other content */
 }
+
 @media (max-width: 991px) {
 .footer {
   max-width: 100%;
