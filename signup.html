@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>DeskShop Landing Page</title>
-        <link rel="stylesheet" href="signup.css" />
-        <!-- <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Montserrat:wght@600;700&family=Mynerve&display=swap"
-        /> -->
-    </head>
-    <body>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DeskShop Landing Page</title>
+<link rel="stylesheet" href="signup.css" />
+<!-- <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Montserrat:wght@600;700&family=Mynerve&display=swap"
+/> -->
+</head>
+<body>
         <div class="main-container">
                 <header class="header">
                         <div class="header-content">
@@ -37,31 +37,47 @@
                         </div>
                 </header>
 
-            <main class="content-wrapper">
+        <main class="content-wrapper">
                 <section class="right-section">
-                    <form class="signup-form">
+                <form class="signup-form">
                         <h2 class="form-title">Get Started Now</h2>
                         <div class="form-group">
-                            <label class="label" for="name">Name</label>
-                            <input
+                        <label class="label" for="name">Name</label>
+                        <input
                                 type="text"
                                 id="name"
                                 placeholder="Enter your name"
                                 class="input-field"
-                            />
+                                required
+                                />
                         </div>
                         <div class="form-group">
-                            <label class="label" for="email">Email address</label>
-                            <input
+                        <label class="label" for="email">Email address</label>
+                        <input
                                 type="email"
                                 id="email"
                                 placeholder="Enter your email"
                                 class="input-field"
-                            />
+                                required
+                                />
                         </div>
+
                         <div class="form-group">
-                            <label class="label" for="password">Password</label>
-                            <input
+                                <label class="label" for="email">Phone Number</label>
+                                <input
+                                        type="tp"
+                                        id="tp"
+                                        placeholder="Enter your Phone Number"
+                                        class="input-field"
+                                        required
+                                />
+                        </div>
+
+
+                        <div class="form-group">
+                        <label class="label" for="password">Password</label>
+                        <input
+                                required
                                 type="password"
                                 id="password"
                                 placeholder="Enter your password"
@@ -69,24 +85,24 @@
                                 <img src="Assets/icons/eye-off.svg" alt="Show/Hide Password" class="eye-icon" id="togglePassword" />
                         </div>
                         <div class="terms-checkbox">
-                            <input type="checkbox" id="terms" class="input" />
-                            <label for="terms">
-                                <span>I agree to the</span>
-                                <span class="underline">terms & policy</span>
-                            </label>
+                                <input type="checkbox" id="terms" class="input" />
+                                <label for="terms">
+                                        <span>I agree to the</span>
+                                        <span class="underline">terms & policy</span>
+                                </label>
                         </div>
                         <button type="submit" class="signup-submit">Signup</button>
                         <div class="login-link">
-                            <span>Have an account?</span>
-                            <a href="signin.html" class="sign-in">Sign In</a>
-                        </div>
-                    </form>
-                </section>
-            </main>
+                        <span>Have an account?</span>
+                        <a href="signin.html" class="sign-in">Sign In</a>
+                </div>
+                </form>
+        </section>
+        </main>
         </div>
 
         <div class="footer-container">
-            <footer class="footer" style="background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);">
+        <footer class="footer" style="background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);">
                 <div class="footer-content">
                         <div class="footer-row">
                                 <div class="footer-column">
@@ -124,21 +140,29 @@
                                 </div>
                         </div>
                 </div>
-            </footer>
+        </footer>
         </div>
         <script>
-            document.getElementById('togglePassword').addEventListener('click', function () {
-            const passwordField = document.getElementById('password');
-            const eyeIcon = document.getElementById('togglePassword');
-            
-            if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    eyeIcon.src = 'Assets/icons/eye-on.svg';
-            } else {
-                    passwordField.type = 'password';
-                    eyeIcon.src = 'Assets/icons/eye-off.svg';
-            }
-            });
-    </script>
-    </body>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('togglePassword');
+        
+        if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.src = 'Assets/icons/eye-on.svg';
+        } else {
+                passwordField.type = 'password';
+                eyeIcon.src = 'Assets/icons/eye-off.svg';
+        }
+
+        document.querySelector('.signup-form').addEventListener('submit', function (event) {
+                const termsCheckbox = document.getElementById('terms');
+                if (!termsCheckbox.checked) {
+                        event.preventDefault();
+                        alert('You must agree to the terms & policy before signing up.');
+                }
+        });
+        });
+</script>
+</body>
 </html>
