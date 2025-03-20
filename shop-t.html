@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeskShop - Your Online Store</title>
+    <link rel="stylesheet" href="shop-t.css">
+</head>
+<body>
+        <header class="header">
+        <div class="header-content">
+            <h1 class="logo">DeskShop</h1>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">Home</a>
+                <div class="products-dropdown">
+                    <button class="products-dropdown-button">Products</button>
+                    <div class="products-dropdown-content">
+                        <a href="#product1">Test Product 1</a>
+                        <a href="#product2">Test Product 2</a>
+                        <a href="#product3">Test Product 3</a>
+                    </div>
+                </div>
+                <a href="#" class="nav-item">About Us</a>
+                <a href="faq.html" class="nav-item">FAQ</a>
+                <a href="#" class="nav-item">Contact us</a>
+                <img
+                src="Assets/icons/add-to-cart.svg"
+                alt="Cart"
+                class="cart-icon"
+                />
+            </nav>
+            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="search-container">
+            <div class="search-bar">
+                <img src="Assets/icons/search.svg" alt="Search" class="search-icon" />
+                <input type="text" placeholder="Search for products..." class="search-input" />
+            </div>
+        </div>
+
+        <section class="banner-section">
+            <img src="Assets/Offers Banners/crop banner 1.png" alt="Banner" class="banner-image" />
+            <div class="banner-controls">
+                <img src="Assets/Arrows/left arrow.svg" alt="Previous" class="control-icon" />
+                <img src="Assets/Arrows/right arrow.svg" alt="Next" class="control-icon" />
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title">All Products</h2>
+            <div class="filter-container">
+                <span class="sort-label">Sort by</span>
+                <button class="sort-button">Default</button>
+                
+                <span class="filter-label">Catagorize by</span>
+                <button class="sort-button">School Items</button>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product Card 1 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <div></div>
+                        <img src="Assets/Product Page/atlas-eraser-1.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas Eraser</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 30.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 2 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/ATLAS-SUNFLOWER-YELOW-HB-PENCIL-12PACK.jpg" alt="Atlas Sunflower Yellow HB Pencil 12Pack" class="product-image"/>
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas Sunflower Yellow HB Pencil 12 Pack</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 420.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 3 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas Mathematical Box.jpg" alt="Atlas Eraser" class="product-image"/>
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas Mathematical Box</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 500.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 4 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A5 Practical Book Blank 80Pgs.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A5 Practical Blank Book 80 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 50.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 5 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A4 CR Book Single Ruled 120Pgs.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A4 CR Book Single Ruled 120 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 200.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 6 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A4 CR Book Square Ruled 160Pgs.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A4 CR Book Square Ruled 160 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 300.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 7 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A4 Black Drawing Book Small 40Pgs.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A4 Black Drawing Book Small 40 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 100.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 8 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Homerun Colour Pencil 12 Colours.jpg" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Homerun Colour Pencil 12 Colours</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 250.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 9 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Maped Color Peps Star 12 Colour Pencils Pack.jpg" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Maped Color Peps Star 12 Colour Pencils Pack</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 400.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 10 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Pentium Pastels 24 Colour.jpg" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Pentium Pastels 24 Colour</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 385.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 11 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Mango Plastic Ruler 15cm.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Mango Plastic Ruler 15cm</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 20.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 12 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/mango Stapler Machine.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Mango Stapler Machine</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 220.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 13 -->
+                <article class="product-card">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/mango-puncher-m480.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Mango Puncher</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 500.00</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <nav class="pagination" aria-label="Page navigation">
+                <button class="page-btn next">Load More</button>
+            </nav>
+        </section>
+    </main>
+
+    <!-- <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="https://cdn.builder.io/api/v1/image/assets/5e567af99dc54406ad83705733b6faa8/7a59dc4d6067d2cc01ab378da09737a1969fa1b59f534e40b81a2d3f8cf78835?placeholderIfAbsent=true" alt="Logo" class="footer-logo" />
+                    <img src="https://cdn.builder.io/api/v1/image/assets/5e567af99dc54406ad83705733b6faa8/451fbb63e5a6ad17a6f074f9eb3aa148c38a03fcd35d5f7da77d7c11bf591485?placeholderIfAbsent=true" alt="Brand" class="footer-brand-image" />
+                    <p class="copyright">©2025 Matheesha Pathirana</p>
+                </div>
+
+                <div class="footer-info">
+                    <h4 class="footer-title">Information</h4>
+                    <nav class="footer-nav">
+                        <a href="#" class="footer-link">Main</a>
+                        <a href="#" class="footer-link">Products</a>
+                        <a href="#" class="footer-link">About us</a>
+                        <a href="#" class="footer-link">Contact us</a>
+                    </nav>
+                </div>
+
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact</h4>
+                    <p class="contact-info">
+                        <strong>Phone:</strong><br />
+                        (123)456-7890
+                    </p>
+                    <p class="contact-info">
+                        <strong>Email:</strong><br />
+                        pathiranamatheesha@gmail.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer> -->
+
+        <footer class="footer" style="background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);">
+        <div class="footer-content">
+            <div class="footer-row">
+                <div class="footer-column">
+                    <div class="footer-logo-wrapper">
+                        <img loading="lazy" src="Assets/DeskShop Logo.png" class="footer-logo" alt="DeskShop logo" />
+                        <img loading="lazy" src="Assets/icons/social-media-icons.svg" class="footer-social" alt="Social media icons" />
+                        <p class="footer-copyright">©2025 Matheesha Pathirana</p>
+                    </div>
+                </div>
+                <div class="footer-columns-wrapper">
+                    <div class="footer-links-column">
+                        <div class="footer-links">
+                            <h3 class="footer-links-title">Information</h3>
+                            <nav class="footer-link-list">
+                                <a href="#">Main</a><br />
+                                <a href="#">Products</a><br />
+                                <a href="#">About us</a><br />
+                                <a href="#">Contact us</a>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="footer-contact-column">
+                        <div class="footer-contact">
+                            <h3 class="footer-contact-title">Contact</h3>
+                            <p class="footer-contact-phone">
+                                <strong>Phone:</strong><br />
+                                (123)456-7890
+                            </p>
+                            <p class="footer-contact-email">
+                                <strong>Email:</strong><br />
+                                pathiranamatheesha@gmail.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlistIcons = document.querySelectorAll('.wishlist-icon img');
+            wishlistIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    if (this.src.includes('wishlist.svg')) {
+                        this.src = 'Assets/icons/wishlist-select.svg';
+                    } else {
+                        this.src = 'Assets/icons/wishlist.svg';
+                    }
+                    this.classList.add('animate');
+                    setTimeout(() => {
+                        this.classList.remove('animate');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
