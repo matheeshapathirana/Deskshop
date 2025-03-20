@@ -1,0 +1,270 @@
+<html>
+    <head>
+        <title>DeskShop - Cart</title>
+        <link rel="stylesheet" href="cart.css">
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-container">
+              <h1 class="logo">DeskShop</h1>
+              <nav class="main-nav">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Products</a>
+                <a href="#" class="nav-link">Delivery</a>
+                <a href="#" class="nav-link">About us</a>
+                <a href="#" class="nav-link">Contact us</a>
+              </nav>
+              <button class="signup-btn">Sign up</button>
+            </div>
+          </header>
+          
+          <main class="main-content">
+            <div class="content-container">
+              <section class="cart-section">
+                <div class="back-to-shop">
+                  <img
+                    src="Assets/Arrows/black-back-arrow.png"
+                    alt="Back arrow"
+                    class="back-arrow"
+                  />
+                  <a href="#" class="continue-shopping">Continue Shopping</a>
+                </div>
+          
+                <div class="cart-items-container">
+                  <h2 class="cart-title">shopping cart</h2>
+          
+                  <article class="cart-item">
+                    <img
+                      src="Assets/Product Page/Atlas-eraser.png"
+                      alt="Atlas Eraser"
+                      class="product-image"
+                    />
+                    <div class="product-details">
+                      <div class="product-info">
+                        <div class="product-text">
+                          <h3 class="product-name">Atlas Eraser</h3>
+                          <p class="product-quantity">Qty : 1</p>
+                        </div>
+                        <button class="remove-item">
+                          <img
+                            src="Assets/remove-from-cart-cross.svg"
+                            alt="Remove item"
+                            class="remove-icon"
+                          />
+                        </button>
+                      </div>
+                      <p class="product-price">$140</p>
+                    </div>
+                  </article>
+          
+                  <article class="cart-item">
+                    <img
+                      src="Assets/Product Page/Atlas A5 Practical Book Blank 80Pgs.png"
+                      alt="Atlas Notebook"
+                      class="product-image"
+                    />
+                    <div class="product-details">
+                      <div class="product-info">
+                        <div class="product-text">
+                          <h3 class="product-name">
+                            Atlas A5 Practical Blank Book 80 Pages
+                          </h3>
+                          <p class="product-quantity">Qty : 1</p>
+                        </div>
+                        <button class="remove-item">
+                          <img
+                            src="Assets/remove-from-cart-cross.svg"
+                            alt="Remove item"
+                            class="remove-icon"
+                          />
+                        </button>
+                      </div>
+                      <p class="product-price">$380</p>
+                    </div>
+                  </article>
+          
+                  <article class="cart-item">
+                    <img
+                      src="Assets/Product Page/Homerun Colour Pencil 12 Colours.jpg"
+                      alt="Color Pencils"
+                      class="product-image"
+                    />
+                    <div class="product-details">
+                      <div class="product-info">
+                        <div class="product-text">
+                          <h3 class="product-name">Homerun Colour Pencil 12 Colours</h3>
+                          <p class="product-quantity">Qty : 1</p>
+                        </div>
+                        <button class="remove-item">
+                          <img
+                            src="Assets/remove-from-cart-cross.svg"
+                            alt="Remove item"
+                            class="remove-icon"
+                          />
+                        </button>
+                      </div>
+                      <p class="product-price">$380</p>
+                    </div>
+                  </article>
+          
+                  <article class="cart-item">
+                    <img
+                      src="Assets/Product Page/Mango Plastic Ruler 15cm.png"
+                      alt="Ruler"
+                      class="product-image"
+                    />
+                    <div class="product-details">
+                      <div class="product-info">
+                        <div class="product-text">
+                          <h3 class="product-name">Mango Plastic Ruler 15cm</h3>
+                          <p class="product-quantity">Qty : 1</p>
+                        </div>
+                        <button class="remove-item">
+                          <img
+                            src="Assets/remove-from-cart-cross.svg"
+                            alt="Remove item"
+                            class="remove-icon"
+                          />
+                        </button>
+                      </div>
+                      <p class="product-price">$310</p>
+                    </div>
+                  </article>
+                </div>
+              </section>
+          
+              <section class="payment-section">
+                <form class="payment-form">
+                  <h2 class="form-title">Payment Details</h2>
+          
+                  <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input
+                      type="text"
+                      id="fullname"
+                      class="form-input"
+                      placeholder="Name"
+                    />
+                  </div>
+          
+                  <div class="form-group">
+                    <label for="phone">Telephone Number</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      class="form-input"
+                      placeholder="Telephone Number"
+                    />
+                  </div>
+          
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <input
+                      type="text"
+                      id="address"
+                      class="form-input"
+                      placeholder="Address"
+                    />
+                  </div>
+          
+                  <div class="form-row">
+                    <div class="form-group half">
+                      <label for="city">City</label>
+                      <input
+                        type="text"
+                        id="city"
+                        class="form-input"
+                        placeholder="City"
+                      />
+                    </div>
+                    <div class="form-group half">
+                      <label for="postal">Postal Code</label>
+                      <input
+                        type="text"
+                        id="postal"
+                        class="form-input"
+                        placeholder="Postal Code"
+                      />
+                    </div>
+                  </div>
+          
+                  <div class="payment-divider"></div>
+          
+                  <div class="payment-method">
+                    <div class="checkbox"></div>
+                    <label class="method-label">Cash On Delivery</label>
+                  </div>
+          
+                  <div class="order-summary">
+                    <div class="summary-row">
+                      <span class="summary-label">Subtotal</span>
+                      <span class="summary-value">$1,668</span>
+                    </div>
+                    <div class="summary-row">
+                      <span class="summary-label">Shipping</span>
+                      <span class="summary-value">$4</span>
+                    </div>
+                    <div class="summary-row">
+                      <span class="summary-label">Total (Tax incl.)</span>
+                      <span class="summary-value">$1,672</span>
+                    </div>
+                  </div>
+          
+                  <button type="submit" class="checkout-button">
+                    <span class="total-amount">$1,672</span>
+                    <div class="checkout-text">
+                      <span>Checkout</span>
+                      <img
+                        src="Assets/Arrows/cart-checkout-arrow.png"
+                        alt="Checkout arrow"
+                        class="checkout-arrow"
+                      />
+                    </div>
+                  </button>
+                </form>
+              </section>
+            </div>
+          </main>
+          
+          <footer class="site-footer">
+            <div class="footer-container">
+              <div class="footer-brand">
+                <img
+                  src="..........."
+                  alt="Logo"
+                  class="footer-logo"
+                />
+                <img
+                  src="..............."
+                  alt="Brand image"
+                  class="footer-image"
+                />
+                <p class="copyright">©2025 Matheesha Pathirana</p>
+              </div>
+          
+              <div class="footer-info">
+                <h3 class="footer-title">Information</h3>
+                <nav class="footer-nav">
+                  <a href="#" class="footer-link">Main</a>
+                  <a href="#" class="footer-link">Products</a>
+                  <a href="#" class="footer-link">About us</a>
+                  <a href="#" class="footer-link">Contact us</a>
+                </nav>
+              </div>
+          
+              <div class="footer-contact">
+                <h3 class="footer-title">Contact</h3>
+                <p class="contact-info">
+                  <strong>Phone:</strong><br />
+                  (123)456-7890
+                </p>
+                <p class="contact-info">
+                  <strong>Email:</strong><br />
+                  pathiranamatheesha@gmail.com
+                </p>
+              </div>
+            </div>
+          </footer>
+          
+    </body>
+</html>
