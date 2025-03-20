@@ -280,6 +280,7 @@ body {
     padding: 0 70px;
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 60px;
   }
   
   .section-title {
@@ -323,6 +324,51 @@ body {
   
   .sort-button:hover {
     background-color: #f0f0f0;
+  }
+  
+  .sort-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .sort-dropdown-button {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #333;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-family: Poppins, sans-serif;
+    font-size: 16px;
+  }
+  
+  .sort-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+  }
+  
+  .sort-dropdown-content button {
+    background: none;
+    border: none;
+    color: #333;
+    padding: 10px 16px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .sort-dropdown-content button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .sort-dropdown:hover .sort-dropdown-content {
+    display: block;
   }
   
   /* Product Grid */
@@ -574,6 +620,7 @@ body {
     padding-top: 0px;
     padding-left: 0px;
     padding-right: 0px;
+    margin-top: 50px;
   }
   @media (max-width: 991px) {
   .footer {
@@ -788,6 +835,7 @@ body {
       align-items: center;    /* Vertically center the images */
       height: 400px;          /* Set a fixed height for the slideshow */
       overflow: hidden;       /* Hide any overflow */
+      top: 30px;
   }
   
   /* Hide slides by default */
@@ -900,4 +948,3 @@ body {
       margin-left: 7px;
     }
   } */
-  

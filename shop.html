@@ -56,16 +56,32 @@
         <section class="products-section">
             <h2 class="section-title">All Products</h2>
             <div class="filter-container">
-                <span class="sort-label">Sort by</span>
-                <button class="sort-button">Default</button>
-                
-                <span class="filter-label">Catagorize by</span>
-                <button class="sort-button">School Items</button>
+                <div class="sort-dropdown">
+                    <button class="sort-dropdown-button">Sort by category</button>
+                    <div class="sort-dropdown-content">
+                        <button data-category="default">All Items</button>
+                        <button data-category="office-items">Office Items</button>
+                        <button data-category="school-items">School Items</button>
+                        <button data-category="books">Books</button>
+                        <button data-category="writing-tools">Writing Tools</button>
+                        <button data-category="colour-products">Colour Products</button>
+                    </div>
+                </div>
+
+                <div class="sort-dropdown">
+                    <button class="sort-dropdown-button">Sort by</button>
+                    <div class="sort-dropdown-content">
+                        <button data-sort="az">A-Z</button>
+                        <button data-sort="za">Z-A</button>
+                        <button data-sort="low-high">Price: Low to High</button>
+                        <button data-sort="high-low">Price: High to Low</button>
+                    </div>
+                </div>
             </div>
 
             <div class="product-grid">
                 <!-- Product Card 1 -->
-                <article class="product-card">
+                <article class="product-card" data-category="writing-tools school-items office-items">
                     <div class="product-image-container">
                         <div></div>
                         <img src="Assets/Product Page/atlas-eraser-1.png" alt="Atlas Eraser" class="product-image" />
@@ -83,7 +99,7 @@
                 </article>
 
                 <!-- Product Card 2 -->
-                <article class="product-card">
+                <article class="product-card" data-category="writing-tools school-items">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/ATLAS-SUNFLOWER-YELOW-HB-PENCIL-12PACK.jpg" alt="Atlas Sunflower Yellow HB Pencil 12Pack" class="product-image"/>
                         <div class="wishlist-icon">
@@ -100,7 +116,7 @@
                 </article>
 
                 <!-- Product Card 3 -->
-                <article class="product-card">
+                <article class="product-card" data-category="writing-tools school-items">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Atlas Mathematical Box.jpg" alt="Atlas Eraser" class="product-image"/>
                         <div class="wishlist-icon">
@@ -117,7 +133,7 @@
                 </article>
 
                 <!-- Product Card 4 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items books">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Atlas A5 Practical Book Blank 80Pgs.png" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -130,11 +146,10 @@
                             <button class="add-to-cart-btn">Add to cart</button>
                             <span class="product-price">Rs. 50.00</span>
                         </div>
-                    </div>
-                </article>
+                    </article>
 
                 <!-- Product Card 5 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items books">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Atlas A4 CR Book Single Ruled 120Pgs.png" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -151,7 +166,7 @@
                 </article>
 
                 <!-- Product Card 6 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items books">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Atlas A4 CR Book Square Ruled 160Pgs.png" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -168,7 +183,7 @@
                 </article>
 
                 <!-- Product Card 7 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items books">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Atlas A4 Black Drawing Book Small 40Pgs.png" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -185,7 +200,7 @@
                 </article>
 
                 <!-- Product Card 8 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items colour-products">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Homerun Colour Pencil 12 Colours.jpg" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -202,7 +217,7 @@
                 </article>
 
                 <!-- Product Card 9 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items colour-products">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Maped Color Peps Star 12 Colour Pencils Pack.jpg" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -219,7 +234,7 @@
                 </article>
 
                 <!-- Product Card 10 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items colour-products">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Pentium Pastels 24 Colour.jpg" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -236,7 +251,7 @@
                 </article>
 
                 <!-- Product Card 11 -->
-                <article class="product-card">
+                <article class="product-card" data-category="writing-tools school-items office-items">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/Mango Plastic Ruler 15cm.png" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -253,7 +268,7 @@
                 </article>
 
                 <!-- Product Card 12 -->
-                <article class="product-card">
+                <article class="product-card" data-category="school-items office-items">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/mango Stapler Machine.png" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -270,7 +285,7 @@
                 </article>
 
                 <!-- Product Card 13 -->
-                <article class="product-card">
+                <article class="product-card" data-category="office-items">
                     <div class="product-image-container">
                         <img src="Assets/Product Page/mango-puncher-m480.png" alt="Atlas Eraser" class="product-image" />
                         <div class="wishlist-icon">
@@ -406,6 +421,44 @@
         slides[slideIndex - 1].style.display = "block";
         setTimeout(showSlides, 5000); // Change slide every 2 seconds
     }
+
+
+    document.querySelectorAll('.sort-dropdown-content button').forEach(button => {
+        button.addEventListener('click', function () {
+            const selectedCategory = this.getAttribute('data-category');
+            const products = document.querySelectorAll('.product-card');
+
+            products.forEach(product => {
+                const productCategories = product.getAttribute('data-category').split(' ');
+
+                if (selectedCategory === 'default' || productCategories.includes(selectedCategory)) {
+                    product.style.display = 'block'; // Show the product
+                } else {
+                    product.style.display = 'none'; // Hide the product
+                }
+            });
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.querySelector('.search-input');
+        const products = document.querySelectorAll('.product-card');
+
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            products.forEach(product => {
+                const productTitle = product.querySelector('.product-title').textContent.toLowerCase();
+
+                if (productTitle.includes(searchTerm)) {
+                    product.style.display = 'block'; // Show the product
+                } else {
+                    product.style.display = 'none'; // Hide the product
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
