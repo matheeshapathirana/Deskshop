@@ -41,11 +41,15 @@
             </div>
         </div>
 
-        <section class="banner-section">
-            <img src="Assets/Offers Banners/crop banner 1.png" alt="Banner" class="banner-image" />
-            <div class="banner-controls">
-                <img src="Assets/Arrows/left arrow.svg" alt="Previous" class="control-icon" />
-                <img src="Assets/Arrows/right arrow.svg" alt="Next" class="control-icon" />
+        <section class="banner-section slideshow-container">
+            <div class="mySlides fade">
+                <img src="Assets/Offers Banners/crop banner 3.png" alt="Banner 1" class="banner-image" />
+            </div>
+            <div class="mySlides fade">
+                <img src="Assets/Offers Banners/crop banner 2.png" alt="Banner 2" class="banner-image" />
+            </div>
+            <div class="mySlides fade">
+                <img src="Assets/Offers Banners/crop banner 1.png" alt="Banner 3" class="banner-image" />
             </div>
         </section>
 
@@ -381,5 +385,27 @@
             });
         });
     </script>
+    <script>
+    window.onload = function() {
+        showSlides();
+    };
+    let slideIndex = 0;
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 5000); // Change slide every 2 seconds
+    }
+</script>
 </body>
 </html>
