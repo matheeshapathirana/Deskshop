@@ -20,11 +20,11 @@
                                         <div class="products-dropdown">
                                                 <button class="products-dropdown-button">Products</button>
                                                 <div class="products-dropdown-content">
-                                                        <a href="shop.html">School Items</a>
-                                                        <a href="shop.html">Office Items</a>
-                                                        <a href="shop.html">Books</a>
-                                                        <a href="shop.html">Writing Tools</a>
-                                                        <a href="shop.html">Color Products</a>
+                                                        <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
+                                                        <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
+                                                        <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
+                                                        <a href="shop.html?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.html?category=writing-tools';">Writing Tools</a>
+                                                        <a href="shop.html?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.html?category=colour-products';">Color Products</a>
                                                 </div>
                                         </div>
                                         <a href="#" class="nav-item">About Us</a>
@@ -33,6 +33,8 @@
                                         src="Assets/icons/add-to-cart.svg"
                                         alt="Cart"
                                         class="cart-icon"
+                                        style="cursor: pointer;"
+                                        onclick="window.location.href='cart.html'"
                                         />
                                 </nav>
                                 <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
@@ -83,9 +85,20 @@
                                 type="password"
                                 id="password"
                                 placeholder="Enter your password"
-                                class="input-field"/>
-                                <img src="Assets/icons/eye-off.svg" alt="Show/Hide Password" class="eye-icon" id="togglePassword" />
-                        </div>
+                                class="input-field"
+                        />
+                        <img src="Assets/icons/eye-off.svg" alt="Show/Hide Password" class="eye-icon" id="togglePassword" />
+
+                        <label class="confpasslabel" for="confirm-password">Confirm Password</label>
+                        <input
+                                required
+                                type="password"
+                                id="confirm-password"
+                                placeholder="Confirm your password"
+                                class="input-field"
+                        />
+                        <img src="Assets/icons/eye-off.svg" alt="Show/Hide Password" class="eye-icon-confirm" id="toggleConfirmPassword" />
+                        
                         <div class="terms-checkbox">
                                 <input type="checkbox" id="terms" class="input" />
                                 <label for="terms">
@@ -156,6 +169,20 @@
                 passwordField.type = 'password';
                 eyeIcon.src = 'Assets/icons/eye-off.svg';
         }
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+        const confirmPasswordField = document.getElementById('confirm-password');
+        const eyeIconConfirm = document.getElementById('toggleConfirmPassword');
+
+        if (confirmPasswordField.type === 'password') {
+                confirmPasswordField.type = 'text';
+                eyeIconConfirm.src = 'Assets/icons/eye-on.svg';
+        } else {
+                confirmPasswordField.type = 'password';
+                eyeIconConfirm.src = 'Assets/icons/eye-off.svg';
+        }
+        });
 
         document.querySelector('.signup-form').addEventListener('submit', function (event) {
                 const termsCheckbox = document.getElementById('terms');
@@ -164,6 +191,15 @@
                         alert('You must agree to the terms & policy before signing up.');
                 }
         });
+
+        document.querySelector('.signup-form').addEventListener('submit', function (event) {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+
+                if (password !== confirmPassword) {
+                        event.preventDefault();
+                        alert('Passwords do not match. Please try again.');
+                }
         });
 </script>
 </body>

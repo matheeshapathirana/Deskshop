@@ -1,18 +1,23 @@
+/* Ensure the body and main container take up the full height */
 body {
-    margin: 0;
-    height: 100vh;
+  display: flex; /* Enable flexbox for the body */
+  flex-direction: column; /* Stack elements vertically */
+  min-height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove default margin */
 }
 
 .main-container {
-    background: linear-gradient(0deg, #ffffff 5%, rgba(0, 0, 0, 0) 100%), url("Assets/sign-bg.jpg");
-    background-size: cover; /* Ensure the image covers the container */
-    background-position: center left; /* Adjust the position as needed */
+    flex: 1;
     display: flex;
     flex-direction: column;
+    background: linear-gradient(0deg, #ffffff 5%, rgba(0, 0, 0, 0) 100%), url("./Assets/sign-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    font-family: "Poppins", sans-serif;
+    width: 100%; /* Ensure it spans the full width */
+    height: 100vh; /* Ensure it spans the full height */
 }
 
 .content-wrapper {
@@ -321,6 +326,16 @@ margin-bottom: 5px;
 display: block;
 }
 
+.confpasslabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
 .input-field {
 width: 100%;
 padding: 10px;
@@ -332,12 +347,23 @@ font-size: 10px;
 .eye-icon {
     position: absolute;
     right: 65px; /* Adjust this value as needed */
-    top: 67.8%;
+    top: 60.5%;
     transform: translateY(-50%);
     cursor: pointer;
     width: 20px; /* Adjust the size as needed */
     height: 20px; /* Adjust the size as needed */
 }
+
+.eye-icon-confirm {
+    position: absolute;
+    right: 65px; /* Adjust this value as needed */
+    top: 71%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px; /* Adjust the size as needed */
+    height: 20px; /* Adjust the size as needed */
+}
+
 
 .terms-checkbox {
 display: flex;
@@ -378,35 +404,25 @@ cursor: pointer;
 text-decoration: none;
 }
 
+/* Footer styles */
+.footer {
+  position: relative; /* Ensure it stays at the bottom of the content */
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  margin-top: auto; /* Push the footer to the bottom */
+}
+
 .footer-container {
     width: 100%;
     background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);
     position: relative;
     bottom: 0;
-}
-
-.footer {
-    align-self: stretch;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    padding: 56px 70px 93px;
-    padding-bottom: 40px;
-    padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-@media (max-width: 991px) {
-    .footer {
-        max-width: 100%;
-        padding: 0 20px;
-    }
 }
 
 .footer-content {
