@@ -15,11 +15,11 @@
                 <div class="products-dropdown">
                     <button class="products-dropdown-button">Products</button>
                     <div class="products-dropdown-content">
-                        <a href="shop.html">School Items</a>
-                        <a href="shop.html">Office Items</a>
-                        <a href="shop.html">Books</a>
-                        <a href="shop.html">Writing Tools</a>
-                        <a href="shop.html">Color Products</a>
+                        <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
+                        <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
+                        <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
+                        <a href="shop.html?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.html?category=writing-tools';">Writing Tools</a>
+                        <a href="shop.html?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.html?category=colour-products';">Color Products</a>
                     </div>
                 </div>
                 <a href="#" class="nav-item">About Us</a>
@@ -29,6 +29,8 @@
                 src="Assets/icons/add-to-cart.svg"
                 alt="Cart"
                 class="cart-icon"
+                style="cursor: pointer;"
+                onclick="window.location.href='cart.html'"
                 />
             </nav>
             <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
@@ -62,11 +64,11 @@
                     <button class="sort-dropdown-button">Sort by category</button>
                     <div class="sort-dropdown-content">
                         <button data-category="default">All Items</button>
-                        <button data-category="office-items">Office Items</button>
-                        <button data-category="school-items">School Items</button>
-                        <button data-category="books">Books</button>
-                        <button data-category="writing-tools">Writing Tools</button>
-                        <button data-category="colour-products">Colour Products</button>
+                        <button data-category="office-items" id="office-items-button">Office Items</button>
+                        <button data-category="school-items" id="school-items-button">School Items</button>
+                        <button data-category="books" id="books-button">Books</button>
+                        <button data-category="writing-tools" id="writing-tools-button">Writing Tools</button>
+                        <button data-category="colour-products" id="colour-products-button">Colour Products</button>
                     </div>
                 </div>
 
@@ -460,6 +462,18 @@
                 }
             });
         });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        if (category) {
+            const button = document.querySelector(`.sort-dropdown-content button[data-category="${category}"]`);
+            if (button) {
+                button.click(); // Simulate a click on the button
+            }
+        }
     });
 </script>
 </body>

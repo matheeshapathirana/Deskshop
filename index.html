@@ -17,11 +17,11 @@
                         <div class="products-dropdown">
                             <button class="products-dropdown-button">Products</button>
                             <div class="products-dropdown-content">
-                                <a href="shop.html">School Items</a>
-                                <a href="shop.html">Office Items</a>
-                                <a href="shop.html">Books</a>
-                                <a href="shop.html">Writing Tools</a>
-                                <a href="shop.html">Color Products</a>
+                                <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
+                                <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
+                                <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
+                                <a href="shop.html?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.html?category=writing-tools';">Writing Tools</a>
+                                <a href="shop.html?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.html?category=colour-products';">Color Products</a>
                             </div>
                         </div>
                         <a href="#" class="nav-item">About Us</a>
@@ -31,6 +31,8 @@
                         src="Assets/icons/add-to-cart.svg"
                         alt="Cart"
                         class="cart-icon"
+                        style="cursor: pointer;"
+                        onclick="window.location.href='cart.html'"
                         />
                     </nav>
                     <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
