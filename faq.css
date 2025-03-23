@@ -29,25 +29,12 @@ header.header {
     left: 0;
 }
 
-@media (max-width: 991px) {
-    header.header {
-        max-width: 100%;
-        padding: 0 20px;
-    }
-}
-
 div.header-content {
     display: flex;
     width: 100%;
     max-width: 1065px;
     gap: 40px 91px;
     flex-wrap: wrap;
-}
-
-@media (max-width: 991px) {
-    div.header-content {
-        max-width: 100%;
-    }
 }
 
 h1.logo {
@@ -68,7 +55,8 @@ nav.nav-menu {
     flex-wrap: wrap;
     margin-top: 0px;
     width: 584px;
-    padding: 10px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-family: Montserrat, sans-serif;
 }
 
@@ -123,12 +111,6 @@ div.products-dropdown:hover .products-dropdown-content {
 
 div.products-dropdown:hover .dropbtn {
     background-color: #575757;
-}
-
-@media (max-width: 991px) {
-    nav.nav-menu {
-        max-width: 100%;
-    }
 }
 
 a.nav-item {
@@ -199,12 +181,6 @@ button.signup-btn:active::after {
     transform: scale(4);
     opacity: 1;
     transition: 0s;
-}
-
-@media (max-width: 991px) {
-    button.signup-btn {
-        padding: 0 20px;
-    }
 }
 
 .faq-title {
@@ -290,36 +266,14 @@ footer.footer {
     z-index: 1000;
 }
 
-@media (max-width: 991px) {
-    .footer {
-        max-width: 100%;
-        padding: 0 20px;
-        margin-top: 40px;
-    }
-}
-
 .footer-content {
     width: 100%;
     max-width: 1058px;
 }
 
-@media (max-width: 991px) {
-    .footer-content {
-        max-width: 100%;
-    }
-}
-
 .footer-row {
     gap: 20px;
     display: flex;
-}
-
-@media (max-width: 991px) {
-    .footer-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0px;
-    }
 }
 
 .footer-column {
@@ -331,24 +285,11 @@ footer.footer {
     position: relative;
 }
 
-@media (max-width: 991px) {
-    .footer-column {
-        width: 100%;
-        position: relative;
-    }
-}
-
 .footer-logo-wrapper {
     display: flex;
     flex-direction: column;
     color: #2b1b12;
     font: 400 12px/2 Poppins, sans-serif;
-}
-
-@media (max-width: 991px) {
-    .footer-logo-wrapper {
-        margin-top: 40px;
-    }
 }
 
 .footer-logo {
@@ -361,17 +302,11 @@ footer.footer {
 }
 
 .footer-social {
-    aspect-ratio:.37;
+    aspect-ratio: 6.37;
     object-fit: contain;
     object-position: center;
     width: 172px;
     margin-top: 193px;
-}
-
-@media (max-width: 991px) {
-    .footer-social {
-        margin: 40px 4px 0 0;
-    }
 }
 
 .footer-copyright {
@@ -388,14 +323,6 @@ footer.footer {
 .footer-contact-column {
     margin-right: -5px;
     width: 37%;
-}  
-
-@media (max-width: 991px) {
-    .footer-links-column, .footer-contact-column {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
 }
 
 .footer-links {
@@ -404,12 +331,6 @@ footer.footer {
     font-family: Poppins, sans-serif;
     margin-left: 129px;
     width: 140px;
-}
-
-@media (max-width: 991px) {
-    .footer-links {
-        margin-top: 40px;
-    }
 }
 
 .footer-links-title {
@@ -439,12 +360,6 @@ footer.footer {
     text-decoration-thickness: 1px;
 }
 
-@media (max-width: 991px) {
-    .footer-link-list {
-        margin-top: 40px;
-    }
-}
-
 .footer-contact {
     display: flex;
     flex-grow: 1;
@@ -453,12 +368,6 @@ footer.footer {
     color: #2b1b12;
     font: 400 20px/32px Poppins, sans-serif;
     margin-right: 5px;
-}
-
-@media (max-width: 991px) {
-    .footer-contact {
-        margin-top: 40px;
-    }
 }
 
 .footer-contact-title {
@@ -474,21 +383,9 @@ footer.footer {
     width: 246px;
 }
 
-@media (max-width: 991px) {
-    .footer-contact-phone {
-        margin-top: 40px;
-    }
-}
-
 .footer-contact-email {
     align-self: stretch;
     margin-top: 10px;
-}
-
-@media (max-width: 991px) {
-    .footer-contact-email {
-        margin-top: 40px;
-    }
 }
 
 .footer-columns-wrapper {
@@ -498,8 +395,41 @@ footer.footer {
 }
 
 @media (max-width: 991px) {
-    .footer-columns-wrapper {
+    header.header, .footer {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    
+    div.header-content, .footer-content, nav.nav-menu {
+        max-width: 100%;
+    }
+    
+    button.signup-btn {
+        padding: 0 20px;
+    }
+    
+    .footer {
+        margin-top: 40px;
+    }
+    
+    .footer-row, .footer-columns-wrapper {
         flex-direction: column;
         align-items: stretch;
+        gap: 0px;
+    }
+    
+    .footer-column, .footer-links-column, .footer-contact-column {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .footer-logo-wrapper, .footer-links, .footer-contact, .footer-contact-phone, 
+    .footer-contact-email, .footer-link-list {
+        margin-top: 40px;
+    }
+    
+    .footer-social {
+        margin: 40px 4px 0 0;
     }
 }
