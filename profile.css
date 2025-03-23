@@ -70,8 +70,24 @@ nav.nav-menu {
     padding-bottom: 10px;
 }
 
+@media (max-width: 991px) {
+    nav.nav-menu {
+        max-width: 100%;
+    }
+}
+
+a.nav-item {
+    align-self: stretch;
+    margin: auto 0;
+    text-decoration: none;
+    color: #2B1B12;
+    background-color: transparent;
+}
+
 nav.nav-menu a:hover {
-    background-color: #575757;
+    background-color: transparent;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
 }
 
 div.products-dropdown {
@@ -121,30 +137,6 @@ div.products-dropdown:hover .products-dropdown-content {
     visibility: visible;
     opacity: 1;
     transform: rotateX(0);
-}
-
-div.products-dropdown:hover .dropbtn {
-    background-color: #575757;
-}
-
-@media (max-width: 991px) {
-    nav.nav-menu {
-        max-width: 100%;
-    }
-}
-
-a.nav-item {
-    align-self: stretch;
-    margin: auto 0;
-    text-decoration: none;
-    color: #2B1B12;
-    background-color: transparent;
-}
-
-nav.nav-menu a:hover {
-    background-color: transparent;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
 }
 
 button.signup-btn {
@@ -198,7 +190,6 @@ button.signup-btn:active::after {
     }
 }
 
-/* Profile section */
 .profile-main {
 display: flex;
 flex-direction: column;
@@ -245,23 +236,22 @@ font-size: 24px;
 margin-top: 0px;
 }
 
-/* Action buttons */
 .action-buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Adjust spacing between rows */
+    gap: 20px;
     position: relative;
     top: 50px;
 }
 
 .top-buttons {
     display: flex;
-    gap: 10px; /* Adjust spacing between buttons in the top row */
+    gap: 10px;
 }
 
 .bottom-button {
-    margin-top: 10px; /* Add spacing between the top row and the bottom button */
+    margin-top: 10px;
 }
 
 .action-btn {
@@ -317,10 +307,9 @@ margin-top: 0px;
 }
 
 .wishlist-btn {
-    padding: 25px 43px; /* Match the padding of the signout-btn */
+    padding: 25px 43px;
 }
 
-/* Footer styles */
 .footer {
     align-self: stretch;
     display: flex;
@@ -429,7 +418,7 @@ margin-top: 0px;
 
 .footer-links-column {
     width: 24%;
-    margin-right: 30px; /* Move it a bit more to the right */
+    margin-right: 30px;
 }
 
 .footer-contact-column {
@@ -462,10 +451,9 @@ margin-top: 0px;
 .footer-links-title {
     color: #2b1b12;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     font-family: Montserrat;
-    font-weight: 700;
 }
 
 .footer-link-list {
@@ -512,10 +500,9 @@ margin-top: 0px;
 .footer-contact-title {
     color: #2b1b12;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     font-family: Montserrat;
-    font-weight: 700;
 }
 
 .footer-contact-phone {
@@ -551,34 +538,31 @@ margin-top: 0px;
         flex-direction: column;
         align-items: stretch;
     }
-}
 
-/* Responsive styles */
-@media (max-width: 991px) {
-.user-profile {
-margin-top: 40px;
-}
+    .user-profile {
+        margin-top: 40px;
+    }
 
-.profile-container {
-flex-direction: column;
-align-items: center;
-}
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+    }
 
-.profile-image {
-margin-top: 40px;
-}
+    .profile-image {
+        margin-top: 40px;
+    }
 
-.profile-info {
-margin-top: 40px;
-text-align: center;
-}
+    .profile-info {
+        margin-top: 40px;
+        text-align: center;
+    }
 
-.action-buttons {
-margin-top: 40px;
-justify-content: center;
-}
+    .action-buttons {
+        margin-top: 40px;
+        justify-content: center;
+    }
 
-.action-btn {
-padding: 20px;
-}
+    .action-btn {
+        padding: 20px;
+    }
 }

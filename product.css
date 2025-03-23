@@ -1,14 +1,10 @@
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
-
 body {
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
-    margin: 0px;
+  font-family: "Montserrat", -apple-system, Roboto, Helvetica, sans-serif;
+  margin: 0px;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 150px;
+  box-sizing: border-box;
 }
 
 .products-page {
@@ -19,49 +15,43 @@ body {
   align-items: stretch;
 }
 
-/* Rating https://www.sliderrevolution.com/resources/css-star-rating/*/
-
-/****** Style Star Rating Widget *****/
-
 .rating { 
-    border: none;
-    float: left;
-    position: relative;
-    left: 70px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
+  border: none;
+  float: left;
+  position: relative;
+  left: 70px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
 }
 
 .rating > input { display: none; } 
 .rating > label:before { 
-    margin: 5px;
-    font-size: 1.25em;
-    font-family: FontAwesome;
-    display: inline-block;
-    content: "\f005";
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
 }
 
 .rating > .half:before { 
-    content: "\f089";
-    position: absolute;
+  content: "\f089";
+  position: absolute;
 }
 
 .rating > label { 
-    color: #ddd; 
-    float: right; 
+  color: #ddd; 
+  float: right; 
 }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label { color: #FFD700; }
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-
-.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked + label:hover,
 .rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label { color: #FFED85; } 
 
 .cart-icon {
   aspect-ratio: 1;
@@ -72,7 +62,7 @@ body {
   flex-shrink: 0;
   position: relative;
   left: 50px;
-  }
+}
   
 header.header {
   position: fixed;
@@ -91,25 +81,12 @@ header.header {
   left: 0;
 }
 
-@media (max-width: 991px) {
-  header.header {
-      max-width: 100%;
-      padding: 0 20px;
-  }
-}
-
 div.header-content {
   display: flex;
   width: 100%;
   max-width: 1065px;
   gap: 40px 91px;
   flex-wrap: wrap;
-}
-
-@media (max-width: 991px) {
-  div.header-content {
-      max-width: 100%;
-  }
 }
 
 h1.logo {
@@ -135,7 +112,9 @@ nav.nav-menu {
 }
 
 nav.nav-menu a:hover {
-  background-color: #575757;
+  background-color: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
 div.products-dropdown {
@@ -191,24 +170,12 @@ div.products-dropdown:hover .dropbtn {
   background-color: #575757;
 }
 
-@media (max-width: 991px) {
-  nav.nav-menu {
-      max-width: 100%;
-  }
-}
-
 a.nav-item {
   align-self: stretch;
   margin: auto 0;
   text-decoration: none;
   color: #2B1B12;
   background-color: transparent;
-}
-
-nav.nav-menu a:hover {
-  background-color: transparent;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
 }
 
 button.signup-btn {
@@ -256,13 +223,6 @@ button.signup-btn:active::after {
   transition: 0s;
 }
 
-@media (max-width: 991px) {
-  button.signup-btn {
-      padding: 0 20px;
-  }
-}
-
-/* Main content styles */
 .main-content {
   align-self: center;
   display: flex;
@@ -291,12 +251,7 @@ button.signup-btn:active::after {
   align-items: center;
   gap: 12px;
   overflow: hidden;
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Montserrat", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 16px;
   color: #000000;
   font-weight: 400;
@@ -323,7 +278,6 @@ button.signup-btn:active::after {
   color: #000000;
 }
 
-/* Product display section */
 .product-display {
   margin-top: 51px;
   width: 100%;
@@ -362,12 +316,7 @@ button.signup-btn:active::after {
   width: 100%;
   flex-direction: column;
   align-items: start;
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Montserrat", -apple-system, Roboto, Helvetica, sans-serif;
   font-weight: 700;
 }
 
@@ -438,10 +387,9 @@ button.signup-btn:active::after {
   flex-basis: auto;
   border: none;
   font-family: inherit;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  font-size: 20px;
 }
 
 .add-to-cart-btn:hover {
@@ -464,12 +412,6 @@ button.signup-btn:active::after {
   transition: transform 0.5s, opacity 1s;
   opacity: 0;
 }
-
-/* .add-to-cart-btn:active::after {
-  transform: scale(3);
-  opacity: 1;
-  transition: 0s;
-} */
 
 .wishlist-action {
   display: flex;
@@ -495,40 +437,21 @@ button.signup-btn:active::after {
   transform: scale(1.2);
 }
 
-/* .wishlist-action {
-  aspect-ratio: 1.16;
-  object-fit: contain;
-  object-position: center;
-  width: 29px;
-  flex-shrink: 0;
-} */
-
 .wishlist-text {
   align-self: start;
   flex-basis: auto;
 }
 
-
-
-/* Reviews section */
 .section-title {
   color: rgba(0, 0, 0, 1);
   font-size: 20px;
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
-  font-weight: 500;
+  font-family: "Montserrat", -apple-system, Roboto, Helvetica, sans-serif;
+  font-weight: 700;
   line-height: 1.1;
   text-align: left;
   margin-top: 22px;
   margin-left: 75px;
-  font-weight: bold;
 }
-
-
 
 .rating-stars {
   aspect-ratio: 6.06;
@@ -543,17 +466,10 @@ button.signup-btn:active::after {
 .review-form-title {
   color: rgba(0, 0, 0, 1);
   font-size: 20px;
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Montserrat", -apple-system, Roboto, Helvetica, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   text-align: left;
-  margin-top: 52px;
-  margin-left: 81px;
   position: relative;
   top: 0px;
   left: 75px;
@@ -591,12 +507,7 @@ button.signup-btn:active::after {
   min-height: 48px;
   padding: 14px 20px;
   overflow: hidden;
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Montserrat", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 16px;
   color: rgba(255, 255, 255, 1);
   font-weight: 500;
@@ -701,12 +612,7 @@ button.signup-btn:active::after {
 
 .reviewer-name {
   align-self: start;
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Montserrat", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 20px;
   color: rgba(0, 0, 0, 1);
   font-weight: 700;
@@ -716,12 +622,7 @@ button.signup-btn:active::after {
 .review-text {
   color: #000000;
   font-size: 16px;
-  font-family:
-    "Satoshi",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Satoshi", -apple-system, Roboto, Helvetica, sans-serif;
   font-weight: 400;
   line-height: 22px;
   margin-top: 12px;
@@ -737,12 +638,7 @@ button.signup-btn:active::after {
 .review-date {
   color: #000000;
   font-size: 16px;
-  font-family:
-    "Poppins",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Poppins", -apple-system, Roboto, Helvetica, sans-serif;
   font-weight: 500;
   line-height: 1;
 }
@@ -759,12 +655,7 @@ button.signup-btn:active::after {
   max-width: 100%;
   padding: 11px 22px;
   overflow: hidden;
-  font-family:
-    "Poppins",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
+  font-family: "Poppins", -apple-system, Roboto, Helvetica, sans-serif;
   font-size: 16px;
   color: rgba(0, 0, 0, 1);
   font-weight: 500;
@@ -776,64 +667,30 @@ button.signup-btn:active::after {
   margin-bottom: 20px;
 }
 
-body {
-  font-family:
-    "Montserrat",
-    -apple-system,
-    Roboto,
-    Helvetica,
-    sans-serif;
-  margin: 0px;
-  min-height: 100vh;
-  position: relative;
-  padding-bottom: 150px; /* Adjust based on footer height */
-  box-sizing: border-box;
-}
-
 footer.footer {
   align-self: stretch;
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
-  padding: 56px 70px 93px;
-  padding-bottom: 40px;
-  padding-top: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding: 0;
   position: absolute;
   bottom: -150px;
   left: 0;
-  background-color: #fff; /* Ensure the footer has a background color */
-  z-index: 1000; /* Ensure the footer is above other content */
+  background-color: #fff;
+  z-index: 1000;
 }
 
-@media (max-width: 991px) {
-.footer {
-  max-width: 100%;
-  padding: 0 20px;
-}
-}
 .footer-content {
-width: 100%;
-max-width: 1058px;
+  width: 100%;
+  max-width: 1058px;
 }
-@media (max-width: 991px) {
-.footer-content {
-  max-width: 100%;
-}
-}
+
 .footer-row {
-gap: 20px;
-display: flex;
+  gap: 20px;
+  display: flex;
 }
-@media (max-width: 991px) {
-.footer-row {
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0px;
-}
-}
+
 .footer-column {
   display: flex;
   flex-direction: column;
@@ -842,23 +699,14 @@ display: flex;
   margin-left: 0px;
   position: relative;
 }
-@media (max-width: 991px) {
-  .footer-column {
-      width: 100%;
-      position: relative;
-  }
-}
+
 .footer-logo-wrapper {
-display: flex;
-flex-direction: column;
-color: #2b1b12;
-font: 400 12px/2 Poppins, sans-serif;
+  display: flex;
+  flex-direction: column;
+  color: #2b1b12;
+  font: 400 12px/2 Poppins, sans-serif;
 }
-@media (max-width: 991px) {
-.footer-logo-wrapper {
-  margin-top: 40px;
-}
-}
+
 .footer-logo {
   aspect-ratio: 1.06;
   object-fit: contain;
@@ -866,42 +714,31 @@ font: 400 12px/2 Poppins, sans-serif;
   width: 90px;
   position: absolute;
   bottom: 150px;
-  }
-.footer-social {
-aspect-ratio: 6.37;
-object-fit: contain;
-object-position: center;
-width: 172px;
-margin-top: 193px;
 }
 
-@media (max-width: 991px) {
 .footer-social {
-  margin: 40px 4px 0 0;
+  aspect-ratio: 6.37;
+  object-fit: contain;
+  object-position: center;
+  width: 172px;
+  margin-top: 193px;
 }
-}
+
 .footer-copyright {
-opacity: 0.5;
-margin-bottom: 0px;
-margin-top: 10px;
+  opacity: 0.5;
+  margin-bottom: 0px;
+  margin-top: 10px;
 }
+
 .footer-links-column {
   width: 24%;
-  margin-right: 30px; /* Move it a bit more to the right */
+  margin-right: 30px;
 }
 
 .footer-contact-column {
   margin-right: -5px;
   width: 37%;
 }  
-
-@media (max-width: 991px) {
-  .footer-links-column, .footer-contact-column {
-      width: 100%;
-      margin-left: 0;
-      margin-right: 0;
-  }
-}
 
 .footer-links {
   display: flex;
@@ -911,19 +748,12 @@ margin-top: 10px;
   width: 140px;
 }
 
-@media (max-width: 991px) {
-  .footer-links {
-      margin-top: 40px;
-  }
-}
-
 .footer-links-title {
   color: #2b1b12;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1;
   font-family: Montserrat;
-  font-weight: 700;
 }
 
 .footer-link-list {
@@ -945,12 +775,6 @@ margin-top: 10px;
   text-decoration-thickness: 1px;
 }
 
-@media (max-width: 991px) {
-  .footer-link-list {
-      margin-top: 40px;
-  }
-}
-
 .footer-contact {
   display: flex;
   flex-grow: 1;
@@ -961,19 +785,12 @@ margin-top: 10px;
   margin-right: 5px;
 }
 
-@media (max-width: 991px) {
-  .footer-contact {
-      margin-top: 40px;
-  }
-}
-
 .footer-contact-title {
   color: #2b1b12;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1;
   font-family: Montserrat;
-  font-weight: 700;
 }
 
 .footer-contact-phone {
@@ -981,21 +798,9 @@ margin-top: 10px;
   width: 246px;
 }
 
-@media (max-width: 991px) {
-  .footer-contact-phone {
-      margin-top: 40px;
-  }
-}
-
 .footer-contact-email {
   align-self: stretch;
   margin-top: 10px;
-}
-
-@media (max-width: 991px) {
-  .footer-contact-email {
-      margin-top: 40px;
-  }
 }
 
 .footer-columns-wrapper {
@@ -1005,207 +810,58 @@ margin-top: 10px;
 }
 
 @media (max-width: 991px) {
-  .footer-columns-wrapper {
-      flex-direction: column;
-      align-items: stretch;
-  }
-}
-
-/* Media queries */
-@media (max-width: 991px) {
-  .main-header {
-    max-width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .header-container {
+  header.header, .footer-content, .main-content, .search-box, nav.nav-menu, 
+  .product-display, .product-info, .product-actions, .reviews-container {
     max-width: 100%;
   }
-
-  .header-right {
-    max-width: 100%;
+  
+  header.header {
+    padding: 0 20px;
   }
-
-  .nav-list {
-    max-width: 100%;
+  
+  .footer {
+    padding: 0 20px;
   }
-
-  .nav-link {
-    white-space: initial;
-  }
-
-  .signup-btn {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .main-content {
-    max-width: 100%;
-  }
-
-  .search-box {
-    max-width: 100%;
-  }
-
-  .product-display {
-    max-width: 100%;
-    margin-top: 40px;
-  }
-
-  .product-container {
+  
+  .product-container, .review-row, .footer-row, .footer-columns-wrapper {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
   }
-
-  .product-image-column {
-    width: 100%;
-  }
-
-  .product-image {
-    max-width: 100%;
-    margin-top: 40px;
-  }
-
-  .product-details-column {
+  
+  .product-image-column, .product-details-column, .footer-column, 
+  .footer-links-column, .footer-contact-column {
     width: 100%;
     margin-left: 0;
+    margin-right: 0;
   }
-
-  .product-info {
-    max-width: 100%;
-    margin-top: 21px;
+  
+  .product-details-column {
+    margin-left: 0;
   }
-
-  .product-price {
-    margin-top: 40px;
-    white-space: initial;
-  }
-
-  .product-actions {
-    max-width: 100%;
-    margin-top: 40px;
-  }
-
-  .quantity-selector {
-    white-space: initial;
-  }
-
-  .add-to-cart-btn {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .section-title {
+  
+  .section-title, .rating-stars, .review-form, .submit-btn {
     margin-left: 10px;
   }
-
-  .rating-stars {
-    margin-left: 10px;
-  }
-
+  
   .review-form-title {
     margin-left: 10px;
     margin-top: 40px;
   }
-
-  .review-form {
-    margin-left: 10px;
-  }
-
-  .submit-btn {
-    margin-left: 10px;
-    white-space: initial;
-  }
-
-  .reviews-container {
-    max-width: 100%;
+  
+  .footer-logo-wrapper, .footer-links, .footer-contact, 
+  .footer-contact-phone, .footer-contact-email, .footer-social {
     margin-top: 40px;
   }
-
-  .review-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-  }
-
+  
   .review-item {
-    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
     margin-top: 19px;
+  }
+  
+  .add-to-cart-btn, .submit-btn, .signup-btn, .load-more-btn {
     padding-left: 20px;
     padding-right: 20px;
-  }
-
-  .review-content {
-    max-width: 100%;
-  }
-
-  .review-header {
-    max-width: 100%;
-  }
-
-  .review-text {
-    max-width: 100%;
-  }
-
-  .review-date {
-    max-width: 100%;
-  }
-
-  .load-more-btn {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .main-footer {
-    max-width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-top: 40px;
-  }
-
-  .footer-container {
-    max-width: 100%;
-  }
-
-  .footer-columns {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-  }
-
-  .brand-column {
-    width: 100%;
-    margin-top: 40px;
-  }
-
-  .payment-methods {
-    margin-right: 4px;
-    margin-top: 40px;
-  }
-
-  .info-column {
-    width: 100%;
-    margin-top: 40px;
-    margin-left: 0;
-  }
-
-  .footer-links {
-    margin-top: 40px;
-  }
-
-  .contact-column {
-    width: 100%;
-    margin-top: 40px;
-    margin-left: 0;
-  }
-
-  .contact-info:first-of-type {
-    margin-top: 40px;
-  }
-
-  .contact-info {
-    margin-top: 40px;
   }
 }

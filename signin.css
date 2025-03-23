@@ -5,8 +5,8 @@ body {
 
 .main-container {
     background: linear-gradient(0deg, #ffffff 5%, rgba(0, 0, 0, 0) 100%), url("Assets/sign-bg.jpg");
-    background-size: cover; /* Ensure the image covers the container */
-    background-position: center left; /* Adjust the position as needed */
+    background-size: cover;
+    background-position: center left;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,11 +17,12 @@ body {
 
 .content-wrapper {
     height: 886px;
-    /* background-image: url("Assets/sign-bg.jpg"); */
     background-size: cover;
     background-position: left center;
     position: fixed;
     left: 0;
+    display: flex;
+    position: relative;
 }
 
 header.header {
@@ -41,13 +42,6 @@ header.header {
     left: 0;
 }
 
-@media (max-width: 991px) {
-    header.header {
-        max-width: 100%;
-        padding: 0 20px;
-    }
-}
-
 div.header-content {
     display: flex;
     width: 100%;
@@ -56,16 +50,19 @@ div.header-content {
     flex-wrap: wrap;
 }
 
-@media (max-width: 991px) {
-    div.header-content {
-        max-width: 100%;
-    }
-}
-
 h1.logo {
     flex-grow: 1;
     font: 400 40px Mynerve, sans-serif;
     margin-bottom: 33.2px;
+}
+
+.logo {
+    font-family: "Mynerve", cursive;
+    font-size: 40px;
+    color: #2b1b12;
+    margin: 0;
+    margin-bottom: 33.2px;
+    margin-top: 33.2px;
 }
 
 nav.nav-menu {
@@ -82,10 +79,6 @@ nav.nav-menu {
     width: 584px;
     padding-top: 10px;
     padding-bottom: 10px;
-}
-
-nav.nav-menu a:hover {
-    background-color: #575757;
 }
 
 div.products-dropdown {
@@ -114,7 +107,7 @@ div.products-dropdown .products-dropdown-button {
     flex-shrink: 0;
     position: relative;
     left: 50px;
-    }
+}
 
 div.products-dropdown-content {
     visibility: hidden;
@@ -152,12 +145,6 @@ div.products-dropdown:hover .dropbtn {
     background-color: #575757;
 }
 
-@media (max-width: 991px) {
-    nav.nav-menu {
-        max-width: 100%;
-    }
-}
-
 a.nav-item {
     align-self: stretch;
     margin: auto 0;
@@ -171,32 +158,30 @@ nav.nav-menu a:hover {
     text-decoration: underline;
     text-decoration-thickness: 1px;
 }
-/************************************/
+
 .form-label {
     font-size: 14px;
     margin-bottom: 5px;
     display: block;
-  }
+}
 
-  .input-wrapper {
+.input-wrapper {
     border: 1px solid #323232;
     border-radius: 10px;
     padding: 10px;
     width: 330px;
-        position: relative;
+    position: relative;
 }
-
 
 .eye-icon {
     position: absolute;
-    right: 10px; /* Adjust this value as needed */
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    width: 20px; /* Adjust the size as needed */
-    height: 20px; /* Adjust the size as needed */
+    width: 20px;
+    height: 20px;
 }
-
 
 .signup-prompt {
     text-align: center;
@@ -280,79 +265,59 @@ button.signup-btn:active::after {
     transition: 0s;
 }
 
-@media (max-width: 991px) {
-    button.signup-btn {
-        padding: 0 20px;
-    }
-}
-
-.logo {
-font-family: "Mynerve", cursive;
-font-size: 40px;
-color: #2b1b12;
-margin: 0;
-margin-bottom: 33.2px;
-margin-top: 33.2px;
-}
-
 .nav-links {
-display: flex;
-gap: 30px;
-align-items: center;
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
 .nav-item {
-font-family: "Montserrat", sans-serif;
-font-weight: 700;
-font-size: 18px;
-color: #2b1b12;
-cursor: pointer;
-text-decoration: none;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #2b1b12;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .nav-itemproducts {
-font-family: "Montserrat", sans-serif;
-font-weight: 700;
-font-size: 18px;
-color: #2b1b12;
-cursor: pointer;
-display: flex;
-align-items: center;
-gap: 5px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #2b1b12;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .signup-form {
     padding: 30px;
     border-radius: 10px;
     background-color: #fff;
-    }
-
-.signup-btn {
-color: #fff;
-padding: 15px 30px;
-border-radius: 8px;
-font-family: "Montserrat", sans-serif;
-font-weight: 600;
-font-size: 16px;
-cursor: pointer;
-background-color: #2b1b12;
-border: none;
 }
 
-.content-wrapper {
-display: flex;
-position: relative;
+.signup-btn {
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #2b1b12;
+    border: none;
 }
 
 .left-section {
-flex: 1;
+    flex: 1;
 }
 
 .main-image {
-width: 1043px;
-height: 855px;
-border-radius: 0 50px 50px 0;
-object-fit: cover;
+    width: 1043px;
+    height: 855px;
+    border-radius: 0 50px 50px 0;
+    object-fit: cover;
 }
 
 .right-section {
@@ -365,13 +330,11 @@ object-fit: cover;
     z-index: 999;
 }
 
-
-
 .form-title {
-font-size: 32px;
-font-weight: 500;
-margin-bottom: 30px;
-color: #000;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: #000;
 }
 
 .form-description {
@@ -382,38 +345,38 @@ color: #000;
 }
 
 .form-group {
-margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .label {
-font-size: 14px;
-font-weight: 500;
-color: #000;
-margin-bottom: 5px;
-display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .input-field {
-width: 100%;
-padding: 10px;
-border: 1px solid #d9d9d9;
-border-radius: 10px;
-font-size: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    font-size: 10px;
 }
 
 .terms-checkbox {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-bottom: 20px;
-font-size: 9px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 9px;
 }
 
 .input {
-width: 9px;
-height: 9px;
-border: 1px solid #000;
-border-radius: 2px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid #000;
+    border-radius: 2px;
 }
 
 .login-button {
@@ -429,15 +392,15 @@ border-radius: 2px;
 }
 
 .login-link {
-text-align: center;
-margin-top: 20px;
-font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
 }
 
 .sign-in {
-color: #0f3dde;
-cursor: pointer;
-text-decoration: none;
+    color: #0f3dde;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .footer-container {
@@ -453,22 +416,11 @@ text-decoration: none;
     width: 100%;
     flex-direction: column;
     align-items: center;
-    padding: 56px 70px 93px;
-    padding-bottom: 40px;
-    padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding: 0;
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 1000;
-}
-
-@media (max-width: 991px) {
-    .footer {
-        max-width: 100%;
-        padding: 0 20px;
-    }
 }
 
 .footer-content {
@@ -476,23 +428,9 @@ text-decoration: none;
     max-width: 1058px;
 }
 
-@media (max-width: 991px) {
-    .footer-content {
-        max-width: 100%;
-    }
-}
-
 .footer-row {
     gap: 20px;
     display: flex;
-}
-
-@media (max-width: 991px) {
-    .footer-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0px;
-    }
 }
 
 .footer-column {
@@ -504,24 +442,11 @@ text-decoration: none;
     position: relative;
 }
 
-@media (max-width: 991px) {
-    .footer-column {
-        width: 100%;
-        position: relative;
-    }
-}
-
 .footer-logo-wrapper {
     display: flex;
     flex-direction: column;
     color: #2b1b12;
     font: 400 12px/2 Poppins, sans-serif;
-}
-
-@media (max-width: 991px) {
-    .footer-logo-wrapper {
-        margin-top: 40px;
-    }
 }
 
 .footer-logo {
@@ -541,12 +466,6 @@ text-decoration: none;
     margin-top: 193px;
 }
 
-@media (max-width: 991px) {
-    .footer-social {
-        margin: 40px 4px 0 0;
-    }
-}
-
 .footer-copyright {
     opacity: 0.5;
     margin-bottom: 0px;
@@ -555,20 +474,12 @@ text-decoration: none;
 
 .footer-links-column {
     width: 24%;
-    margin-right: 30px; /* Move it a bit more to the right */
+    margin-right: 30px;
 }
 
 .footer-contact-column {
     margin-right: -5px;
     width: 37%;
-}
-
-@media (max-width: 991px) {
-    .footer-links-column, .footer-contact-column {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
 }
 
 .footer-links {
@@ -579,19 +490,12 @@ text-decoration: none;
     width: 140px;
 }
 
-@media (max-width: 991px) {
-    .footer-links {
-        margin-top: 40px;
-    }
-}
-
 .footer-links-title {
     color: #2b1b12;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     font-family: Montserrat;
-    font-weight: 700;
 }
 
 .footer-link-list {
@@ -613,12 +517,6 @@ text-decoration: none;
     text-decoration-thickness: 1px;
 }
 
-@media (max-width: 991px) {
-    .footer-link-list {
-        margin-top: 40px;
-    }
-}
-
 .footer-contact {
     display: flex;
     flex-grow: 1;
@@ -629,19 +527,12 @@ text-decoration: none;
     margin-right: 5px;
 }
 
-@media (max-width: 991px) {
-    .footer-contact {
-        margin-top: 40px;
-    }
-}
-
 .footer-contact-title {
     color: #2b1b12;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     font-family: Montserrat;
-    font-weight: 700;
 }
 
 .footer-contact-phone {
@@ -649,21 +540,9 @@ text-decoration: none;
     width: 246px;
 }
 
-@media (max-width: 991px) {
-    .footer-contact-phone {
-        margin-top: 40px;
-    }
-}
-
 .footer-contact-email {
     align-self: stretch;
     margin-top: 10px;
-}
-
-@media (max-width: 991px) {
-    .footer-contact-email {
-        margin-top: 40px;
-    }
 }
 
 .footer-columns-wrapper {
@@ -673,6 +552,49 @@ text-decoration: none;
 }
 
 @media (max-width: 991px) {
+    header.header {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    
+    div.header-content, .footer-content {
+        max-width: 100%;
+    }
+    
+    nav.nav-menu {
+        max-width: 100%;
+    }
+    
+    button.signup-btn {
+        padding: 0 20px;
+    }
+    
+    .footer {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+    
+    .footer-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0px;
+    }
+    
+    .footer-column {
+        width: 100%;
+        position: relative;
+    }
+    
+    .footer-logo-wrapper, .footer-links, .footer-contact, .footer-social, .footer-contact-phone, .footer-contact-email, .footer-link-list {
+        margin-top: 40px;
+    }
+    
+    .footer-links-column, .footer-contact-column {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
     .footer-columns-wrapper {
         flex-direction: column;
         align-items: stretch;
