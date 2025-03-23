@@ -70,7 +70,7 @@
                         <a href="#" class="forgot-password">forgot password</a>
                         </div>
 
-                        <button type="submit" class="login-button">Login</button>
+                        <button type="submit" class="login-button" onclick="signin(event)">Login</button>
                         <p class="signup-prompt">
                                 Don't have an account?
                                 <a href="signup.html" class="signup-link">Sign Up</a>
@@ -135,6 +135,12 @@
                 eyeIcon.src = 'Assets/icons/eye-off.svg';
         }
         });
+
+        function signin(event) {
+        event.preventDefault();
+        alert('You have been signed in.');
+        window.location.href = 'profile.html';
+        }
 </script>
 </body>
 </html>
