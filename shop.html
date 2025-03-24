@@ -414,7 +414,7 @@
         }
 
         slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 5000); // Change slide every 2 seconds
+        setTimeout(showSlides, 5000);
     }
 
 
@@ -427,9 +427,9 @@
                 const productCategories = product.getAttribute('data-category').split(' ');
 
                 if (selectedCategory === 'default' || productCategories.includes(selectedCategory)) {
-                    product.style.display = 'block'; // Show the product
+                    product.style.display = 'block';
                 } else {
-                    product.style.display = 'none'; // Hide the product
+                    product.style.display = 'none';
                 }
             });
         });
@@ -447,9 +447,9 @@
                 const productTitle = product.querySelector('.product-title').textContent.toLowerCase();
 
                 if (productTitle.includes(searchTerm)) {
-                    product.style.display = 'block'; // Show the product
+                    product.style.display = 'block';
                 } else {
-                    product.style.display = 'none'; // Hide the product
+                    product.style.display = 'none';
                 }
             });
         });
@@ -462,7 +462,7 @@
         if (category) {
             const button = document.querySelector(`.sort-dropdown-content button[data-category="${category}"]`);
             if (button) {
-                button.click(); // Simulate a click on the button
+                button.click();
             }
         }
     });
