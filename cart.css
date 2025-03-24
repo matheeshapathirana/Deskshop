@@ -317,7 +317,6 @@ button.signup-btn:active::after {
   height: 20px;
   accent-color: #2b1b12;
   margin-right: 10px;
-  cursor: not-allowed;
 }
 
 .form-title {

@@ -15,6 +15,7 @@
                 <div class="products-dropdown">
                     <button class="products-dropdown-button">Products</button>
                     <div class="products-dropdown-content">
+                        <a href="shop.html?category=default" onclick="event.preventDefault(); window.location.href='shop.html?category=default';">All Items</a>
                         <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
                         <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
                         <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
@@ -64,7 +65,7 @@
                 <div class="sort-dropdown">
                     <button class="sort-dropdown-button">Sort by category</button>
                     <div class="sort-dropdown-content">
-                        <button data-category="default">All Items</button>
+                        <button data-category="default" id="default-button">All Items</button>
                         <button data-category="office-items" id="office-items-button">Office Items</button>
                         <button data-category="school-items" id="school-items-button">School Items</button>
                         <button data-category="books" id="books-button">Books</button>

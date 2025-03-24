@@ -14,6 +14,7 @@
                     <div class="products-dropdown">
                         <button class="products-dropdown-button">Products</button>
                         <div class="products-dropdown-content">
+                            <a href="shop.html?category=default" onclick="event.preventDefault(); window.location.href='shop.html?category=default';">All Items</a>
                             <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
                             <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
                             <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
@@ -211,7 +212,7 @@
                         placeholder="Postal Code"
                         maxlength="5"
                         required
-                        pattern="[0-9]{10}"
+                        pattern="[0-9]{5}"
                       />
                     </div>
                   </div>
@@ -219,8 +220,11 @@
                   <div class="payment-divider"></div>
           
                   <div class="payment-method">
-                    <input type="checkbox" id="cash-on-delivery" class="checkbox" checked disabled />
+                    <input type="radio" id="cash-on-delivery" name="payment" class="checkbox"/>
                     <label for="cash-on-delivery" class="method-label">Cash On Delivery</label>
+
+                    <input type="radio" id="bank-transfer" name="payment" class="checkbox"/>
+                    <label for="bank-transfer" class="method-label">Bank Transfer</label>
                   </div>
           
                   <div class="order-summary">
