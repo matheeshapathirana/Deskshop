@@ -1,6 +1,22 @@
 <?php 
 session_start();
 
+// Auto-login using cookie if session not set
+if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $email = $_COOKIE['user_email'];
+        $sql = "SELECT * FROM user WHERE email = '$email'";
+        $results = mysqli_query($con, $sql);
+        if (mysqli_num_rows($results) > 0) {
+            $user = mysqli_fetch_assoc($results);
+            $_SESSION['email'] = $user['email'];
+            // Optionally, set other session variables if needed
+        }
+        mysqli_close($con);
+    }
+}
+
 if (isset($_POST['login-btn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
