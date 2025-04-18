@@ -1,10 +1,43 @@
 <?php
 session_start();
+
+// Auto-login using cookie if session not set
+if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $email = $_COOKIE['user_email'];
+        $sql = "SELECT * FROM user WHERE email = '$email'";
+        $results = mysqli_query($con, $sql);
+        if (mysqli_num_rows($results) > 0) {
+            $user = mysqli_fetch_assoc($results);
+            $_SESSION['email'] = $user['email'];
+            // Optionally, set other session variables if needed
+        }
+        mysqli_close($con);
+    }
+}
+
 if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
     echo "<script>alert('You must be signed in to access this page.'); window.location.href='signin.html';</script>";
     exit();
 }
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+
+// --- Fetch user info from database ---
+$user_email = isset($_SESSION['email']) ? $_SESSION['email'] : $_COOKIE['user_email'];
+$user_name = '';
+$user_email_display = '';
+
+$con = mysqli_connect("localhost", "root", "", "deskshop");
+if ($con) {
+    $sql = "SELECT username, email FROM user WHERE email = '$user_email'";
+    $results = mysqli_query($con, $sql);
+    if ($row = mysqli_fetch_assoc($results)) {
+        $user_name = $row['username'];
+        $user_email_display = $row['email'];
+    }
+    mysqli_close($con);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,8 +96,8 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
         class="profile-image"
     />
     <div class="profile-info">
-        <h2 class="profile-name">Matheesha Pathirana</h2>
-        <p class="profile-email">pathiranamatheesha@gmail.com</p>
+        <h2 class="profile-name"><?php echo htmlspecialchars($user_name); ?></h2>
+        <p class="profile-email"><?php echo htmlspecialchars($user_email_display); ?></p>
     </div>
     </div>
 </section>
