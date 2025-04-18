@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Products - DeskShop</title>
+    <link rel="stylesheet" href="shop.css">
+    <link rel="icon" type="image/x-icon" href="Assets/icons/favicon.ico?v=2">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mynerve&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+</head>
+<body>
+        <header class="header">
+        <div class="header-content">
+            <h1 class="logo">DeskShop</h1>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">Home</a>
+                <div class="products-dropdown">
+                    <button class="products-dropdown-button">Products</button>
+                    <div class="products-dropdown-content">
+                        <a href="shop.html?category=default" onclick="event.preventDefault(); window.location.href='shop.html?category=default';">All Items</a>
+                        <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
+                        <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
+                        <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
+                        <a href="shop.html?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.html?category=writing-tools';">Writing Tools</a>
+                        <a href="shop.html?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.html?category=colour-products';">Color Products</a>
+                        <a href="shop.html?category=desk-accessories" onclick="event.preventDefault(); window.location.href='shop.html?category=desk-accessories';">Desk Essentials</a>
+                    </div>
+                </div>
+                <a href="about-us.html" class="nav-item">About Us</a>
+                <a href="faq.html" class="nav-item">FAQ</a>
+                <a href="contact-us.html" class="nav-item">Contact us</a>
+                <img
+                src="Assets/icons/add-to-cart.svg"
+                alt="Cart"
+                class="cart-icon"
+                style="cursor: pointer;"
+                onclick="window.location.href='cart.html'"
+                />
+            </nav>
+            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="search-container">
+            <div class="search-bar">
+                <img src="Assets/icons/search.svg" alt="Search" class="search-icon" />
+                <input type="text" placeholder="Search for products..." class="search-input" />
+            </div>
+        </div>
+
+        <section class="banner-section slideshow-container">
+            <div class="mySlides fade">
+                <img src="Assets/Offers Banners/crop banner 3.png" alt="Banner 1" class="banner-image" />
+            </div>
+            <div class="mySlides fade">
+                <img src="Assets/Offers Banners/crop banner 2.png" alt="Banner 2" class="banner-image" />
+            </div>
+            <div class="mySlides fade">
+                <img src="Assets/Offers Banners/crop banner 1.png" alt="Banner 3" class="banner-image" />
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title">All Products</h2>
+            <div class="filter-container">
+                <div class="sort-dropdown">
+                    <button class="sort-dropdown-button">Sort by category</button>
+                    <div class="sort-dropdown-content">
+                        <button data-category="default" id="default-button">All Items</button>
+                        <button data-category="office-items" id="office-items-button">Office Items</button>
+                        <button data-category="school-items" id="school-items-button">School Items</button>
+                        <button data-category="books" id="books-button">Books</button>
+                        <button data-category="writing-tools" id="writing-tools-button">Writing Tools</button>
+                        <button data-category="colour-products" id="colour-products-button">Colour Products</button>
+                        <button data-category="desk-accessories" id="desk-accessories-button">Desk Essentials</button>
+                    </div>
+                </div>
+
+                <div class="sort-dropdown">
+                    <button class="sort-dropdown-button">Sort by</button>
+                    <div class="sort-dropdown-content">
+                        <button data-sort="az">A-Z</button>
+                        <button data-sort="za">Z-A</button>
+                        <button data-sort="low-high">Price: Low to High</button>
+                        <button data-sort="high-low">Price: High to Low</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product Card 1 -->
+                <article class="product-card" data-category="writing-tools school-items office-items">
+                    <div class="product-image-container">
+                        <div></div>
+                        <img src="Assets/Product Page/atlas-eraser-1.png" alt="Atlas Eraser" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas Eraser</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 30.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 2 -->
+                <article class="product-card" data-category="writing-tools school-items">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/ATLAS-SUNFLOWER-YELOW-HB-PENCIL-12PACK.jpg" alt="Atlas Sunflower Yellow HB Pencil 12Pack" class="product-image"/>
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas Sunflower Yellow HB Pencil 12 Pack</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 420.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 3 -->
+                <article class="product-card" data-category="writing-tools school-items">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas Mathematical Box.jpg" alt="Atlas Mathematical Box" class="product-image"/>
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas Mathematical Box</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 500.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 4 -->
+                <article class="product-card" data-category="school-items books">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A5 Practical Book Blank 80Pgs.png" alt="Atlas A5 Practical Blank Book 80 Pages" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A5 Practical Blank Book 80 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 50.00</span>
+                        </div>
+                    </article>
+
+                <!-- Product Card 5 -->
+                <article class="product-card" data-category="school-items books">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A4 CR Book Single Ruled 120Pgs.png" alt="Atlas A4 CR Book Single Ruled 120 Pages" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A4 CR Book Single Ruled 120 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 200.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 6 -->
+                <article class="product-card" data-category="school-items books">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A4 CR Book Square Ruled 160Pgs.png" alt="Atlas A4 CR Book Square Ruled 160 Pages" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A4 CR Book Square Ruled 160 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 300.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 7 -->
+                <article class="product-card" data-category="school-items books">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Atlas A4 Black Drawing Book Small 40Pgs.png" alt="Atlas A4 Black Drawing Book Small 40 Pages" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Atlas A4 Black Drawing Book Small 40 Pages</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 100.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 8 -->
+                <article class="product-card" data-category="school-items colour-products">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Homerun Colour Pencil 12 Colours.jpg" alt="Homerun Colour Pencil 12 Colours" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Homerun Colour Pencil 12 Colours</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 250.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 9 -->
+                <article class="product-card" data-category="school-items colour-products">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Maped Color Peps Star 12 Colour Pencils Pack.jpg" alt="Maped Color Peps Star 12 Colour Pencils Pack" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Maped Color Peps Star 12 Colour Pencils Pack</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 400.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 10 -->
+                <article class="product-card" data-category="school-items colour-products">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Pentium Pastels 24 Colour.jpg" alt="Pentium Pastels 24 Colour" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Pentium Pastels 24 Colour</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 385.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 11 -->
+                <article class="product-card" data-category="writing-tools school-items office-items">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/Mango Plastic Ruler 15cm.png" alt="Mango Plastic Ruler 15cm" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Mango Plastic Ruler 15cm</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 20.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 12 -->
+                <article class="product-card" data-category="school-items office-items">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/mango Stapler Machine.png" alt="Mango Stapler Machine" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Mango Stapler Machine</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 220.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 13 -->
+                <article class="product-card" data-category="office-items">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/mango-puncher-m480.png" alt="Mango Puncher" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Mango Puncher</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 500.00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Card 14 -->
+                <article class="product-card" data-category="office-items desk-accessories">
+                    <div class="product-image-container">
+                        <img src="Assets/Product Page/pencil-holder-pen-holder-3.jpg" alt="Pen Holder" class="product-image" />
+                        <div class="wishlist-icon">
+                            <img src="Assets\icons\wishlist.svg" alt="Favorite" class="favorite-icon" />
+                        </div>                    
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">Pen Holder</h3>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn">Add to cart</button>
+                            <span class="product-price">Rs. 500.00</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            
+
+            <nav class="pagination" aria-label="Page navigation">
+                <button class="page-btn next">Load More</button>
+            </nav>
+        </section>
+    </main>
+
+        <footer class="footer" style="background: linear-gradient(0deg, rgba(115, 115, 115, 0.53) 0%, rgba(242, 242, 242, 0.45) 100%);">
+        <div class="footer-content">
+            <div class="footer-row">
+                <div class="footer-column">
+                    <div class="footer-logo-wrapper">
+                        <img loading="lazy" src="Assets/DeskShop Logo.png" class="footer-logo" alt="DeskShop logo" />
+                        <img loading="lazy" src="Assets/icons/social-media-icons.svg" class="footer-social" alt="Social media icons" />
+                        <p class="footer-copyright">©2025 Matheesha Pathirana</p>
+                    </div>
+                </div>
+                <div class="footer-columns-wrapper">
+                    <div class="footer-links-column">
+                        <div class="footer-links">
+                            <h3 class="footer-links-title">Information</h3>
+                            <nav class="footer-link-list">
+                                <a href="index.html">Main</a><br />
+                                <a href="shop.html">Products</a><br />
+                                <a href="about-us.html">About us</a><br />
+                                <a href="contact-us.html">Contact us</a>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="footer-contact-column">
+                        <div class="footer-contact">
+                            <h3 class="footer-contact-title">Contact</h3>
+                            <p class="footer-contact-phone">
+                                <strong>Phone:</strong><br />
+                                (123)456-7890
+                            </p>
+                            <p class="footer-contact-email">
+                                <strong>Email:</strong><br />
+                                pathiranamatheesha@gmail.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlistIcons = document.querySelectorAll('.wishlist-icon img');
+            wishlistIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    if (this.src.includes('wishlist.svg')) {
+                        this.src = 'Assets/icons/wishlist-select.svg';
+                    } else {
+                        this.src = 'Assets/icons/wishlist.svg';
+                    }
+                    this.classList.add('animate');
+                    setTimeout(() => {
+                        this.classList.remove('animate');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+    <script>
+    window.onload = function() {
+        showSlides();
+    };
+    let slideIndex = 0;
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 5000);
+    }
+
+
+    document.querySelectorAll('.sort-dropdown-content button').forEach(button => {
+        button.addEventListener('click', function () {
+            const selectedCategory = this.getAttribute('data-category');
+            const products = document.querySelectorAll('.product-card');
+
+            products.forEach(product => {
+                const productCategories = product.getAttribute('data-category').split(' ');
+
+                if (selectedCategory === 'default' || productCategories.includes(selectedCategory)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.querySelector('.search-input');
+        const products = document.querySelectorAll('.product-card');
+
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            products.forEach(product => {
+                const productTitle = product.querySelector('.product-title').textContent.toLowerCase();
+
+                if (productTitle.includes(searchTerm)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        if (category) {
+            const button = document.querySelector(`.sort-dropdown-content button[data-category="${category}"]`);
+            if (button) {
+                button.click();
+            }
+        }
+    });
+</script>
+</body>
+</html>
