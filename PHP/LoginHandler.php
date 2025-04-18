@@ -15,6 +15,7 @@ if (isset($_POST['login-btn'])) {
     $results = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($results) > 0) {
+        $user = mysqli_fetch_assoc($results);
         $_SESSION['email'] = $email;
 
         // Set a cookie if "Remember Me" is checked
@@ -22,7 +23,12 @@ if (isset($_POST['login-btn'])) {
             setcookie("user_email", $email, time() + (86400 * 30), "/"); // Cookie valid for 30 days
         }
 
-        header("Location: ../profile.php");
+        // Redirect based on role
+        if ($user['role'] === 'admin') {
+            header("Location: ../Admin/admin.php");
+        } else {
+            header("Location: ../profile.php");
+        }
     } else {
         header("Location: ../signin.html");
     }
