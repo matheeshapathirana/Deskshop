@@ -13,11 +13,11 @@ $results = mysqli_query($con, $sql);
 if ($results && mysqli_num_rows($results) > 0) {
     $user = mysqli_fetch_assoc($results);
     if ($user['role'] !== 'admin') {
-        echo "<script>alert('Access denied. Admins only.'); window.location.href='../signin.html';</script>";
+        echo "<script>alert('Access denied. Admins only.'); window.location.href='../signin.php';</script>";
         exit();
     }
 } else {
-    echo "<script>alert('Please sign in to access admin panel.'); window.location.href='../signin.html';</script>";
+    echo "<script>alert('Please sign in to access admin panel.'); window.location.href='../signin.php';</script>";
     exit();
 }
 ?>

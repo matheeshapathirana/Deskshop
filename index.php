@@ -52,30 +52,30 @@ if (isset($_POST['newsletter-submit'])) {
                         <div class="products-dropdown">
                             <button class="products-dropdown-button">Products</button>
                             <div class="products-dropdown-content">
-                                <a href="shop.html?category=default" onclick="event.preventDefault(); window.location.href='shop.html?category=default';">All Items</a>
-                                <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
-                                <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
-                                <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
-                                <a href="shop.html?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.html?category=writing-tools';">Writing Tools</a>
-                                <a href="shop.html?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.html?category=colour-products';">Color Products</a>
-                                <a href="shop.html?category=desk-accessories" onclick="event.preventDefault(); window.location.href='shop.html?category=desk-accessories';">Desk Essentials</a>
+                                <a href="shop.php?category=default" onclick="event.preventDefault(); window.location.href='shop.php?category=default';">All Items</a>
+                                <a href="shop.php?category=school-items" onclick="event.preventDefault(); window.location.href='shop.php?category=school-items';">School Items</a>
+                                <a href="shop.php?category=office-items" onclick="event.preventDefault(); window.location.href='shop.php?category=office-items';">Office Items</a>
+                                <a href="shop.php?category=books" onclick="event.preventDefault(); window.location.href='shop.php?category=books';">Books</a>
+                                <a href="shop.php?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.php?category=writing-tools';">Writing Tools</a>
+                                <a href="shop.php?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.php?category=colour-products';">Color Products</a>
+                                <a href="shop.php?category=desk-accessories" onclick="event.preventDefault(); window.location.href='shop.php?category=desk-accessories';">Desk Essentials</a>
                             </div>
                         </div>
-                        <a href="about-us.html" class="nav-item">About Us</a>
-                        <a href="faq.html" class="nav-item">FAQ</a>
-                        <a href="contact-us.html" class="nav-item">Contact us</a>
+                        <a href="about-us.php" class="nav-item">About Us</a>
+                        <a href="faq.php" class="nav-item">FAQ</a>
+                        <a href="contact-us.php" class="nav-item">Contact us</a>
                         <img
                         src="Assets/icons/add-to-cart.svg"
                         alt="Cart"
                         class="cart-icon"
                         style="cursor: pointer;"
-                        onclick="window.location.href='cart.html'"
+                        onclick="window.location.href='cart.php'"
                         />
                     </nav>
                     <?php if ($isLoggedIn): ?>
                         <button class="signup-btn" onclick="window.location.href='profile.php'">Profile</button>
                     <?php else: ?>
-                        <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
+                        <button class="signup-btn" onclick="window.location.href='signup.php'">Sign up</button>
                     <?php endif; ?>
                 </div>
             </header>
@@ -85,7 +85,7 @@ if (isset($_POST['newsletter-submit'])) {
                 <?php if ($isLoggedIn): ?>
                     <button class="hero-cta" onclick="window.location.href='profile.php'">Profile</button>
                 <?php else: ?>
-                    <button class="hero-cta" onclick="window.location.href='signup.html'">Sign up</button>
+                    <button class="hero-cta" onclick="window.location.href='signup.php'">Sign up</button>
                 <?php endif; ?>
             </div>
         </section>
@@ -93,26 +93,26 @@ if (isset($_POST['newsletter-submit'])) {
         <h2 class="section-title">Shop by Categories</h2>
         <div class="grid-container">
             <div class="grid-item small-width">
-            <img src="Assets/writing-tools.png" alt="Writing Tools" onclick="window.location.href='shop.html?category=writing-tools'">
+            <img src="Assets/writing-tools.png" alt="Writing Tools" onclick="window.location.href='shop.php?category=writing-tools'">
             <div class="overlay">
             <h3>Writing Tools</h3>
             </div>
         </div>
         <div class="grid-item large-width">
-            <img src="Assets/desk-accessories.png" alt="Desk Accessories" onclick="window.location.href='shop.html?category=desk-accessories'">
+            <img src="Assets/desk-accessories.png" alt="Desk Accessories" onclick="window.location.href='shop.php?category=desk-accessories'">
             <div class="overlay">
             <h3>Desk Accessories</h3>
             </div>
         </div>
         <div class="grid-item large-width">
-            <img src="Assets/office-essentials.png" alt="Office Essentials" onclick="window.location.href='shop.html?category=office-items'">
+            <img src="Assets/office-essentials.png" alt="Office Essentials" onclick="window.location.href='shop.php?category=office-items'">
             <div class="overlay">
             <h3>Office</h3>
             <h3>Essentials</h3>
             </div>
         </div>
         <div class="grid-item small-width">
-            <img src="Assets/art-supplies.png" alt="Art Supplies" onclick="window.location.href='shop.html?category=art-supplies'">
+            <img src="Assets/art-supplies.png" alt="Art Supplies" onclick="window.location.href='shop.php?category=art-supplies'">
             <div class="overlay">
             <h3>Art Supplies</h3>
             </div>
@@ -409,10 +409,10 @@ if (isset($_POST['newsletter-submit'])) {
                     <div class="footer-links">
                         <h3 class="footer-links-title">Information</h3>
                         <nav class="footer-link-list">
-                            <a href="index.html">Main</a><br />
-                            <a href="shop.html">Products</a><br />
-                            <a href="about-us.html">About us</a><br />
-                            <a href="contact-us.html">Contact us</a>
+                            <a href="index.php">Main</a><br />
+                            <a href="shop.php">Products</a><br />
+                            <a href="about-us.php">About us</a><br />
+                            <a href="contact-us.php">Contact us</a>
                         </nav>
                     </div>
                 </div>

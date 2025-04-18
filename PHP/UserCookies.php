@@ -24,7 +24,7 @@ if (isset($_POST['login-btn'])) {
 
         header("Location: ../profile.html");
     } else {
-        header("Location: ../signin.html");
+        header("Location: ../signin.php");
     }
 }
 ?>

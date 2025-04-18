@@ -18,7 +18,7 @@ if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
 }
 
 if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
-    echo "<script>alert('You must be signed in to access this page.'); window.location.href='signin.html';</script>";
+    echo "<script>alert('You must be signed in to access this page.'); window.location.href='signin.php';</script>";
     exit();
 }
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
@@ -55,34 +55,34 @@ if ($con) {
 <div class="header-content">
         <h1 class="logo">DeskShop</h1>
         <nav class="nav-menu">
-                <a href="index.html" class="nav-item">Home</a>
+                <a href="index.php" class="nav-item">Home</a>
                 <div class="products-dropdown">
                         <button class="products-dropdown-button">Products</button>
                         <div class="products-dropdown-content">
-                                <a href="shop.html?category=default" onclick="event.preventDefault(); window.location.href='shop.html?category=default';">All Items</a>
-                                <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
-                                <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
-                                <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
-                                <a href="shop.html?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.html?category=writing-tools';">Writing Tools</a>
-                                <a href="shop.html?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.html?category=colour-products';">Color Products</a>
-                                <a href="shop.html?category=desk-accessories" onclick="event.preventDefault(); window.location.href='shop.html?category=desk-accessories';">Desk Essentials</a>
+                                <a href="shop.php?category=default" onclick="event.preventDefault(); window.location.href='shop.php?category=default';">All Items</a>
+                                <a href="shop.php?category=school-items" onclick="event.preventDefault(); window.location.href='shop.php?category=school-items';">School Items</a>
+                                <a href="shop.php?category=office-items" onclick="event.preventDefault(); window.location.href='shop.php?category=office-items';">Office Items</a>
+                                <a href="shop.php?category=books" onclick="event.preventDefault(); window.location.href='shop.php?category=books';">Books</a>
+                                <a href="shop.php?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.php?category=writing-tools';">Writing Tools</a>
+                                <a href="shop.php?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.php?category=colour-products';">Color Products</a>
+                                <a href="shop.php?category=desk-accessories" onclick="event.preventDefault(); window.location.href='shop.php?category=desk-accessories';">Desk Essentials</a>
                         </div>
                 </div>
-                <a href="about-us.html" class="nav-item">About Us</a>
-                <a href="faq.html" class="nav-item">FAQ</a>
-                <a href="contact-us.html" class="nav-item">Contact us</a>
+                <a href="about-us.php" class="nav-item">About Us</a>
+                <a href="faq.php" class="nav-item">FAQ</a>
+                <a href="contact-us.php" class="nav-item">Contact us</a>
                 <img
                 src="Assets/icons/add-to-cart.svg"
                 alt="Cart"
                 class="cart-icon"
                 style="cursor: pointer;"
-                onclick="window.location.href='cart.html'"
+                onclick="window.location.href='cart.php'"
                 />
         </nav>
         <?php if ($isLoggedIn): ?>
             <button class="signup-btn" onclick="window.location.href='profile.php'">Profile</button>
         <?php else: ?>
-            <button class="signup-btn" onclick="window.location.href='signup.html'">Sign up</button>
+            <button class="signup-btn" onclick="window.location.href='signup.php'">Sign up</button>
         <?php endif; ?>
 </div>
 </header>
@@ -109,7 +109,7 @@ if ($con) {
         <button class="action-btn signout-btn" onclick="window.location.href='PHP/logout.php'">Sign Out</button>
     </div>
     <div class="bottom-button">
-        <button class="action-btn wishlist-btn" onclick="window.location.href='wishlist.html'">Wishlist</button>
+        <button class="action-btn wishlist-btn" onclick="window.location.href='wishlist.php'">Wishlist</button>
     </div>
 </section>
 
@@ -128,10 +128,10 @@ if ($con) {
                                 <div class="footer-links">
                                         <h3 class="footer-links-title">Information</h3>
                                         <nav class="footer-link-list">
-                                                <a href="index.html">Main</a><br />
-                                                <a href="shop.html">Products</a><br />
-                                                <a href="about-us.html">About us</a><br />
-                                                <a href="contact-us.html">Contact us</a>
+                                                <a href="index.php">Main</a><br />
+                                                <a href="shop.php">Products</a><br />
+                                                <a href="about-us.php">About us</a><br />
+                                                <a href="contact-us.php">Contact us</a>
                                         </nav>
                                 </div>
                         </div>
@@ -156,7 +156,7 @@ if ($con) {
 <script>
     function signout() {
         alert('You have been signed out.');
-        window.location.href = 'signin.html';
+        window.location.href = 'signin.php';
     }
 </script>
 </body>

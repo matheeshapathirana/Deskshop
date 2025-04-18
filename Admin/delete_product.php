@@ -8,19 +8,19 @@ if (!$con) {
 
 // Check admin access
 if (!isset($_SESSION['email'])) {
-    header("Location: ../signin.html");
+    header("Location: ../signin.php");
     exit();
 }
 $email = $_SESSION['email'];
 $sql = "SELECT role FROM user WHERE email = '$email'";
 $result = mysqli_query($con, $sql);
 if (!$result || mysqli_num_rows($result) == 0) {
-    header("Location: ../signin.html");
+    header("Location: ../signin.php");
     exit();
 }
 $user = mysqli_fetch_assoc($result);
 if ($user['role'] !== 'admin') {
-    header("Location: ../signin.html");
+    header("Location: ../signin.php");
     exit();
 }
 

@@ -15,5 +15,5 @@
 
     $sql = "INSERT INTO user (username, email, contact_number, password, role) VALUES ('$username', '$email', '$contact_number', '$password', '$role')";
     mysqli_query($conn, $sql);
-    header("Location: ../signin.html");
+    header("Location: ../signin.php");
 ?>
