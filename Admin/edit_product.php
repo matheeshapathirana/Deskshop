@@ -22,7 +22,13 @@ if (
     $price = floatval($_POST['price']);
     $stock = intval($_POST['stock']);
 
-    $sql = "UPDATE products SET name='$name', price=$price, stock=$stock WHERE product_code='$code'";
+    if (isset($_POST['image_url']) && $_POST['image_url'] !== '') {
+        $image_url = mysqli_real_escape_string($con, $_POST['image_url']);
+        $sql = "UPDATE products SET name='$name', price=$price, stock=$stock, image_url='$image_url' WHERE product_code='$code'";
+    } else {
+        $sql = "UPDATE products SET name='$name', price=$price, stock=$stock WHERE product_code='$code'";
+    }
+
     if (mysqli_query($con, $sql)) {
         header("Location: admin.php");
         exit();

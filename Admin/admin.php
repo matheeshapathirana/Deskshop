@@ -55,18 +55,21 @@ if ($results && mysqli_num_rows($results) > 0) {
         document.getElementById('addProductForm').submit();
     }
 
-    function editProduct(code, name, price, stock) {
+    function editProduct(code, name, price, stock, image_url = '') {
         let newName = prompt("Edit product name:", name);
         if (newName === null) return;
         let newPrice = prompt("Edit product price:", price);
         if (newPrice === null) return;
         let newStock = prompt("Edit product stock:", stock);
         if (newStock === null) return;
+        let newImageUrl = prompt("Edit image URL:", image_url);
+        if (newImageUrl === null) return;
 
         document.getElementById('edit_code').value = code;
         document.getElementById('edit_name').value = newName;
         document.getElementById('edit_price').value = newPrice;
         document.getElementById('edit_stock').value = newStock;
+        document.getElementById('edit_image_url').value = newImageUrl;
         document.getElementById('editProductForm').submit();
     }
 
@@ -103,6 +106,7 @@ if ($results && mysqli_num_rows($results) > 0) {
                 <input type="hidden" name="name" id="edit_name">
                 <input type="hidden" name="price" id="edit_price">
                 <input type="hidden" name="stock" id="edit_stock">
+                <input type="hidden" name="image_url" id="edit_image_url">
             </form>
             <form id="deleteProductForm" action="delete_product.php" method="post" style="display:none;">
                 <input type="hidden" name="code" id="delete_code">
@@ -119,7 +123,7 @@ if ($results && mysqli_num_rows($results) > 0) {
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT p.product_code, p.name, p.price, p.stock
+                    $sql = "SELECT p.product_code, p.name, p.price, p.stock, p.image_url
                             FROM products p";
                     $result = mysqli_query($con, $sql);
                     if ($result && mysqli_num_rows($result) > 0) {
@@ -134,7 +138,8 @@ if ($results && mysqli_num_rows($results) > 0) {
                                         . '\'' . addslashes($row['product_code']) . '\','
                                         . '\'' . addslashes($row['name']) . '\','
                                         . '\'' . addslashes($row['price']) . '\','
-                                        . '\'' . addslashes($row['stock']) . '\')">Edit</button>
+                                        . '\'' . addslashes($row['stock']) . '\','
+                                        . '\'' . addslashes($row['image_url']) . '\')">Edit</button>
                                     <button class="delete-button" type="button" onclick="deleteProduct(\''
                                         . addslashes($row['product_code']) . '\')">Delete</button>
                                 </td>';
