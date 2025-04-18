@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
-    echo "<script>alert('Please sign in to access your cart.'); window.location.href='signin.html';</script>";
+    echo "<script>alert('Please sign in to access your wish list.'); window.location.href='signin.html';</script>";
     exit();
 }
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);

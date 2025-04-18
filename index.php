@@ -1,6 +1,34 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+
+// Newsletter handler
+if (isset($_POST['newsletter-submit'])) {
+    $email = $_POST['email'];
+
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if (!$con) {
+        $newsletter_message = "Connection failed: " . mysqli_connect_error();
+    } else {
+        // Check for duplicates
+        $sql = "SELECT * FROM NewsletterSubscriptions WHERE EmailAddress = '$email'";
+        $result = mysqli_query($con, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            $newsletter_message = "Email already subscribed!";
+        } else {
+            $sql = "INSERT INTO NewsletterSubscriptions (EmailAddress) VALUES ('$email')";
+            $insert_result = mysqli_query($con, $sql);
+
+            if ($insert_result) {
+                $newsletter_message = "Subscription successful!";
+            } else {
+                $newsletter_message = "Error: " . mysqli_error($con);
+            }
+        }
+        mysqli_close($con);
+    }
+}
 ?>
 <!doctype html>
 <html>
@@ -351,14 +379,17 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
         <img loading="lazy" src="Assets/icons/verified-email-contact-us.png" class="faq-icon" alt="FAQ icon" />
         <span class="faq-text">Browse our FAQ</span>
         </div>
-        <form class="newsletter-form">
+        <form class="newsletter-form" method="POST">
             <div class="newsletter-input-wrapper">
             <img src="Assets/icons/email-contact-us.png" 
                 class="newsletter-icon" alt="Email icon" />
-            <input type="email" class="newsletter-input" placeholder="Enter your email address..." aria-label="Enter your email address" />
+            <input type="email" name="email" class="newsletter-input" placeholder="Enter your email address..." aria-label="Enter your email address" />
         </div>
-        <button type="submit" class="newsletter-submit">Submit</button>
+        <button type="submit" name="newsletter-submit" class="newsletter-submit">Submit</button>
         </form>
+        <?php if (isset($newsletter_message)): ?>
+            <p class="newsletter-message"><?php echo $newsletter_message; ?></p>
+        <?php endif; ?>
     </div>
     </section>
     </div>
