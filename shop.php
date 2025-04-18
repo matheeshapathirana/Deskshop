@@ -1,3 +1,7 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +42,11 @@
                 onclick="window.location.href='cart.php'"
                 />
             </nav>
-            <button class="signup-btn" onclick="window.location.href='signup.php'">Sign up</button>
+            <?php if ($isLoggedIn): ?>
+                <button class="signup-btn" onclick="window.location.href='profile.php'">Profile</button>
+            <?php else: ?>
+                <button class="signup-btn" onclick="window.location.href='signup.php'">Sign up</button>
+            <?php endif; ?>
         </div>
     </header>
 
