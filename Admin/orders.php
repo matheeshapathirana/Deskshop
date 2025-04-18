@@ -36,6 +36,7 @@ if ($results && mysqli_num_rows($results) > 0) {
       <ul>
         <li><a href="admin.php">Products</a></li>
         <li><a href="#" class="active">Orders</a></li>
+        <li><a href="../index.php">DeskShop</a></li>
         <li><a href="#logout" onclick="window.location.href='../PHP/logout.php'">Logout</a></li>
       </ul>
     </aside>
