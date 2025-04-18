@@ -339,6 +339,15 @@ button.signup-btn:active::after {
         background-color: #2b1b12;
 }
 
+.remember-label{
+        font-size: 9px;
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 5px;
+        display: block;
+        font-family: "Poppins", sans-serif;
+}
+
 .login-link {
         text-align: center;
         margin-top: 20px;
