@@ -24,35 +24,51 @@ if ($results && mysqli_num_rows($results) > 0) {
 header('Content-Type: text/html');
 
 function addProductWithCategories($con, $product, $categories) {
-    // Insert product using simple SQL (not recommended for production)
+    // Remove duplicate and empty category names
+    $categories = array_unique(array_filter(array_map('trim', $categories)));
+    if (empty($categories)) return false;
+
+    // Insert product
     $code = $product['code'];
     $name = $product['name'];
     $price = $product['price'];
     $stock = $product['stock'];
     $image_url = $product['image_url'];
     $sql = "INSERT INTO products (product_code, name, price, stock, image_url) VALUES ('$code', '$name', '$price', '$stock', '$image_url')";
-    mysqli_query($con, $sql);
+    if (!mysqli_query($con, $sql)) {
+        return false;
+    }
 
-    // Insert categories and link them (keep using prepared statements for these)
     foreach ($categories as $category) {
+        // 1. Try to get the category_id
         $stmt = $con->prepare("SELECT category_id FROM categories WHERE category_name = ?");
         $stmt->bind_param("s", $category);
         $stmt->execute();
         $stmt->bind_result($category_id);
         if ($stmt->fetch()) {
-            // No need to close $stmt here
+            $stmt->close();
         } else {
+            $stmt->close();
+            // 2. Insert new category if not exists
             $stmt = $con->prepare("INSERT INTO categories (category_name) VALUES (?)");
             $stmt->bind_param("s", $category);
-            $stmt->execute();
+            if (!$stmt->execute()) {
+                $stmt->close();
+                return false;
+            }
             $category_id = $con->insert_id;
-            // No need to close $stmt here
+            $stmt->close();
         }
-        $stmt = $con->prepare("INSERT INTO product_categories (product_code, category_id) VALUES (?, ?)");
+        // 3. Link product and category (avoid duplicates by using INSERT IGNORE)
+        $stmt = $con->prepare("INSERT IGNORE INTO product_categories (product_code, category_id) VALUES (?, ?)");
         $stmt->bind_param("si", $product['code'], $category_id);
-        $stmt->execute();
-        // No need to close $stmt here
+        if (!$stmt->execute()) {
+            $stmt->close();
+            return false;
+        }
+        $stmt->close();
     }
+    return true;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -65,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
     $categories = array_map('trim', explode(',', $_POST['categories']));
 
-    // Remove try-catch, use simple error handling
     if (addProductWithCategories($con, $product, $categories) === false) {
         echo "<script>alert('Error adding product.');window.location.href='admin.php';</script>";
     } else {
