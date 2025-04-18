@@ -27,14 +27,16 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 $user_email = isset($_SESSION['email']) ? $_SESSION['email'] : $_COOKIE['user_email'];
 $user_name = '';
 $user_email_display = '';
+$user_role = '';
 
 $con = mysqli_connect("localhost", "root", "", "deskshop");
 if ($con) {
-    $sql = "SELECT username, email FROM user WHERE email = '$user_email'";
+    $sql = "SELECT username, email, role FROM user WHERE email = '$user_email'";
     $results = mysqli_query($con, $sql);
     if ($row = mysqli_fetch_assoc($results)) {
         $user_name = $row['username'];
         $user_email_display = $row['email'];
+        $user_role = isset($row['role']) ? $row['role'] : '';
     }
     mysqli_close($con);
 }
@@ -110,6 +112,9 @@ if ($con) {
     </div>
     <div class="bottom-button">
         <button class="action-btn wishlist-btn" onclick="window.location.href='wishlist.php'">Wishlist</button>
+                <?php if ($user_role === 'admin'): ?>
+            <button class="action-btn wishlist-btn" onclick="window.location.href='Admin/admin.php'">Admin Panel</button>
+        <?php endif; ?>
     </div>
 </section>
 
