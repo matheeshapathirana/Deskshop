@@ -127,7 +127,7 @@ if ($results && mysqli_num_rows($results) > 0) {
                             echo "<tr>";
                             echo "<td>" . htmlspecialchars($row['product_code']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-                            echo "<td>$" . htmlspecialchars($row['price']) . "</td>";
+                            echo "<td>Rs. " . htmlspecialchars($row['price']) . "</td>";
                             echo "<td>" . htmlspecialchars($row['stock']) . "</td>";
                             echo '<td class="action-buttons">
                                     <button class="edit-button" type="button" onclick="editProduct('
