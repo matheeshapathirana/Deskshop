@@ -2,6 +2,56 @@
 session_start();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
+// --- Wishlist handlers (no AJAX) ---
+// Updated for new wishlists table structure (id, product_code)
+if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
+    if ($isLoggedIn) {
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+            // Get user id (now 'id' instead of 'user_id')
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_row = mysqli_fetch_assoc($user_q);
+            if ($user_row) {
+                $id = $user_row['id'];
+                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                if ($_POST['wishlist_action'] === 'add') {
+                    $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                    if (mysqli_num_rows($check) == 0) {
+                        mysqli_query($con, "INSERT INTO wishlists (id, product_code) VALUES ($id, '$product_code')");
+                    }
+                } elseif ($_POST['wishlist_action'] === 'remove') {
+                    mysqli_query($con, "DELETE FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                }
+            }
+            mysqli_close($con);
+        }
+    }
+    // Redirect to avoid form resubmission
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit;
+}
+
+// Fetch user's wishlist product_codes for marking icons
+$user_wishlist_product_ids = [];
+if ($isLoggedIn) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+        // Get user id (now 'id')
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_row = mysqli_fetch_assoc($user_q);
+        if ($user_row) {
+            $id = $user_row['id'];
+            $wl_q = mysqli_query($con, "SELECT product_code FROM wishlists WHERE id = $id");
+            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+                $user_wishlist_product_ids[] = $wl_row['product_code'];
+            }
+        }
+        mysqli_close($con);
+    }
+}
+
 // Database connection
 $con = mysqli_connect("localhost", "root", "", "deskshop");
 if (!$con) {
@@ -34,6 +84,23 @@ if ($result) {
         .product-title a{
             text-decoration: none;
             color: inherit;
+        }
+        /* Wishlist icon button style */
+        .wishlist-icon-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 2;
+        }
+        .wishlist-icon-btn img.selected {
+            filter: drop-shadow(0 0 2px #e74c3c);
+        }
+        .wishlist-icon {
+            display: none; /* Hide old JS wishlist icon */
         }
     </style>
 </head>
@@ -122,13 +189,26 @@ if ($result) {
             </div>
 
             <div class="product-grid">
-                <?php foreach ($products as $product): ?>
+                <?php foreach ($products as $product): 
+                    $is_in_wishlist = in_array($product['product_code'], $user_wishlist_product_ids);
+                ?>
                 <article class="product-card" data-category="<?php echo htmlspecialchars($product['categories']); ?>">
-                    <div class="product-image-container">
+                    <div class="product-image-container" style="position:relative;">
+                        <!-- Wishlist form button -->
+                        <?php if ($isLoggedIn): ?>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                            <input type="hidden" name="wishlist_action" value="<?php echo $is_in_wishlist ? 'remove' : 'add'; ?>">
+                            <button type="submit" class="wishlist-icon-btn">
+                                <img src="Assets/icons/<?php echo $is_in_wishlist ? 'wishlist-select.svg' : 'wishlist.svg'; ?>" alt="Wishlist Icon" class="<?php echo $is_in_wishlist ? 'selected' : ''; ?>" />
+                            </button>
+                        </form>
+                        <?php else: ?>
+                        <button class="wishlist-icon-btn" title="Sign in to use wishlist" onclick="window.location.href='signup.php'">
+                            <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                        </button>
+                        <?php endif; ?>
                         <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="product-image" />
-                        <div class="wishlist-icon">
-                            <img src="Assets/icons/wishlist.svg" alt="Favorite" class="favorite-icon" />
-                        </div>
                     </div>
                     <div class="product-details">
                         <h3 class="product-title">
@@ -192,24 +272,6 @@ if ($result) {
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const wishlistIcons = document.querySelectorAll('.wishlist-icon img');
-            wishlistIcons.forEach(icon => {
-                icon.addEventListener('click', function() {
-                    if (this.src.includes('wishlist.svg')) {
-                        this.src = 'Assets/icons/wishlist-select.svg';
-                    } else {
-                        this.src = 'Assets/icons/wishlist.svg';
-                    }
-                    this.classList.add('animate');
-                    setTimeout(() => {
-                        this.classList.remove('animate');
-                    }, 300);
-                });
-            });
-        });
-    </script>
     <script>
     window.onload = function() {
         showSlides();
