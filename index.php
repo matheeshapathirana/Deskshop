@@ -29,6 +29,30 @@ if (isset($_POST['newsletter-submit'])) {
         mysqli_close($con);
     }
 }
+
+// Fetch products for Hot Deals and Featured Products
+$con = mysqli_connect("localhost", "root", "", "deskshop");
+$hot_deals = [];
+$featured_products = [];
+if ($con) {
+    // Hot Deals: get 6 lowest price products (fixed selection)
+    $sql_hot = "SELECT product_code, name, price, image_url FROM products ORDER BY price ASC, product_code ASC LIMIT 6";
+    $result_hot = mysqli_query($con, $sql_hot);
+    if ($result_hot) {
+        while ($row = mysqli_fetch_assoc($result_hot)) {
+            $hot_deals[] = $row;
+        }
+    }
+    // Featured Products: get 6 latest products
+    $sql_feat = "SELECT product_code, name, price, image_url FROM products ORDER BY product_code DESC LIMIT 6";
+    $result_feat = mysqli_query($con, $sql_feat);
+    if ($result_feat) {
+        while ($row = mysqli_fetch_assoc($result_feat)) {
+            $featured_products[] = $row;
+        }
+    }
+    mysqli_close($con);
+}
 ?>
 <!doctype html>
 <html>
@@ -39,6 +63,22 @@ if (isset($_POST['newsletter-submit'])) {
     <link rel="stylesheet" type="text/css" href="index.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mynerve&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        .product-card {
+            background: #fff !important;
+        }
+        .product-image-container {
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            position: relative;
+        }
+        div.product-row:nth-child(2) {
+            margin-top: 40px;
+        }
+        .product-title a {
+            text-decoration: none;
+            color: #000 !important;
+        }
     </style>
 </head>
 <body>
@@ -119,106 +159,42 @@ if (isset($_POST['newsletter-submit'])) {
         </div>
         </div>
 
+        <?php if (!isset($hot_deals)) $hot_deals = []; ?>
         <section class="hot-deals-section">
         <div class="hot-deals-content">
             <h2 class="hot-deals-title">Hot Deals</h2>
             <div class="product-grid">
-            <div class="product-row">
-                <div class="product-column">
-                <div class="product-card">
-                    <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-                    <div class="wishlist-icon">
-                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
+                <?php for ($row = 0; $row < 2; $row++): ?>
+                <div class="product-row">
+                    <?php for ($col = 0; $col < 3; $col++):
+                        $idx = $row * 3 + $col;
+                        if (!isset($hot_deals[$idx])) continue;
+                        $product = $hot_deals[$idx];
+                    ?>
+                    <div class="product-column">
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <img loading="lazy" src="<?php echo htmlspecialchars($product['image_url']); ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" />
+                                <div class="wishlist-icon">
+                                    <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                                </div>
+                            </div>
+                            <div class="product-details">
+                                <h3 class="product-title">
+                                    <a href="product.php?code=<?php echo urlencode($product['product_code']); ?>">
+                                        <?php echo htmlspecialchars($product['name']); ?>
+                                    </a>
+                                </h3>
+                                <div class="product-actions">
+                                    <button class="add-to-cart-btn">Add to cart</button>
+                                    <span class="product-price">Rs. <?php echo number_format($product['price'], 2); ?></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-                    <div class="product-actions">
-                        <button class="add-to-cart-btn">Add to cart</button>
-                        <span class="product-price">Rs. 30.00</span>
-                    </div>
-                    </div>
+                    <?php endfor; ?>
                 </div>
-                </div>
-                <div class="product-column">
-                <div class="product-card">
-                    <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-                    <div class="wishlist-icon">
-                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-                    </div>
-                    <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-                    <div class="product-actions">
-                        <button class="add-to-cart-btn">Add to cart</button>
-                        <span class="product-price">Rs. 30.00</span>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="product-column">
-                <div class="product-card">
-                    <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-                    <div class="wishlist-icon">
-                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-                    </div>
-                    <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-                    <div class="product-actions">
-                        <button class="add-to-cart-btn">Add to cart</button>
-                        <span class="product-price">Rs. 30.00</span>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            <div class="product-grid">
-            <div class="product-row">
-                <div class="product-column">
-                <div class="product-card">
-                    <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-                    <div class="wishlist-icon">
-                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-                    </div>
-                    <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-                    <div class="product-actions">
-                        <button class="add-to-cart-btn">Add to cart</button>
-                        <span class="product-price">Rs. 30.00</span>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="product-column">
-                <div class="product-card">
-                    <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-                    <div class="wishlist-icon">
-                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-                    </div>
-                    <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-                    <div class="product-actions">
-                        <button class="add-to-cart-btn">Add to cart</button>
-                        <span class="product-price">Rs. 30.00</span>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="product-column">
-                <div class="product-card">
-                    <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-                    <div class="wishlist-icon">
-                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-                    </div>
-                    <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-                    <div class="product-actions">
-                        <button class="add-to-cart-btn">Add to cart</button>
-                        <span class="product-price">Rs. 30.00</span>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
+                <?php endfor; ?>
             </div>
         </div>
         </section>
@@ -239,107 +215,63 @@ if (isset($_POST['newsletter-submit'])) {
         </section>
 
         <h2 class="section-title">Featured Products</h2>
-    <section class="featured-products-section">
-    <div class="product-row">
-    <div class="product-column">
-        <div class="product-card">
-        <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-        <div class="wishlist-icon">
-            <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-        </div>
-        <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-            <div class="product-actions">
-            <button class="add-to-cart-btn">Add to cart</button>
-            <span class="product-price">Rs. 30.00</span>
+        <section class="featured-products-section">
+            <div class="product-row">
+            <?php foreach (array_slice($featured_products, 0, 3) as $product): ?>
+                <div class="product-column">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img loading="lazy" src="<?php echo htmlspecialchars($product['image_url']); ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" />
+                            <div class="wishlist-icon">
+                                <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                            </div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">
+                                <a href="product.php?code=<?php echo urlencode($product['product_code']); ?>">
+                                    <?php echo htmlspecialchars($product['name']); ?>
+                                </a>
+                            </h3>
+                            <div class="product-actions">
+                                <button class="add-to-cart-btn">Add to cart</button>
+                                <span class="product-price">Rs. <?php echo number_format($product['price'], 2); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
             </div>
-        </div>
-        </div>
-    </div>
-    <div class="product-column">
-        <div class="product-card">
-        <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-        <div class="wishlist-icon">
-            <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-        </div>
-        <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-            <div class="product-actions">
-            <button class="add-to-cart-btn">Add to cart</button>
-            <span class="product-price">Rs. 30.00</span>
-            </div>
-        </div>
-        </div>
-    </div>
-    <div class="product-column">
-        <div class="product-card">
-        <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-        <div class="wishlist-icon">
-            <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-        </div>
-        <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-            <div class="product-actions">
-            <button class="add-to-cart-btn">Add to cart</button>
-            <span class="product-price">Rs. 30.00</span>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
-    </section>
+        </section>
 
-    <section class="featured-products-section">
-        <div class="product-row">
-        <div class="product-column">
-        <div class="product-card">
-            <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-            <div class="wishlist-icon">
-                <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
+        <section class="featured-products-section">
+            <div class="product-row">
+            <?php foreach (array_slice($featured_products, 3, 3) as $product): ?>
+                <div class="product-column">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img loading="lazy" src="<?php echo htmlspecialchars($product['image_url']); ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" />
+                            <div class="wishlist-icon">
+                                <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
+                            </div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-title">
+                                <a href="product.php?code=<?php echo urlencode($product['product_code']); ?>">
+                                    <?php echo htmlspecialchars($product['name']); ?>
+                                </a>
+                            </h3>
+                            <div class="product-actions">
+                                <button class="add-to-cart-btn">Add to cart</button>
+                                <span class="product-price">Rs. <?php echo number_format($product['price'], 2); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
             </div>
-            <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-            <div class="product-actions">
-                <button class="add-to-cart-btn">Add to cart</button>
-                <span class="product-price">Rs. 30.00</span>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="product-column">
-        <div class="product-card">
-            <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-            <div class="wishlist-icon">
-                <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-            </div>
-            <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-            <div class="product-actions">
-                <button class="add-to-cart-btn">Add to cart</button>
-                <span class="product-price">Rs. 30.00</span>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="product-column">
-        <div class="product-card">
-            <img loading="lazy" src="Assets\Products\atlas-eraser.png" class="product-image" alt="Atlas Eraser" />
-            <div class="wishlist-icon">
-                <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
-            </div>
-            <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
-            <div class="product-actions">
-                <button class="add-to-cart-btn">Add to cart</button>
-                <span class="product-price">Rs. 30.00</span>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-    </section>
+        </section>
 
-    <section class="about-section">
+        <section class="about-section">
         <div class="about-content">
         <div class="about-row">
         <div class="about-columns">
