@@ -131,7 +131,7 @@ if (isset($_POST['newsletter-submit'])) {
                         <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
                     </div>
                     <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
                     <div class="product-actions">
                         <button class="add-to-cart-btn">Add to cart</button>
                         <span class="product-price">Rs. 30.00</span>
@@ -146,7 +146,7 @@ if (isset($_POST['newsletter-submit'])) {
                         <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
                     </div>
                     <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
                     <div class="product-actions">
                         <button class="add-to-cart-btn">Add to cart</button>
                         <span class="product-price">Rs. 30.00</span>
@@ -161,7 +161,7 @@ if (isset($_POST['newsletter-submit'])) {
                         <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
                     </div>
                     <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
                     <div class="product-actions">
                         <button class="add-to-cart-btn">Add to cart</button>
                         <span class="product-price">Rs. 30.00</span>
@@ -180,7 +180,7 @@ if (isset($_POST['newsletter-submit'])) {
                         <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
                     </div>
                     <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
                     <div class="product-actions">
                         <button class="add-to-cart-btn">Add to cart</button>
                         <span class="product-price">Rs. 30.00</span>
@@ -195,7 +195,7 @@ if (isset($_POST['newsletter-submit'])) {
                         <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
                     </div>
                     <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
                     <div class="product-actions">
                         <button class="add-to-cart-btn">Add to cart</button>
                         <span class="product-price">Rs. 30.00</span>
@@ -210,7 +210,7 @@ if (isset($_POST['newsletter-submit'])) {
                         <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
                     </div>
                     <div class="product-details">
-                    <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+                    <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
                     <div class="product-actions">
                         <button class="add-to-cart-btn">Add to cart</button>
                         <span class="product-price">Rs. 30.00</span>
@@ -248,7 +248,7 @@ if (isset($_POST['newsletter-submit'])) {
             <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
         </div>
         <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
             <div class="product-actions">
             <button class="add-to-cart-btn">Add to cart</button>
             <span class="product-price">Rs. 30.00</span>
@@ -263,7 +263,7 @@ if (isset($_POST['newsletter-submit'])) {
             <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
         </div>
         <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
             <div class="product-actions">
             <button class="add-to-cart-btn">Add to cart</button>
             <span class="product-price">Rs. 30.00</span>
@@ -278,7 +278,7 @@ if (isset($_POST['newsletter-submit'])) {
             <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
         </div>
         <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
             <div class="product-actions">
             <button class="add-to-cart-btn">Add to cart</button>
             <span class="product-price">Rs. 30.00</span>
@@ -298,7 +298,7 @@ if (isset($_POST['newsletter-submit'])) {
                 <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
             </div>
             <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
             <div class="product-actions">
                 <button class="add-to-cart-btn">Add to cart</button>
                 <span class="product-price">Rs. 30.00</span>
@@ -313,7 +313,7 @@ if (isset($_POST['newsletter-submit'])) {
                 <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
             </div>
             <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
             <div class="product-actions">
                 <button class="add-to-cart-btn">Add to cart</button>
                 <span class="product-price">Rs. 30.00</span>
@@ -328,7 +328,7 @@ if (isset($_POST['newsletter-submit'])) {
                 <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
             </div>
             <div class="product-details">
-            <h3 class="product-title"><a class="product-eraser" href="product.html">Atlas Eraser</a></h3>
+            <h3 class="product-title"><a class="product-eraser" href="product.php">Atlas Eraser</a></h3>
             <div class="product-actions">
                 <button class="add-to-cart-btn">Add to cart</button>
                 <span class="product-price">Rs. 30.00</span>
