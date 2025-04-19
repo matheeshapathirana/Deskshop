@@ -1,8 +1,34 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+
+// Database connection
+$con = mysqli_connect("localhost", "root", "", "deskshop");
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Get product code from URL
+$product = null;
+if (isset($_GET['code'])) {
+    $code = mysqli_real_escape_string($con, $_GET['code']);
+    $sql = "SELECT p.product_code, p.name, p.price, p.image_url, p.stock, GROUP_CONCAT(c.category_name SEPARATOR ' ') as categories
+            FROM products p
+            LEFT JOIN product_categories pc ON p.product_code = pc.product_code
+            LEFT JOIN categories c ON pc.category_id = c.category_id
+            WHERE p.product_code = '$code'
+            GROUP BY p.product_code";
+    $result = mysqli_query($con, $sql);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $product = mysqli_fetch_assoc($result);
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atlas Eraser - Product Page</title>
+    <title><?php echo $product ? htmlspecialchars($product['name']) . ' - Product Page' : 'Product Not Found'; ?></title>
     <link rel="stylesheet" href="product.css" />
     <link rel="icon" type="image/x-icon" href="Assets/icons/favicon.ico?v=2">
     <style>
@@ -15,31 +41,35 @@
         <div class="header-content">
             <h1 class="logo">DeskShop</h1>
             <nav class="nav-menu">
-                <a href="index.html" class="nav-item">Home</a>
+                <a href="index.php" class="nav-item">Home</a>
                 <div class="products-dropdown">
                     <button class="products-dropdown-button">Products</button>
                     <div class="products-dropdown-content">
-                      <a href="shop.html?category=default" onclick="event.preventDefault(); window.location.href='shop.html?category=default';">All Items</a>
-                      <a href="shop.html?category=school-items" onclick="event.preventDefault(); window.location.href='shop.html?category=school-items';">School Items</a>
-                      <a href="shop.html?category=office-items" onclick="event.preventDefault(); window.location.href='shop.html?category=office-items';">Office Items</a>
-                      <a href="shop.html?category=books" onclick="event.preventDefault(); window.location.href='shop.html?category=books';">Books</a>
-                      <a href="shop.html?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.html?category=writing-tools';">Writing Tools</a>
-                      <a href="shop.html?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.html?category=colour-products';">Color Products</a>
-                      <a href="shop.html?category=desk-accessories" onclick="event.preventDefault(); window.location.href='shop.html?category=desk-accessories';">Desk Essentials</a>
+                      <a href="shop.php?category=default" onclick="event.preventDefault(); window.location.href='shop.php?category=default';">All Items</a>
+                      <a href="shop.php?category=school-items" onclick="event.preventDefault(); window.location.href='shop.php?category=school-items';">School Items</a>
+                      <a href="shop.php?category=office-items" onclick="event.preventDefault(); window.location.href='shop.php?category=office-items';">Office Items</a>
+                      <a href="shop.php?category=books" onclick="event.preventDefault(); window.location.href='shop.php?category=books';">Books</a>
+                      <a href="shop.php?category=writing-tools" onclick="event.preventDefault(); window.location.href='shop.php?category=writing-tools';">Writing Tools</a>
+                      <a href="shop.php?category=colour-products" onclick="event.preventDefault(); window.location.href='shop.php?category=colour-products';">Color Products</a>
+                      <a href="shop.php?category=desk-accessories" onclick="event.preventDefault(); window.location.href='shop.php?category=desk-accessories';">Desk Essentials</a>
                     </div>
                 </div>
-                <a href="about-us.html" class="nav-item">About Us</a>
-                <a href="faq.html" class="nav-item">FAQ</a>
-                <a href="contact-us.html" class="nav-item">Contact us</a>
+                <a href="about-us.php" class="nav-item">About Us</a>
+                <a href="faq.php" class="nav-item">FAQ</a>
+                <a href="contact-us.php" class="nav-item">Contact us</a>
                 <img
                 src="Assets/icons/add-to-cart.svg"
                 alt="Cart"
                 class="cart-icon"
                 style="cursor: pointer;"
-                onclick="window.location.href='cart.html'"
+                onclick="window.location.href='cart.php'"
                 />
             </nav>
-            <button class="signup-btn" onclick="window.location.href='signup.php'">Sign up</button>
+            <?php if ($isLoggedIn): ?>
+                <button class="signup-btn" onclick="window.location.href='profile.php'">Profile</button>
+            <?php else: ?>
+                <button class="signup-btn" onclick="window.location.href='signup.php'">Sign up</button>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -61,17 +91,18 @@
 
         <section class="product-display">
           <div class="product-container">
+            <?php if ($product): ?>
             <div class="product-image-column">
               <img
-                src="Assets/Product Page/Atlas-eraser.png "
-                alt="Atlas Eraser"
+                src="<?php echo htmlspecialchars($product['image_url']); ?>"
+                alt="<?php echo htmlspecialchars($product['name']); ?>"
                 class="product-image"
               />
             </div>
             <div class="product-details-column">
               <div class="product-info">
-                <h2 class="product-title">Atlas Eraser</h2>
-                <p class="product-price">Rs.30.00</p>
+                <h2 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h2>
+                <p class="product-price">Rs.<?php echo number_format($product['price'], 2); ?></p>
                 <div class="product-actions">
                   <div class="quantity-selector">
                     <img
@@ -91,11 +122,19 @@
                   <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
                 <div class="wishlist-action">
-                        <img src="Assets\icons\wishlist.svg" alt="Wishlist Icon" />
+                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
                   <span class="wishlist-text">Add to Wish List</span>
+                </div>
+                <div style="margin-top:10px; font-size:14px; color:#888;">
+                  <?php echo $product['stock'] > 0 ? 'In Stock' : 'Out of Stock'; ?>
                 </div>
               </div>
             </div>
+            <?php else: ?>
+              <div style="padding:40px; font-size:22px; color:#a00;">
+                Product not found.
+              </div>
+            <?php endif; ?>
           </div>
         </section>
 
@@ -198,10 +237,10 @@
                         <div class="footer-links">
                             <h3 class="footer-links-title">Information</h3>
                             <nav class="footer-link-list">
-                              <a href="index.html">Main</a><br />
-                              <a href="shop.html">Products</a><br />
-                              <a href="about-us.html">About us</a><br />
-                              <a href="contact-us.html">Contact us</a>
+                              <a href="index.php">Main</a><br />
+                              <a href="shop.php">Products</a><br />
+                              <a href="about-us.php">About us</a><br />
+                              <a href="contact-us.php">Contact us</a>
                             </nav>
                         </div>
                     </div>
