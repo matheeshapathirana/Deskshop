@@ -2,6 +2,58 @@
 session_start();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
+// --- Wishlist handlers (with quantity) ---
+if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
+    if ($isLoggedIn) {
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_row = mysqli_fetch_assoc($user_q);
+            if ($user_row) {
+                $id = $user_row['id'];
+                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $qty = isset($_POST['wishlist_qty']) ? max(1, intval($_POST['wishlist_qty'])) : 1;
+                if ($_POST['wishlist_action'] === 'add') {
+                    // Try to insert with quantity, or update if exists
+                    $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                    if (mysqli_num_rows($check) == 0) {
+                        mysqli_query($con, "INSERT INTO wishlists (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
+                    } else {
+                        mysqli_query($con, "UPDATE wishlists SET quantity=$qty WHERE id=$id AND product_code='$product_code'");
+                    }
+                } elseif ($_POST['wishlist_action'] === 'remove') {
+                    mysqli_query($con, "DELETE FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                }
+            }
+            mysqli_close($con);
+        }
+    }
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : ''));
+    exit;
+}
+
+// Fetch user's wishlist product_codes for marking icons
+$user_wishlist_product_ids = [];
+$user_wishlist_qty = [];
+if ($isLoggedIn) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_row = mysqli_fetch_assoc($user_q);
+        if ($user_row) {
+            $id = $user_row['id'];
+            $wl_q = mysqli_query($con, "SELECT product_code, quantity FROM wishlists WHERE id = $id");
+            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+                $user_wishlist_product_ids[] = $wl_row['product_code'];
+                $user_wishlist_qty[$wl_row['product_code']] = $wl_row['quantity'];
+            }
+        }
+        mysqli_close($con);
+    }
+}
+
 // Database connection
 $con = mysqli_connect("localhost", "root", "", "deskshop");
 if (!$con) {
@@ -111,7 +163,11 @@ if (isset($_GET['code'])) {
                       class="quantity-btn"
                       id="decrease-quantity"
                     />
-                    <span class="quantity-value" id="quantity-value">1</span>
+                    <span class="quantity-value" id="quantity-value"><?php
+                        // If in wishlist, show wishlist quantity, else 1
+                        $wishlist_qty = (isset($user_wishlist_qty[$product['product_code']]) ? $user_wishlist_qty[$product['product_code']] : 1);
+                        echo $wishlist_qty;
+                    ?></span>
                     <img
                       src="Assets/icons/plus.svg"
                       alt="Increase"
@@ -122,8 +178,19 @@ if (isset($_GET['code'])) {
                   <button class="add-to-cart-btn">Add to Cart</button>
                 </div>
                 <div class="wishlist-action">
-                        <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
-                  <span class="wishlist-text">Add to Wish List</span>
+                  <form method="post" id="wishlist-form" style="display:inline;">
+                    <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                    <input type="hidden" name="wishlist_action" id="wishlist-action-field" value="<?php echo in_array($product['product_code'], $user_wishlist_product_ids) ? 'remove' : 'add'; ?>">
+                    <input type="hidden" name="wishlist_qty" id="wishlist-qty-field" value="<?php echo $wishlist_qty; ?>">
+                    <button type="submit" id="wishlist-btn" style="background:none;border:none;padding:0;cursor:pointer;">
+                      <img
+                        src="Assets/icons/<?php echo in_array($product['product_code'], $user_wishlist_product_ids) ? 'wishlist-select.svg' : 'wishlist.svg'; ?>"
+                        alt="Wishlist Icon"
+                        id="wishlist-icon"
+                      />
+                    </button>
+                  </form>
+                  <span class="wishlist-text" id="wishlist-text"><?php echo in_array($product['product_code'], $user_wishlist_product_ids) ? 'Remove from wishlist' : 'Add to Wish List'; ?></span>
                 </div>
                 <div style="margin-top:10px; font-size:14px; color:#888;">
                   <?php echo $product['stock'] > 0 ? 'In Stock' : 'Out of Stock'; ?>
@@ -264,48 +331,51 @@ if (isset($_GET['code'])) {
     </div>
 
     <script>
-      function toggleWishlist(icon, index) {
-          const wishlistTexts = document.querySelectorAll('.wishlist-text');
-          if (icon.src.includes('wishlist.svg')) {
-          icon.src = 'Assets/icons/wishlist-select.svg';
-          wishlistTexts[index].textContent = 'Remove from wishlist';
-          } else {
-          icon.src = 'Assets/icons/wishlist.svg';
-          wishlistTexts[index].textContent = 'Add to Wish List';
-          }
-          icon.classList.add('animate');
-          setTimeout(() => {
-          icon.classList.remove('animate');
-          }, 300);
-      }
-
-      function decreaseQuantity() {
-          const quantityValue = document.getElementById('quantity-value');
-          let currentValue = parseInt(quantityValue.textContent);
-          if (currentValue > 1) {
-              quantityValue.textContent = currentValue - 1;
-          }
-      }
-
-      function increaseQuantity() {
-          const quantityValue = document.getElementById('quantity-value');
-          let currentValue = parseInt(quantityValue.textContent);
-          quantityValue.textContent = currentValue + 1;
-      }
-
+      // Wishlist logic for product page
       window.onload = function() {
-          const wishlistIcons = document.querySelectorAll('.wishlist-action img');
-          wishlistIcons.forEach((icon, index) => {
-              icon.onclick = function() {
-                  toggleWishlist(icon, index);
-              };
-          });
-
+          // Quantity selector logic
           const decreaseButton = document.getElementById('decrease-quantity');
           const increaseButton = document.getElementById('increase-quantity');
+          const quantityValue = document.getElementById('quantity-value');
+          const wishlistQtyField = document.getElementById('wishlist-qty-field');
 
-          decreaseButton.onclick = decreaseQuantity;
-          increaseButton.onclick = increaseQuantity;
+          function updateWishlistQty() {
+              if (wishlistQtyField && quantityValue) {
+                  wishlistQtyField.value = quantityValue.textContent;
+              }
+          }
+
+          if (decreaseButton && increaseButton && quantityValue) {
+              decreaseButton.onclick = function() {
+                  let currentValue = parseInt(quantityValue.textContent);
+                  if (currentValue > 1) {
+                      quantityValue.textContent = currentValue - 1;
+                      updateWishlistQty();
+                  }
+              };
+              increaseButton.onclick = function() {
+                  let currentValue = parseInt(quantityValue.textContent);
+                  quantityValue.textContent = currentValue + 1;
+                  updateWishlistQty();
+              };
+          }
+
+          // Wishlist icon submits the form (toggle action before submit)
+          const wishlistForm = document.getElementById('wishlist-form');
+          const wishlistBtn = document.getElementById('wishlist-btn');
+          const wishlistActionField = document.getElementById('wishlist-action-field');
+          if (wishlistForm && wishlistBtn && wishlistActionField) {
+              wishlistForm.onsubmit = function(e) {
+                  // Always set the correct action before submit
+                  // If currently in wishlist, remove; else add
+                  <?php if (in_array($product['product_code'], $user_wishlist_product_ids)): ?>
+                      wishlistActionField.value = 'remove';
+                  <?php else: ?>
+                      wishlistActionField.value = 'add';
+                  <?php endif; ?>
+                  // allow submit
+              };
+          }
       };
     </script>
   </body>

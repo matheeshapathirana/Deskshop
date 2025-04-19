@@ -2,6 +2,56 @@
 session_start();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
+// --- Wishlist handlers (no AJAX) ---
+// Updated for new wishlists table structure (id, product_code)
+if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
+    if ($isLoggedIn) {
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+            // Get user id (now 'id' instead of 'user_id')
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_row = mysqli_fetch_assoc($user_q);
+            if ($user_row) {
+                $id = $user_row['id'];
+                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                if ($_POST['wishlist_action'] === 'add') {
+                    $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                    if (mysqli_num_rows($check) == 0) {
+                        mysqli_query($con, "INSERT INTO wishlists (id, product_code) VALUES ($id, '$product_code')");
+                    }
+                } elseif ($_POST['wishlist_action'] === 'remove') {
+                    mysqli_query($con, "DELETE FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                }
+            }
+            mysqli_close($con);
+        }
+    }
+    // Redirect to avoid form resubmission
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit;
+}
+
+// Fetch user's wishlist product_codes for marking icons
+$user_wishlist_product_ids = [];
+if ($isLoggedIn) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+        // Get user id (now 'id')
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_row = mysqli_fetch_assoc($user_q);
+        if ($user_row) {
+            $id = $user_row['id'];
+            $wl_q = mysqli_query($con, "SELECT product_code FROM wishlists WHERE id = $id");
+            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+                $user_wishlist_product_ids[] = $wl_row['product_code'];
+            }
+        }
+        mysqli_close($con);
+    }
+}
+
 // Newsletter handler
 if (isset($_POST['newsletter-submit'])) {
     $email = $_POST['email'];
@@ -71,6 +121,12 @@ if ($con) {
             padding: 10px;
             border-radius: 8px;
             position: relative;
+        }
+        .wishlist-icon-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 2;
         }
         div.product-row:nth-child(2) {
             margin-top: 40px;
@@ -170,14 +226,20 @@ if ($con) {
                         $idx = $row * 3 + $col;
                         if (!isset($hot_deals[$idx])) continue;
                         $product = $hot_deals[$idx];
+                        $is_in_wishlist = in_array($product['product_code'], $user_wishlist_product_ids);
                     ?>
                     <div class="product-column">
                         <div class="product-card">
                             <div class="product-image-container">
+                                <!-- Wishlist icon moved to top-right -->
+                                <form method="post" style="display:inline;">
+                                    <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                                    <input type="hidden" name="wishlist_action" value="<?php echo $is_in_wishlist ? 'remove' : 'add'; ?>">
+                                    <button type="submit" class="wishlist-icon-btn" style="background:none;border:none;padding:0;cursor:pointer;">
+                                        <img src="Assets/icons/<?php echo $is_in_wishlist ? 'wishlist-select.svg' : 'wishlist.svg'; ?>" alt="Wishlist Icon" class="wishlist-toggle-img<?php echo $is_in_wishlist ? ' selected' : ''; ?>" />
+                                    </button>
+                                </form>
                                 <img loading="lazy" src="<?php echo htmlspecialchars($product['image_url']); ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" />
-                                <div class="wishlist-icon">
-                                    <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
-                                </div>
                             </div>
                             <div class="product-details">
                                 <h3 class="product-title">
@@ -217,14 +279,21 @@ if ($con) {
         <h2 class="section-title">Featured Products</h2>
         <section class="featured-products-section">
             <div class="product-row">
-            <?php foreach (array_slice($featured_products, 0, 3) as $product): ?>
+            <?php foreach (array_slice($featured_products, 0, 3) as $product):
+                $is_in_wishlist = in_array($product['product_code'], $user_wishlist_product_ids);
+            ?>
                 <div class="product-column">
                     <div class="product-card">
                         <div class="product-image-container">
+                            <!-- Wishlist icon moved to top-right -->
+                            <form method="post" style="display:inline;">
+                                <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                                <input type="hidden" name="wishlist_action" value="<?php echo $is_in_wishlist ? 'remove' : 'add'; ?>">
+                                <button type="submit" class="wishlist-icon-btn" style="background:none;border:none;padding:0;cursor:pointer;">
+                                    <img src="Assets/icons/<?php echo $is_in_wishlist ? 'wishlist-select.svg' : 'wishlist.svg'; ?>" alt="Wishlist Icon" class="wishlist-toggle-img<?php echo $is_in_wishlist ? ' selected' : ''; ?>" />
+                                </button>
+                            </form>
                             <img loading="lazy" src="<?php echo htmlspecialchars($product['image_url']); ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" />
-                            <div class="wishlist-icon">
-                                <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
-                            </div>
                         </div>
                         <div class="product-details">
                             <h3 class="product-title">
@@ -245,14 +314,21 @@ if ($con) {
 
         <section class="featured-products-section">
             <div class="product-row">
-            <?php foreach (array_slice($featured_products, 3, 3) as $product): ?>
+            <?php foreach (array_slice($featured_products, 3, 3) as $product):
+                $is_in_wishlist = in_array($product['product_code'], $user_wishlist_product_ids);
+            ?>
                 <div class="product-column">
                     <div class="product-card">
                         <div class="product-image-container">
+                            <!-- Wishlist icon moved to top-right -->
+                            <form method="post" style="display:inline;">
+                                <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                                <input type="hidden" name="wishlist_action" value="<?php echo $is_in_wishlist ? 'remove' : 'add'; ?>">
+                                <button type="submit" class="wishlist-icon-btn" style="background:none;border:none;padding:0;cursor:pointer;">
+                                    <img src="Assets/icons/<?php echo $is_in_wishlist ? 'wishlist-select.svg' : 'wishlist.svg'; ?>" alt="Wishlist Icon" class="wishlist-toggle-img<?php echo $is_in_wishlist ? ' selected' : ''; ?>" />
+                                </button>
+                            </form>
                             <img loading="lazy" src="<?php echo htmlspecialchars($product['image_url']); ?>" class="product-image" alt="<?php echo htmlspecialchars($product['name']); ?>" />
-                            <div class="wishlist-icon">
-                                <img src="Assets/icons/wishlist.svg" alt="Wishlist Icon" />
-                            </div>
                         </div>
                         <div class="product-details">
                             <h3 class="product-title">
@@ -365,24 +441,5 @@ if ($con) {
         </div>
     </div>
 </footer>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const wishlistIcons = document.querySelectorAll('.wishlist-icon img');
-        wishlistIcons.forEach(icon => {
-            icon.addEventListener('click', function() {
-                if (this.src.includes('wishlist.svg')) {
-                    this.src = 'Assets/icons/wishlist-select.svg';
-                } else {
-                    this.src = 'Assets/icons/wishlist.svg';
-                }
-                this.classList.add('animate');
-                setTimeout(() => {
-                    this.classList.remove('animate');
-                }, 300);
-            });
-        });
-    });
-</script>
 </body>
 </html>
