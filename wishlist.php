@@ -5,6 +5,59 @@ if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
     exit();
 }
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+
+// --- Wishlist handlers (with quantity) ---
+if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
+    if ($isLoggedIn) {
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_row = mysqli_fetch_assoc($user_q);
+            if ($user_row) {
+                $id = $user_row['id'];
+                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $qty = isset($_POST['wishlist_qty']) ? max(1, intval($_POST['wishlist_qty'])) : 1;
+                if ($_POST['wishlist_action'] === 'add') {
+                    // Try to insert with quantity, or update if exists
+                    $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                    if (mysqli_num_rows($check) == 0) {
+                        mysqli_query($con, "INSERT INTO wishlists (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
+                    } else {
+                        mysqli_query($con, "UPDATE wishlists SET quantity=$qty WHERE id=$id AND product_code='$product_code'");
+                    }
+                } elseif ($_POST['wishlist_action'] === 'remove') {
+                    mysqli_query($con, "DELETE FROM wishlists WHERE id=$id AND product_code='$product_code'");
+                }
+            }
+            mysqli_close($con);
+        }
+    }
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
+    exit;
+}
+
+// Fetch user's wishlist product_codes and quantities
+$user_wishlist = [];
+if ($isLoggedIn) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_row = mysqli_fetch_assoc($user_q);
+        if ($user_row) {
+            $id = $user_row['id'];
+            $wl_q = mysqli_query($con, "SELECT product_code, quantity FROM wishlists WHERE id = $id");
+            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+                $user_wishlist[] = [
+                    'product_code' => $wl_row['product_code'],
+                    'quantity' => $wl_row['quantity']
+                ];
+            }
+        }
+        mysqli_close($con);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,119 +121,54 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
       <h1 class="wishlist-title">Wish List</h1>
   
       <section class="product-list">
-        <article class="product-card">
-          <div class="product-layout">
-            <div class="product-image-container">
-              <img
-                src="Assets/Product Page/Atlas-eraser.png"
-                alt="Atlas Eraser"
-                class="product-image"
-              />
-            </div>
-            <div class="product-details">
-              <div class="product-info">
-                <div class="product-text">
-                  <h2 class="product-name">Atlas Eraser</h2>
-                  <p class="product-quantity">Qty : 1</p>
-                </div>
-                <button class="remove-button">
-                  <img
-                    src="Assets/remove-from-cart-cross.svg"
-                    alt="Remove item"
-                    class="remove-icon"
-                  />
-                </button>
-              </div>
-              <p class="product-price">Rs. 60.00</p>
-            </div>
+        <?php if (empty($user_wishlist)): ?>
+          <div style="padding:40px; text-align:center; color:#888; font-size:20px;">
+            Your wishlist is empty.
           </div>
-        </article>
-  
-        <article class="product-card">
-          <div class="product-layout">
-            <div class="product-image-container">
-              <img
-                src="Assets/Product Page/Atlas A5 Practical Book Blank 80Pgs.png"
-                alt="Atlas A5 Practical Blank Book"
-                class="product-image"
-              />
-            </div>
-            <div class="product-details">
-              <div class="product-info">
-                <div class="product-text">
-                  <h2 class="product-name">
-                    Atlas A5 Practical Blank Book 80 Pages
-                  </h2>
-                  <p class="product-quantity">Qty : 1</p>
-                </div>
-                <button class="remove-button">
-                  <img
-                    src="Assets/remove-from-cart-cross.svg"
-                    alt="Remove item"
-                    class="remove-icon"
-                  />
-                </button>
+        <?php else: ?>
+          <?php
+          // Fetch product details for each wishlist item
+          $con = mysqli_connect("localhost", "root", "", "deskshop");
+          foreach ($user_wishlist as $item):
+              $code = mysqli_real_escape_string($con, $item['product_code']);
+              $p_q = mysqli_query($con, "SELECT product_code, name, price, image_url FROM products WHERE product_code='$code' LIMIT 1");
+              $product = mysqli_fetch_assoc($p_q);
+              if (!$product) continue;
+          ?>
+          <article class="product-card">
+            <div class="product-layout">
+              <div class="product-image-container">
+                <img
+                  src="<?php echo htmlspecialchars($product['image_url']); ?>"
+                  alt="<?php echo htmlspecialchars($product['name']); ?>"
+                  class="product-image"
+                />
               </div>
-              <p class="product-price">Rs. 50.00</p>
-            </div>
-          </div>
-        </article>
-  
-        <article class="product-card">
-          <div class="product-layout">
-            <div class="product-image-container">
-              <img
-                src="Assets/Product Page/Homerun Colour Pencil 12 Colours.jpg"
-                alt="Homerun Colour Pencil"
-                class="product-image"
-              />
-            </div>
-            <div class="product-details">
-              <div class="product-info">
-                <div class="product-text">
-                  <h2 class="product-name">Homerun Colour Pencil 12 Colours</h2>
-                  <p class="product-quantity">Qty : 1</p>
+              <div class="product-details">
+                <div class="product-info">
+                  <div class="product-text">
+                    <h2 class="product-name"><?php echo htmlspecialchars($product['name']); ?></h2>
+                    <p class="product-quantity">Qty : <?php echo intval($item['quantity']); ?></p>
+                  </div>
+                  <form method="post" style="display:inline;">
+                    <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                    <input type="hidden" name="wishlist_action" value="remove">
+                    <button class="remove-button" type="submit" title="Remove from wishlist">
+                      <img
+                        src="Assets/remove-from-cart-cross.svg"
+                        alt="Remove item"
+                        class="remove-icon"
+                      />
+                    </button>
+                  </form>
                 </div>
-                <button class="remove-button">
-                  <img
-                    src="Assets/remove-from-cart-cross.svg"
-                    alt="Remove item"
-                    class="remove-icon"
-                  />
-                </button>
+                <p class="product-price">Rs. <?php echo number_format($product['price'], 2); ?></p>
               </div>
-              <p class="product-price">Rs. 250.00</p>
             </div>
-          </div>
-        </article>
-  
-        <article class="product-card">
-          <div class="product-layout">
-            <div class="product-image-container">
-              <img
-                src="Assets/Product Page/Mango Plastic Ruler 15cm.png"
-                alt="Mango Plastic Ruler"
-                class="product-image"
-              />
-            </div>
-            <div class="product-details">
-              <div class="product-info">
-                <div class="product-text">
-                  <h2 class="product-name">Mango Plastic Ruler 15cm</h2>
-                  <p class="product-quantity">Qty : 1</p>
-                </div>
-                <button class="remove-button">
-                  <img
-                    src="Assets/remove-from-cart-cross.svg"
-                    alt="Remove item"
-                    class="remove-icon"
-                  />
-                </button>
-              </div>
-              <p class="product-price">Rs. 20.00</p>
-            </div>
-          </div>
-        </article>
+          </article>
+          <?php endforeach;
+          if ($con) mysqli_close($con); ?>
+        <?php endif; ?>
       </section>
     </main>
   
