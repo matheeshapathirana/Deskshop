@@ -77,7 +77,7 @@ if ($con) {
         }
         .product-title a {
             text-decoration: none;
-            color: #000 !important;
+            color: inherit !important;
         }
     </style>
 </head>

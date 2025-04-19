@@ -31,6 +31,10 @@ if ($result) {
     <link rel="icon" type="image/x-icon" href="Assets/icons/favicon.ico?v=2">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mynerve&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        .product-title a{
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
@@ -127,7 +131,11 @@ if ($result) {
                         </div>
                     </div>
                     <div class="product-details">
-                        <h3 class="product-title"><?php echo htmlspecialchars($product['name']); ?></h3>
+                        <h3 class="product-title">
+                            <a href="product.php?code=<?php echo urlencode($product['product_code']); ?>">
+                                <?php echo htmlspecialchars($product['name']); ?>
+                            </a>
+                        </h3>
                         <div class="product-actions">
                             <button class="add-to-cart-btn">Add to cart</button>
                             <span class="product-price">Rs. <?php echo number_format($product['price'], 2); ?></span>
