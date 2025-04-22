@@ -28,49 +28,128 @@ if ($results && mysqli_num_rows($results) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="admin.css">
-    <script>
-    function addProduct() {
-        let code = prompt("Enter product code:");
-        if (!code) return;
-        let name = prompt("Enter product name:");
-        if (!name) return;
-        let price = prompt("Enter product price:");
-        if (!price) return;
-        let stock = prompt("Enter product stock:");
-        if (!stock) return;
-        let image_url = prompt("Enter image URL:");
-        if (!image_url) return;
-        let categories = prompt("Enter categories (comma separated):");
-        if (!categories) return;
-
-        // Fill form fields
-        document.getElementById('add_code').value = code;
-        document.getElementById('add_name').value = name;
-        document.getElementById('add_price').value = price;
-        document.getElementById('add_stock').value = stock;
-        document.getElementById('add_image_url').value = image_url;
-        document.getElementById('add_categories').value = categories;
-
-        // Submit the form
-        document.getElementById('addProductForm').submit();
+    <style>
+    /* Modal styles to match admin.css look */
+    .modal,
+    .modal-add {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.4);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-
+    .modal-content {
+        background: #fff;
+        padding: 2em;
+        max-width: 400px;
+        width: 100%;
+        position: relative;
+        border-radius: 8px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+        font-family: inherit;
+    }
+    .close {
+        position: absolute;
+        top: 10px; right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: #888;
+    }
+    .modal-content h2 {
+        margin-top: 0;
+        margin-bottom: 1em;
+        font-size: 1.3em;
+        color: #333;
+    }
+    .modal-content label {
+        display: block;
+        margin-bottom: 0.7em;
+        color: #222;
+    }
+    .modal-content input[type="text"],
+    .modal-content input[type="number"],
+    .modal-content input[type="file"] {
+        width: 100%;
+        padding: 0.5em;
+        margin-top: 0.2em;
+        margin-bottom: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+    }
+    .modal-content button[type="submit"] {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 0.7em 1.5em;
+        border-radius: 4px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .modal-content button[type="submit"]:hover {
+        background: #0056b3;
+    }
+    </style>
+    <script>
     function editProduct(code, name, price, stock, image_url = '') {
-        let newName = prompt("Edit product name:", name);
-        if (newName === null) return;
-        let newPrice = prompt("Edit product price:", price);
-        if (newPrice === null) return;
-        let newStock = prompt("Edit product stock:", stock);
-        if (newStock === null) return;
-        let newImageUrl = prompt("Edit image URL:", image_url);
-        if (newImageUrl === null) return;
+        // Show a modal for editing (with file input)
+        let modal = document.createElement('div');
+        modal.className = "modal";
+        modal.innerHTML = `
+        <div class="modal-content">
+            <button class="close" onclick="this.closest('.modal').remove()">&times;</button>
+            <h2>Edit Product</h2>
+            <form id="editProductModalForm">
+                <label>Product Code:<br><input type="text" value="${code}" disabled></label>
+                <label>Name:<br><input type="text" id="modal_edit_name" value="${name}" required></label>
+                <label>Price:<br><input type="number" id="modal_edit_price" value="${price}" step="0.01" required></label>
+                <label>Stock:<br><input type="number" id="modal_edit_stock" value="${stock}" required></label>
+                <label>Image URL:<br><input type="text" id="modal_edit_image_url" value="${image_url}"></label>
+                <label>Or Upload New Image:<br><input type="file" id="modal_edit_image_file" accept="image/*"></label>
+                <button type="submit" style="margin-top:1em;">Save</button>
+            </form>
+        </div>
+        `;
+        document.body.appendChild(modal);
 
-        document.getElementById('edit_code').value = code;
-        document.getElementById('edit_name').value = newName;
-        document.getElementById('edit_price').value = newPrice;
-        document.getElementById('edit_stock').value = newStock;
-        document.getElementById('edit_image_url').value = newImageUrl;
-        document.getElementById('editProductForm').submit();
+        document.getElementById('modal_edit_image_file').addEventListener('change', function() {
+            // If a file is selected, clear the image_url field
+            if (this.files.length > 0) {
+                document.getElementById('modal_edit_image_url').value = '';
+            }
+        });
+
+        document.getElementById('editProductModalForm').onsubmit = function(e) {
+            e.preventDefault();
+            // Fill hidden form and submit
+            document.getElementById('edit_code').value = code;
+            document.getElementById('edit_name').value = document.getElementById('modal_edit_name').value;
+            document.getElementById('edit_price').value = document.getElementById('modal_edit_price').value;
+            document.getElementById('edit_stock').value = document.getElementById('modal_edit_stock').value;
+            document.getElementById('edit_image_url').value = document.getElementById('modal_edit_image_url').value;
+
+            // Handle file input
+            let fileInput = document.getElementById('modal_edit_image_file');
+            if (fileInput.files.length > 0) {
+                // Copy file to hidden form
+                let realFileInput = document.getElementById('edit_image_file');
+                // Create a new DataTransfer to assign the file
+                let dt = new DataTransfer();
+                dt.items.add(fileInput.files[0]);
+                realFileInput.files = dt.files;
+                realFileInput.style.display = 'block';
+            } else {
+                document.getElementById('edit_image_file').value = '';
+            }
+
+            document.getElementById('editProductForm').submit();
+        };
     }
 
     function deleteProduct(code) {
@@ -92,21 +171,30 @@ if ($results && mysqli_num_rows($results) > 0) {
         </div>
         <div class="main-content">
             <h1>Products</h1>
-            <a href="#add" class="button" onclick="addProduct()">Add Product</a>
-            <form id="addProductForm" action="add_product.php" method="post" style="display:none;">
-                <input type="hidden" name="code" id="add_code">
-                <input type="hidden" name="name" id="add_name">
-                <input type="hidden" name="price" id="add_price">
-                <input type="hidden" name="stock" id="add_stock">
-                <input type="hidden" name="image_url" id="add_image_url">
-                <input type="hidden" name="categories" id="add_categories">
-            </form>
-            <form id="editProductForm" action="edit_product.php" method="post" style="display:none;">
+            <a href="#add" class="button" onclick="document.querySelector('.modal-add').style.display='flex'">Add Product</a>
+            <!-- Modal for Add Product -->
+            <div class="modal-add" style="display:none;">
+                <div class="modal-content">
+                    <button class="close" onclick="document.querySelector('.modal-add').style.display='none'">&times;</button>
+                    <h2>Add Product</h2>
+                    <form id="addProductForm" action="add_product.php" method="post" enctype="multipart/form-data">
+                        <label>Product Code:<br><input type="text" name="code" required></label>
+                        <label>Name:<br><input type="text" name="name" required></label>
+                        <label>Price:<br><input type="number" name="price" step="0.01" required></label>
+                        <label>Stock:<br><input type="number" name="stock" required></label>
+                        <label>Image:<br><input type="file" name="image_file" accept="image/*" required></label>
+                        <label>Categories (comma separated):<br><input type="text" name="categories" required></label>
+                        <button type="submit" style="margin-top:1em;">Add Product</button>
+                    </form>
+                </div>
+            </div>
+            <form id="editProductForm" action="edit_product.php" method="post" enctype="multipart/form-data" style="display:none;">
                 <input type="hidden" name="code" id="edit_code">
                 <input type="hidden" name="name" id="edit_name">
                 <input type="hidden" name="price" id="edit_price">
                 <input type="hidden" name="stock" id="edit_stock">
                 <input type="hidden" name="image_url" id="edit_image_url">
+                <input type="file" name="image_file" id="edit_image_file" accept="image/*" style="display:none;">
             </form>
             <form id="deleteProductForm" action="delete_product.php" method="post" style="display:none;">
                 <input type="hidden" name="code" id="delete_code">
