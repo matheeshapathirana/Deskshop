@@ -74,7 +74,7 @@ if ($results && mysqli_num_rows($results) > 0) {
     .modal-content input[type="text"],
     .modal-content input[type="number"],
     .modal-content input[type="file"] {
-        width: 100%;
+        width: 95%;
         padding: 0.5em;
         margin-top: 0.2em;
         margin-bottom: 0.5em;
