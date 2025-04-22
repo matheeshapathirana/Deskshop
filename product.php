@@ -33,6 +33,33 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     exit;
 }
 
+// --- Add to Cart handler ---
+if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'] === 'add') {
+    if ($isLoggedIn) {
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_row = mysqli_fetch_assoc($user_q);
+            if ($user_row) {
+                $id = $user_row['id'];
+                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
+                // Check if already in cart
+                $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
+                if (mysqli_num_rows($check) == 0) {
+                    mysqli_query($con, "INSERT INTO cart (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
+                } else {
+                    mysqli_query($con, "UPDATE cart SET quantity=$qty WHERE id=$id AND product_code='$product_code'");
+                }
+            }
+            mysqli_close($con);
+        }
+    }
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : ''));
+    exit;
+}
+
 // Fetch user's wishlist product_codes for marking icons
 $user_wishlist_product_ids = [];
 $user_wishlist_qty = [];
@@ -175,7 +202,13 @@ if (isset($_GET['code'])) {
                       id="increase-quantity"
                     />
                   </div>
-                  <button class="add-to-cart-btn">Add to Cart</button>
+                  <!-- Add to Cart form -->
+                  <form method="post" id="cart-form" style="display:inline;">
+                    <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                    <input type="hidden" name="cart_action" value="add">
+                    <input type="hidden" name="cart_qty" id="cart-qty-field" value="<?php echo $wishlist_qty; ?>">
+                    <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn" style="padding: 14px 36px; font-size: 1.2em; min-width: 180px;position: relative;top: 13px;/*! size: 10; */scale: 140%;left: 40px;">Add to Cart</button>
+                  </form>
                 </div>
                 <div class="wishlist-action">
                   <form method="post" id="wishlist-form" style="display:inline;">
@@ -338,10 +371,14 @@ if (isset($_GET['code'])) {
           const increaseButton = document.getElementById('increase-quantity');
           const quantityValue = document.getElementById('quantity-value');
           const wishlistQtyField = document.getElementById('wishlist-qty-field');
+          const cartQtyField = document.getElementById('cart-qty-field');
 
           function updateWishlistQty() {
               if (wishlistQtyField && quantityValue) {
                   wishlistQtyField.value = quantityValue.textContent;
+              }
+              if (cartQtyField && quantityValue) {
+                  cartQtyField.value = quantityValue.textContent;
               }
           }
 
@@ -373,6 +410,16 @@ if (isset($_GET['code'])) {
                   <?php else: ?>
                       wishlistActionField.value = 'add';
                   <?php endif; ?>
+                  // allow submit
+              };
+          }
+
+          // Add to Cart button submits with current quantity
+          const cartForm = document.getElementById('cart-form');
+          const addToCartBtn = document.getElementById('add-to-cart-btn');
+          if (cartForm && addToCartBtn && cartQtyField && quantityValue) {
+              cartForm.onsubmit = function(e) {
+                  cartQtyField.value = quantityValue.textContent;
                   // allow submit
               };
           }

@@ -5,6 +5,42 @@ if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
     exit();
 }
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+
+$user_cart = [];
+$total = 0;
+$delivery_fee = 150;
+$grand_total = 0;
+
+if ($isLoggedIn) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_row = mysqli_fetch_assoc($user_q);
+        if ($user_row) {
+            $id = $user_row['id'];
+            $cart_q = mysqli_query($con, "
+                SELECT c.cart_id, c.product_code, c.quantity, p.name AS product_name, p.price, p.image_url
+                FROM cart c
+                JOIN products p ON c.product_code = p.product_code
+                WHERE c.ID = $id
+            ");
+            while ($cart_row = mysqli_fetch_assoc($cart_q)) {
+                $user_cart[] = [
+                    'cart_id' => $cart_row['cart_id'],
+                    'product_code' => $cart_row['product_code'],
+                    'product_name' => $cart_row['product_name'],
+                    'quantity' => $cart_row['quantity'],
+                    'price' => $cart_row['price'],
+                    'image_path' => $cart_row['image_url']
+                ];
+                $total += $cart_row['price'] * $cart_row['quantity'];
+            }
+        }
+        mysqli_close($con);
+    }
+}
+$grand_total = $total + $delivery_fee;
 ?>
 <html>
     <head>
@@ -67,104 +103,38 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
           
                 <div class="cart-items-container">
                   <h2 class="cart-title">Shopping Cart</h2>
-          
-                  <article class="cart-item">
-                    <img
-                      src="Assets/Product Page/Atlas-eraser.png"
-                      alt="Atlas Eraser"
-                      class="product-image"
-                    />
-                    <div class="product-details">
-                      <div class="product-info">
-                        <div class="product-text">
-                          <h3 class="product-name">Atlas Eraser</h3>
-                          <p class="product-quantity">Qty : 2</p>
-                        </div>
-                        <button class="remove-item">
-                          <img
-                            src="Assets/remove-from-cart-cross.svg"
-                            alt="Remove item"
-                            class="remove-icon"
-                          />
-                        </button>
-                      </div>
-                      <p class="product-price">Rs. 60.00</p>
-                    </div>
-                  </article>
-          
-                  <article class="cart-item">
-                    <img
-                      src="Assets/Product Page/Atlas A5 Practical Book Blank 80Pgs.png"
-                      alt="Atlas Notebook"
-                      class="product-image"
-                    />
-                    <div class="product-details">
-                      <div class="product-info">
-                        <div class="product-text">
-                          <h3 class="product-name">
-                            Atlas A5 Practical Blank Book 80 Pages
-                          </h3>
-                          <p class="product-quantity">Qty : 1</p>
-                        </div>
-                        <button class="remove-item">
-                          <img
-                            src="Assets/remove-from-cart-cross.svg"
-                            alt="Remove item"
-                            class="remove-icon"
-                          />
-                        </button>
-                      </div>
-                      <p class="product-price">Rs. 50.00</p>
-                    </div>
-                  </article>
-          
-                  <article class="cart-item">
-                    <img
-                      src="Assets/Product Page/Homerun Colour Pencil 12 Colours.jpg"
-                      alt="Color Pencils"
-                      class="product-image"
-                    />
-                    <div class="product-details">
-                      <div class="product-info">
-                        <div class="product-text">
-                          <h3 class="product-name">Homerun Colour Pencil 12 Colours</h3>
-                          <p class="product-quantity">Qty : 1</p>
-                        </div>
-                        <button class="remove-item">
-                          <img
-                            src="Assets/remove-from-cart-cross.svg"
-                            alt="Remove item"
-                            class="remove-icon"
-                          />
-                        </button>
-                      </div>
-                      <p class="product-price">Rs. 250.00</p>
-                    </div>
-                  </article>
-          
-                  <article class="cart-item">
-                    <img
-                      src="Assets/Product Page/Mango Plastic Ruler 15cm.png"
-                      alt="Ruler"
-                      class="product-image"
-                    />
-                    <div class="product-details">
-                      <div class="product-info">
-                        <div class="product-text">
-                          <h3 class="product-name">Mango Plastic Ruler 15cm</h3>
-                          <p class="product-quantity">Qty : 1</p>
-                        </div>
-                        <button class="remove-item">
-                          <img
-                            src="Assets/remove-from-cart-cross.svg"
-                            alt="Remove item"
-                            class="remove-icon"
-                          />
-                        </button>
-                      </div>
-                      <p class="product-price">Rs. 20.00</p>
-                    </div>
-                  </article>
+                  <?php if (empty($user_cart)): ?>
+                      <p>Your cart is empty.</p>
+                  <?php else: ?>
+                      <?php foreach ($user_cart as $item): ?>
+                          <article class="cart-item">
+                              <img
+                                  src="<?php echo htmlspecialchars($item['image_path']); ?>"
+                                  alt="<?php echo htmlspecialchars($item['product_name']); ?>"
+                                  class="product-image"
+                              />
+                              <div class="product-details">
+                                  <div class="product-info">
+                                      <div class="product-text">
+                                          <h3 class="product-name"><?php echo htmlspecialchars($item['product_name']); ?></h3>
+                                          <p class="product-quantity">Qty : <?php echo $item['quantity']; ?></p>
+                                      </div>
+                                      <form method="post" action="remove_from_cart.php" style="display:inline;">
+                                          <input type="hidden" name="cart_id" value="<?php echo $item['cart_id']; ?>">
+                                          <button class="remove-item" type="submit">
+                                              <img
+                                                  src="Assets/remove-from-cart-cross.svg"
+                                                  alt="Remove item"
+                                                  class="remove-icon"
+                                              />
+                                          </button>
+                                      </form>
+                                  </div>
+                                  <p class="product-price">Rs. <?php echo number_format($item['price'] * $item['quantity'], 2); ?></p>
+                              </div>
+                          </article>
+                      <?php endforeach; ?>
+                  <?php endif; ?>
                 </div>
               </section>
           
@@ -245,20 +215,20 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
                   <div class="order-summary">
                     <div class="summary-row">
                       <span class="summary-label">Subtotal</span>
-                      <span class="summary-value">Rs. 380.00</span>
+                      <span class="summary-value">Rs. <?php echo number_format($total, 2); ?></span>
                     </div>
                     <div class="summary-row">
                       <span class="summary-label">Delivery Fee</span>
-                      <span class="summary-value">Rs. 150.00</span>
+                      <span class="summary-value">Rs. <?php echo number_format($delivery_fee, 2); ?></span>
                     </div>
                     <div class="summary-row">
                       <span class="summary-label">Total (Tax incl.)</span>
-                      <span class="summary-value">Rs. 530.00</span>
+                      <span class="summary-value">Rs. <?php echo number_format($grand_total, 2); ?></span>
                     </div>
                   </div>
           
                   <button type="submit" class="checkout-button">
-                    <span class="total-amount">Rs. 530.00</span>
+                    <span class="total-amount">Rs. <?php echo number_format($grand_total, 2); ?></span>
                     <div class="checkout-text">
                       <span>Checkout</span>
                       <img
