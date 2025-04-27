@@ -32,6 +32,33 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     exit;
 }
 
+// --- Add to Cart handler ---
+if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'] === 'add') {
+    if ($isLoggedIn) {
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_row = mysqli_fetch_assoc($user_q);
+            if ($user_row) {
+                $id = $user_row['id'];
+                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
+                // Check if already in cart
+                $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
+                if (mysqli_num_rows($check) == 0) {
+                    mysqli_query($con, "INSERT INTO cart (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
+                } else {
+                    mysqli_query($con, "UPDATE cart SET quantity=$qty WHERE id=$id AND product_code='$product_code'");
+                }
+            }
+            mysqli_close($con);
+        }
+    }
+    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : ''));
+    exit;
+}
+
 // Fetch user's wishlist product_codes for marking icons
 $user_wishlist_product_ids = [];
 if ($isLoggedIn) {
@@ -217,7 +244,16 @@ if ($result) {
                             </a>
                         </h3>
                         <div class="product-actions">
-                            <button class="add-to-cart-btn">Add to cart</button>
+                            <?php if ($isLoggedIn): ?>
+                            <form method="post" style="display:inline;">
+                                <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                                <input type="hidden" name="cart_action" value="add">
+                                <input type="hidden" name="cart_qty" value="1">
+                                <button type="submit" class="add-to-cart-btn">Add to cart</button>
+                            </form>
+                            <?php else: ?>
+                            <button class="add-to-cart-btn" onclick="window.location.href='signup.php'">Add to cart</button>
+                            <?php endif; ?>
                             <span class="product-price">Rs. <?php echo number_format($product['price'], 2); ?></span>
                         </div>
                     </div>
