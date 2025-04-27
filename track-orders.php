@@ -47,9 +47,9 @@ if ($isLoggedIn) {
       margin-left: 20px;
       margin-top: 10px;
     }
-    .status-processing { background: #ffe97a; color: #2b1b12; }
+    .status-processing { background: #FDE881; color: #2b1b12; }
     .status-shipping { background: #4285f4; color: #fff; }
-    .status-delivered { background: #2ecc40; color: #fff; }
+    .status-delivered { background: #4CA94C; color: #fff; }
   </style>
 </head>
 <body>

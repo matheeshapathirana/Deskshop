@@ -21,6 +21,13 @@ if ($isLoggedIn) {
             $id = $user_row['id'];
             // Handle checkout POST
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout'])) {
+                // Get form data
+                $contact_number = isset($_POST['phone']) ? intval($_POST['phone']) : '';
+                $address = isset($_POST['address']) ? mysqli_real_escape_string($con, $_POST['address']) : '';
+                $city = isset($_POST['city']) ? mysqli_real_escape_string($con, $_POST['city']) : '';
+                $postalcode = isset($_POST['postal']) ? intval($_POST['postal']) : '';
+                $paymentmethod = isset($_POST['payment']) ? mysqli_real_escape_string($con, $_POST['payment']) : '';
+
                 // Fetch cart items again for safety
                 $cart_q = mysqli_query($con, "
                     SELECT c.cart_id, c.product_code, c.quantity
@@ -32,8 +39,8 @@ if ($isLoggedIn) {
                     $product_code = mysqli_real_escape_string($con, $cart_row['product_code']);
                     $quantity = (int)$cart_row['quantity'];
                     $insert_q = mysqli_query($con, "
-                        INSERT INTO orders (user_id, product_code, quantity)
-                        VALUES ($id, '$product_code', $quantity)
+                        INSERT INTO orders (user_id, product_code, quantity, date, contact_number, address, city, postalcode, paymentmethod)
+                        VALUES ($id, '$product_code', $quantity, NOW(), $contact_number, '$address', '$city', $postalcode, '$paymentmethod')
                     ");
                     if ($insert_q) $orders_inserted++;
                 }
@@ -179,6 +186,7 @@ $grand_total = $total + $delivery_fee;
                       class="form-input"
                       placeholder="Name"
                       required
+                      name="fullname"
                     />
                   </div>
           
@@ -192,6 +200,7 @@ $grand_total = $total + $delivery_fee;
                       required
                       pattern="[0-9]{10}"
                       maxlength="10"
+                      name="phone"
                     />
                   </div>
           
@@ -203,6 +212,7 @@ $grand_total = $total + $delivery_fee;
                       class="form-input"
                       placeholder="Address"
                       required
+                      name="address"
                     />
                   </div>
           
@@ -215,6 +225,7 @@ $grand_total = $total + $delivery_fee;
                         class="form-input"
                         placeholder="City"
                         required
+                        name="city"
                       />
                     </div>
                     <div class="form-group half">
@@ -227,6 +238,7 @@ $grand_total = $total + $delivery_fee;
                         maxlength="5"
                         required
                         pattern="[0-9]{5}"
+                        name="postal"
                       />
                     </div>
                   </div>
@@ -234,11 +246,20 @@ $grand_total = $total + $delivery_fee;
                   <div class="payment-divider"></div>
           
                   <div class="payment-method">
-                    <input type="radio" id="cash-on-delivery" name="payment" class="checkbox"/>
+                    <input type="radio" id="cash-on-delivery" name="payment" class="checkbox" value="Cash On Delivery" required/>
                     <label for="cash-on-delivery" class="method-label">Cash On Delivery</label>
 
-                    <input type="radio" id="bank-transfer" name="payment" class="checkbox"/>
+                    <input type="radio" id="bank-transfer" name="payment" class="checkbox" value="Bank Transfer" required/>
                     <label for="bank-transfer" class="method-label">Bank Transfer</label>
+                  </div>
+
+                  <!-- Bank Transfer Account Details -->
+                  <div id="bank-details" style="display:none; margin: 15px 0; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background:rgb(0, 0, 0);">
+                    <strong>Bank Transfer Details:</strong><br>
+                    <span>Account Name: <b>DeskShop Pvt Ltd</b></span><br>
+                    <span>Account Number: <b>1234567890</b></span><br>
+                    <span>Bank Name: <b>National Savings Bank</b></span><br>
+                    <span>Branch: <b>Homagama Branch</b></span>
                   </div>
           
                   <div class="order-summary">
@@ -268,6 +289,25 @@ $grand_total = $total + $delivery_fee;
                     </div>
                   </button>
                 </form>
+                <script>
+                  // Show bank details if "Bank Transfer" is selected
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const bankRadio = document.getElementById('bank-transfer');
+                    const codRadio = document.getElementById('cash-on-delivery');
+                    const bankDetails = document.getElementById('bank-details');
+                    function toggleBankDetails() {
+                      if (bankRadio.checked) {
+                        bankDetails.style.display = 'block';
+                      } else {
+                        bankDetails.style.display = 'none';
+                      }
+                    }
+                    bankRadio.addEventListener('change', toggleBankDetails);
+                    codRadio.addEventListener('change', toggleBankDetails);
+                    // On page load, check if bank transfer is pre-selected
+                    toggleBankDetails();
+                  });
+                </script>
               </section>
             </div>
           </main>
