@@ -1,0 +1,227 @@
+/* manage_users.css - Styles for the Manage Users admin page */
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    color: #333;
+    margin-left: 20px;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.sidebar a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+    background-color: #ddd;
+    color: #333;
+}
+
+form {
+    margin: 20px 0 20px 20px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: inline-block;
+}
+
+input, select, button {
+    margin: 5px;
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+table {
+    margin: 20px;
+    border-collapse: collapse;
+    width: 95%;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background: #f1f1f1;
+}
+
+/* Use the same style rules as admin.css for consistency */
+
+.user-form-section {
+    max-width: 350px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 2em;
+    overflow: visible !important;
+}
+.user-form-section h2 {
+    margin-top: 0;
+}
+.user-form-section label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.user-form-section input,
+.user-form-section select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.user-form-section .button {
+    width: 100%;
+}
+
+.table-responsive {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 16px;
+}
+.table-responsive table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table-responsive th,
+.table-responsive td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+.table-responsive th {
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+button.button:nth-child(1) {
+    margin-bottom: 5px;
+}
+
+.sidebar > h2:nth-child(1) {
+    margin-left: 0px;
+}
+
+
+.edit-button,
+.deactivate-button,
+.change-role-button {
+    padding: 4px 12px;
+    margin-right: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.edit-button {
+    background: #007bff;
+    color: #fff;
+}
+.deactivate-button {
+    background: #6c757d;
+    color: #fff;
+}
+.change-role-button {
+    background: #17a2b8;
+    color: #fff;
+}
+.role-select {
+    padding: 2px 6px;
+    margin-right: 4px;
+}
+@media (max-width: 700px) {
+    .user-form-section, .table-responsive {
+        padding: 8px;
+    }
+    .user-form-section {
+        max-width: 100%;
+    }
+}
+
+.horizontal-form {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+    align-items: flex-end;
+    width: 100%;
+    overflow: visible !important;
+}
+.horizontal-form .form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 150px;
+    margin-bottom: 0;
+    flex: 1 1 0;
+}
+.horizontal-form label {
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+.horizontal-form input,
+.horizontal-form select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+@media (max-width: 1100px) {
+    .horizontal-form {
+        flex-wrap: wrap;
+    }
+}
+@media (max-width: 900px) {
+    .horizontal-form {
+        flex-direction: column;
+        gap: 0;
+    }
+    .horizontal-form .form-group {
+        min-width: 0;
+        margin-bottom: 12px;
+    }
+}
