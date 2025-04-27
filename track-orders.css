@@ -222,7 +222,7 @@ button.signup-btn:active::after {
     background-color: #2b1b12;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     padding: 16px 12px 27px 30px;
-    width: 510px;
+    width: 80%;
     max-width: 100%;
 }
 

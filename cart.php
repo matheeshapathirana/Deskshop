@@ -19,6 +19,31 @@ if ($isLoggedIn) {
         $user_row = mysqli_fetch_assoc($user_q);
         if ($user_row) {
             $id = $user_row['id'];
+            // Handle checkout POST
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout'])) {
+                // Fetch cart items again for safety
+                $cart_q = mysqli_query($con, "
+                    SELECT c.cart_id, c.product_code, c.quantity
+                    FROM cart c
+                    WHERE c.ID = $id
+                ");
+                $orders_inserted = 0;
+                while ($cart_row = mysqli_fetch_assoc($cart_q)) {
+                    $product_code = mysqli_real_escape_string($con, $cart_row['product_code']);
+                    $quantity = (int)$cart_row['quantity'];
+                    $insert_q = mysqli_query($con, "
+                        INSERT INTO orders (user_id, product_code, quantity)
+                        VALUES ($id, '$product_code', $quantity)
+                    ");
+                    if ($insert_q) $orders_inserted++;
+                }
+                // Clear user's cart
+                mysqli_query($con, "DELETE FROM cart WHERE ID = $id");
+                // Show success message and reload
+                echo "<script>alert('Order placed successfully!'); window.location.href='cart.php';</script>";
+                exit();
+            }
+
             $cart_q = mysqli_query($con, "
                 SELECT c.cart_id, c.product_code, c.quantity, p.name AS product_name, p.price, p.image_url
                 FROM cart c
@@ -142,7 +167,8 @@ $grand_total = $total + $delivery_fee;
               </section>
           
               <section class="payment-section">
-                <form class="payment-form">
+                <!-- Change form to POST and submit to same page -->
+                <form class="payment-form" method="post" action="cart.php">
                   <h2 class="form-title">Payment Details</h2>
           
                   <div class="form-group">
@@ -230,7 +256,7 @@ $grand_total = $total + $delivery_fee;
                     </div>
                   </div>
           
-                  <button type="submit" class="checkout-button">
+                  <button type="submit" class="checkout-button" name="checkout" value="1">
                     <span class="total-amount">Rs. <?php echo number_format($grand_total, 2); ?></span>
                     <div class="checkout-text">
                       <span>Checkout</span>
