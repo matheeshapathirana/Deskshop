@@ -12,7 +12,7 @@ if ($isLoggedIn) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-        $user_q = mysqli_query($con, "SELECT ID FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_q = mysqli_query($con, "SELECT ID FROM user WHERE email = '$user_email' LIMIT 1");
         $user_row = mysqli_fetch_assoc($user_q);
         if ($user_row) {
             $id = $user_row['ID'];
@@ -111,7 +111,7 @@ if ($isLoggedIn) {
           <?php
           $con = mysqli_connect("localhost", "root", "", "deskshop");
           foreach ($user_orders as $item):
-              $code = mysqli_real_escape_string($con, $item['product_code']);
+              $code = $item['product_code'];
               $p_q = mysqli_query($con, "SELECT product_code, name, price, image_url FROM products WHERE product_code='$code' LIMIT 1");
               $product = mysqli_fetch_assoc($p_q);
               if (!$product) continue;

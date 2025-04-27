@@ -31,22 +31,22 @@ $user_role = '';
 
 $con = mysqli_connect("localhost", "root", "", "deskshop");
 if ($con) {
-        $sql = "SELECT * FROM user WHERE email = '$user_email'";
-        $results = mysqli_query($con, $sql);
-if ($row = mysqli_fetch_assoc($results)) {
+    $sql = "SELECT * FROM user WHERE email = '$user_email'";
+    $results = mysqli_query($con, $sql);
+    if ($row = mysqli_fetch_assoc($results)) {
         if (isset($row['status']) && $row['status'] === 'deactive') {
-                session_unset();
-                session_destroy();
-                setcookie("user_email", "", time() - 3600, "/"); // Remove cookie
-                mysqli_close($con);
-                echo "<script>alert('Your account has been deactivated. Please contact support.'); window.location.href='contact-us.php?deactivated=1';</script>";
-                exit();
+            session_unset();
+            session_destroy();
+            setcookie("user_email", "", time() - 3600, "/"); // Remove cookie
+            mysqli_close($con);
+            echo "<script>alert('Your account has been deactivated. Please contact support.'); window.location.href='contact-us.php?deactivated=1';</script>";
+            exit();
         }
         $user_name = $row['username'];
         $user_email_display = $row['email'];
         $user_role = isset($row['role']) ? $row['role'] : '';
-}
-mysqli_close($con);
+    }
+    mysqli_close($con);
 }
 ?>
 <!DOCTYPE html>
