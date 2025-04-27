@@ -26,7 +26,7 @@ if ($user['role'] !== 'admin') {
 
 // Handle deletion
 if (isset($_POST['code'])) {
-    $code = mysqli_real_escape_string($con, $_POST['code']);
+    $code = $_POST['code'];
     $delete_sql = "DELETE FROM products WHERE product_code = '$code'";
     mysqli_query($con, $delete_sql);
 }

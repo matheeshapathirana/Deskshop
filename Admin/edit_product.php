@@ -17,8 +17,8 @@ if (
     isset($_POST['price']) &&
     isset($_POST['stock'])
 ) {
-    $code = mysqli_real_escape_string($con, $_POST['code']);
-    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $code = $_POST['code'];
+    $name = $_POST['name'];
     $price = floatval($_POST['price']);
     $stock = intval($_POST['stock']);
 
@@ -35,7 +35,7 @@ if (
             exit();
         }
     } else if (isset($_POST['image_url']) && $_POST['image_url'] !== '') {
-        $image_url = mysqli_real_escape_string($con, $_POST['image_url']);
+        $image_url = $_POST['image_url'];
     }
 
     if ($image_url !== '') {

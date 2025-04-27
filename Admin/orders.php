@@ -8,8 +8,8 @@ if (!$con) {
 
 // Handle status update POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'], $_POST['order_id'], $_POST['status'])) {
-    $order_id = intval($_POST['order_id']);
-    $status = mysqli_real_escape_string($con, $_POST['status']);
+    $order_id = $_POST['order_id'];
+    $status = $_POST['status'];
     $update_sql = "UPDATE orders SET status='$status' WHERE order_id=$order_id";
     mysqli_query($con, $update_sql);
     // Optional: Add a success/failure message or redirect
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'], $_PO
 
 // Handle delete order POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_order'], $_POST['order_id'])) {
-    $order_id = intval($_POST['order_id']);
+    $order_id = $_POST['order_id'];
     $delete_sql = "DELETE FROM orders WHERE order_id=$order_id";
     mysqli_query($con, $delete_sql);
     // Optional: Add a success/failure message or redirect

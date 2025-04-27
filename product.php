@@ -239,10 +239,10 @@ if ($product) {
                       id="decrease-quantity"
                     />
                     <span class="quantity-value" id="quantity-value"><?php
-                        // If in wishlist, show wishlist quantity, else 1
-                        $wishlist_qty = (isset($user_wishlist_qty[$product['product_code']]) ? $user_wishlist_qty[$product['product_code']] : 1);
-                        echo $wishlist_qty;
-                    ?></span>
+                    // If in wishlist, show wishlist quantity, else 1
+                    $wishlist_qty = (isset($product) && isset($user_wishlist_qty[$product['product_code']]) ? $user_wishlist_qty[$product['product_code']] : 1);
+                    echo $wishlist_qty;
+                ?></span>
                     <img
                       src="Assets/icons/plus.svg"
                       alt="Increase"
@@ -252,7 +252,7 @@ if ($product) {
                   </div>
                   <!-- Add to Cart form -->
                   <form method="post" id="cart-form" style="display:inline;">
-                    <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
+                    <input type="hidden" name="product_code" value="<?php echo isset($product) ? htmlspecialchars($product['product_code']) : ''; ?>">
                     <input type="hidden" name="cart_action" value="add">
                     <input type="hidden" name="cart_qty" id="cart-qty-field" value="<?php echo $wishlist_qty; ?>">
                     <button type="submit" class="add-to-cart-btn" id="add-to-cart-btn" style="padding: 14px 36px; font-size: 1.2em; min-width: 180px;position: relative;top: 13px;/*! size: 10; */scale: 140%;left: 40px;">Add to Cart</button>
@@ -260,21 +260,21 @@ if ($product) {
                 </div>
                 <div class="wishlist-action">
                   <form method="post" id="wishlist-form" style="display:inline;">
-                    <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
-                    <input type="hidden" name="wishlist_action" id="wishlist-action-field" value="<?php echo in_array($product['product_code'], $user_wishlist_product_ids) ? 'remove' : 'add'; ?>">
+                    <input type="hidden" name="product_code" value="<?php echo isset($product) ? htmlspecialchars($product['product_code']) : ''; ?>">
+                    <input type="hidden" name="wishlist_action" id="wishlist-action-field" value="<?php echo (isset($product) && in_array($product['product_code'], $user_wishlist_product_ids)) ? 'remove' : 'add'; ?>">
                     <input type="hidden" name="wishlist_qty" id="wishlist-qty-field" value="<?php echo $wishlist_qty; ?>">
                     <button type="submit" id="wishlist-btn" style="background:none;border:none;padding:0;cursor:pointer;">
                       <img
-                        src="Assets/icons/<?php echo in_array($product['product_code'], $user_wishlist_product_ids) ? 'wishlist-select.svg' : 'wishlist.svg'; ?>"
+                        src="Assets/icons/<?php echo (isset($product) && in_array($product['product_code'], $user_wishlist_product_ids)) ? 'wishlist-select.svg' : 'wishlist.svg'; ?>"
                         alt="Wishlist Icon"
                         id="wishlist-icon"
                       />
                     </button>
                   </form>
-                  <span class="wishlist-text" id="wishlist-text"><?php echo in_array($product['product_code'], $user_wishlist_product_ids) ? 'Remove from wishlist' : 'Add to Wish List'; ?></span>
+                  <span class="wishlist-text" id="wishlist-text"><?php echo (isset($product) && in_array($product['product_code'], $user_wishlist_product_ids)) ? 'Remove from wishlist' : 'Add to Wish List'; ?></span>
                 </div>
                 <div style="margin-top:10px; font-size:14px; color:#888;">
-                  <?php echo $product['stock'] > 0 ? 'In Stock' : 'Out of Stock'; ?>
+                  <?php echo (isset($product) && $product['stock'] > 0) ? 'In Stock' : 'Out of Stock'; ?>
                 </div>
               </div>
             </div>
@@ -289,7 +289,7 @@ if ($product) {
         <section class="reviews-section">
           <h3 class="section-title">Reviews</h3>
           <h4 class="review-form-title">Your Review</h4>
-          <?php if ($isLoggedIn): ?>
+          <?php if ($isLoggedIn && isset($product)): ?>
           <form class="review-form" method="post" action="">
             <textarea class="review-input" name="review_text" required></textarea>
             <input type="hidden" name="review_action" value="add">
@@ -299,7 +299,7 @@ if ($product) {
           <?php if ($review_error): ?>
             <div style="color:red; margin-top:8px;"><?php echo htmlspecialchars($review_error); ?></div>
           <?php endif; ?>
-          <?php else: ?>
+          <?php elseif (!$isLoggedIn): ?>
             <div style="margin-bottom:16px; color:#a00;">You must <a href="signup.php">log in</a> to submit a review.</div>
           <?php endif; ?>
 
@@ -411,6 +411,7 @@ if ($product) {
           const wishlistForm = document.getElementById('wishlist-form');
           const wishlistBtn = document.getElementById('wishlist-btn');
           const wishlistActionField = document.getElementById('wishlist-action-field');
+          <?php if (isset($product)): ?>
           if (wishlistForm && wishlistBtn && wishlistActionField) {
               wishlistForm.onsubmit = function(e) {
                   // Always set the correct action before submit
@@ -423,6 +424,7 @@ if ($product) {
                   // allow submit
               };
           }
+          <?php endif; ?>
 
           // Add to Cart button submits with current quantity
           const cartForm = document.getElementById('cart-form');

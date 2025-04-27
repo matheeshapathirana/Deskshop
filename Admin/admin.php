@@ -218,19 +218,19 @@ if ($results && mysqli_num_rows($results) > 0) {
                     if ($result && mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>";
-                            echo "<td>" . htmlspecialchars($row['product_code']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-                            echo "<td>Rs. " . htmlspecialchars($row['price']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['stock']) . "</td>";
+                            echo "<td>" . $row['product_code'] . "</td>";
+                            echo "<td>" . $row['name'] . "</td>";
+                            echo "<td>Rs. " . $row['price'] . "</td>";
+                            echo "<td>" . $row['stock'] . "</td>";
                             echo '<td class="action-buttons">
                                     <button class="edit-button" type="button" onclick="editProduct('
-                                        . '\'' . addslashes($row['product_code']) . '\','
-                                        . '\'' . addslashes($row['name']) . '\','
-                                        . '\'' . addslashes($row['price']) . '\','
-                                        . '\'' . addslashes($row['stock']) . '\','
-                                        . '\'' . addslashes($row['image_url']) . '\')">Edit</button>
-                                    <button class="delete-button" type="button" onclick="deleteProduct(\''
-                                        . addslashes($row['product_code']) . '\')">Delete</button>
+                                        . '\'' . $row['product_code'] . '\','
+                                        . '\'' . $row['name'] . '\','
+                                        . '\'' . $row['price'] . '\','
+                                        . '\'' . $row['stock'] . '\','
+                                        . '\'' . $row['image_url'] . '\')">Edit</button>
+                                    <button class="delete-button" type="button" onclick="deleteProduct('
+                                        . '\'' . $row['product_code'] . '\')">Delete</button>
                                 </td>';
                             echo "</tr>";
                         }

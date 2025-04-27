@@ -41,32 +41,23 @@ function addProductWithCategories($con, $product, $categories) {
 
     foreach ($categories as $category) {
         // 1. Try to get the category_id
-        $stmt = $con->prepare("SELECT category_id FROM categories WHERE category_name = ?");
-        $stmt->bind_param("s", $category);
-        $stmt->execute();
-        $stmt->bind_result($category_id);
-        if ($stmt->fetch()) {
-            $stmt->close();
+        $sql = "SELECT category_id FROM categories WHERE category_name = '$category'";
+        $result = mysqli_query($con, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            $category_id = $row['category_id'];
         } else {
-            $stmt->close();
             // 2. Insert new category if not exists
-            $stmt = $con->prepare("INSERT INTO categories (category_name) VALUES (?)");
-            $stmt->bind_param("s", $category);
-            if (!$stmt->execute()) {
-                $stmt->close();
+            $sql = "INSERT INTO categories (category_name) VALUES ('$category')";
+            if (!mysqli_query($con, $sql)) {
                 return false;
             }
-            $category_id = $con->insert_id;
-            $stmt->close();
+            $category_id = mysqli_insert_id($con);
         }
         // 3. Link product and category (avoid duplicates by using INSERT IGNORE)
-        $stmt = $con->prepare("INSERT IGNORE INTO product_categories (product_code, category_id) VALUES (?, ?)");
-        $stmt->bind_param("si", $product['code'], $category_id);
-        if (!$stmt->execute()) {
-            $stmt->close();
+        $sql = "INSERT IGNORE INTO product_categories (product_code, category_id) VALUES ('$code', $category_id)";
+        if (!mysqli_query($con, $sql)) {
             return false;
         }
-        $stmt->close();
     }
     return true;
 }
