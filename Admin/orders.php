@@ -6,6 +6,30 @@ if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+// Handle status update POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'], $_POST['order_id'], $_POST['status'])) {
+    $order_id = intval($_POST['order_id']);
+    $status = mysqli_real_escape_string($con, $_POST['status']);
+    $update_sql = "UPDATE orders SET status='$status' WHERE order_id=$order_id";
+    mysqli_query($con, $update_sql);
+    // Optional: Add a success/failure message or redirect
+}
+
+// Handle delete order POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_order'], $_POST['order_id'])) {
+    $order_id = intval($_POST['order_id']);
+    $delete_sql = "DELETE FROM orders WHERE order_id=$order_id";
+    mysqli_query($con, $delete_sql);
+    // Optional: Add a success/failure message or redirect
+}
+
+// Handle delete all delivered orders POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_all_delivered'])) {
+    $delete_delivered_sql = "DELETE FROM orders WHERE status='Delivered'";
+    mysqli_query($con, $delete_delivered_sql);
+    // Optional: Add a success/failure message or redirect
+}
+
 $email = $_SESSION['email'];
 $sql = "SELECT role FROM user WHERE email = '$email'";
 $results = mysqli_query($con, $sql);
@@ -20,6 +44,17 @@ if ($results && mysqli_num_rows($results) > 0) {
     echo "<script>alert('Please sign in to access admin panel.'); window.location.href='../signin.php';</script>";
     exit();
 }
+
+// Fetch orders with user and product info, including contact and address details
+$order_query = "
+    SELECT o.order_id, u.ID AS customer_id, u.username AS customer_name, o.status, o.quantity, o.product_code, p.price, p.name,
+           o.contact_number, o.address, o.city, o.postalcode, o.paymentmethod
+    FROM orders o
+    JOIN user u ON o.user_id = u.ID
+    JOIN products p ON o.product_code = p.product_code
+    ORDER BY o.order_id DESC
+";
+$order_result = mysqli_query($con, $order_query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +63,22 @@ if ($results && mysqli_num_rows($results) > 0) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel - Orders</title>
   <link rel="stylesheet" href="orders.css">
+  <style>
+    /* Modal styles */
+    .modal {
+      display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+      overflow: auto; background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background: #fff; margin: 10% auto; padding: 20px; border: 1px solid #888; width: 350px; border-radius: 8px; position: relative;
+    }
+    .close-modal {
+      color: #aaa; position: absolute; top: 10px; right: 16px; font-size: 28px; font-weight: bold; cursor: pointer;
+    }
+    .modal-content h2 { margin-top: 0; }
+    .modal-content .detail-row { margin-bottom: 10px; }
+    .modal-content .detail-label { font-weight: bold; }
+  </style>
 </head>
 <body>
   <div class="admin-panel">
@@ -42,51 +93,111 @@ if ($results && mysqli_num_rows($results) > 0) {
     </aside>
     <main class="main-content">
       <h1>Orders</h1>
+      <form method="post" style="margin-bottom: 16px;" onsubmit="return confirm('Are you sure you want to delete all delivered orders?');">
+        <button type="submit" name="delete_all_delivered" class="delete-button button" style="background:#d9534f;color:#fff;">Delete All Delivered Orders</button>
+      </form>
       <table>
         <thead>
           <tr>
             <th>Order ID</th>
+            <th>Customer ID</th> <!-- Added Customer ID column header -->
             <th>Customer</th>
+            <th>Product Name</th>
+            <th>Product Code</th>
+            <th>Quantity</th>
             <th>Total</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1001</td>
-            <td>John Doe</td>
-            <td>$120.00</td>
-            <td>
-              <select name="status_1001">
-                <option value="Pending" selected>Pending</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </td>
-            <td class="action-buttons">
-              <button class="delete-button button" title="Delete">Delete</button>
-              <a href="../product.php?code=WT.SI.OI-AHG-004" class="view-button button" title="View">View</a>
-            </td>
-          </tr>
-          <tr>
-            <td>1002</td>
-            <td>Jane Smith</td>
-            <td>$250.00</td>
-            <td>
-              <select name="status_1002">
-                <option value="Pending">Pending</option>
-                <option value="Shipped" selected>Shipped</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </td>
-            <td class="action-buttons">
-              <button class="delete-button button" title="Delete">Delete</button>
-              <a href="../product.php?code=SI.BK-AA-005" class="view-button button" title="View">View</a>
-            </td>
-          </tr>
+        <?php if ($order_result && mysqli_num_rows($order_result) > 0): ?>
+            <?php while ($row = mysqli_fetch_assoc($order_result)): ?>
+              <tr>
+                <td><?php echo htmlspecialchars($row['order_id']); ?></td>
+                <td><?php echo htmlspecialchars($row['customer_id']); ?></td> <!-- Show customer ID -->
+                <td><?php echo htmlspecialchars($row['customer_name']); ?></td>
+                <td><?php echo htmlspecialchars($row['name']); ?></td>
+                <td><?php echo htmlspecialchars($row['product_code']); ?></td>
+                <td><?php echo htmlspecialchars($row['quantity']); ?></td>
+                <td>
+                  <?php
+                    $total = $row['quantity'] * $row['price'];
+                    echo 'Rs.' . number_format($total, 2);
+                  ?>
+                </td>
+                <td>
+                  <form method="post" style="display:inline;">
+                    <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
+                    <select name="status" class="status-dropdown">
+                      <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
+                      <option value="Shipped" <?php if ($row['status'] == 'Shipped') echo 'selected'; ?>>Shipped</option>
+                      <option value="Delivered" <?php if ($row['status'] == 'Delivered') echo 'selected'; ?>>Delivered</option>
+                    </select>
+                    <button type="submit" name="update_status" class="update-status-button button" title="Update Status">Update</button>
+                  </form>
+                </td>
+                <td class="action-buttons">
+                  <form method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this order?');">
+                    <input type="hidden" name="order_id" value="<?php echo $row['order_id']; ?>">
+                    <button type="submit" name="delete_order" class="delete-button button" title="Delete">Delete</button>
+                  </form>
+                  <a href="../product.php?code=<?php echo urlencode($row['product_code']); ?>" class="view-button button" title="View">View</a>
+                  <button type="button"
+                    class="details-button button"
+                    title="Details"
+                    onclick="showDetailsModal(
+                      '<?php echo htmlspecialchars($row['customer_name'], ENT_QUOTES); ?>',
+                      '<?php echo htmlspecialchars($row['contact_number'], ENT_QUOTES); ?>',
+                      '<?php echo htmlspecialchars($row['address'], ENT_QUOTES); ?>',
+                      '<?php echo htmlspecialchars($row['city'], ENT_QUOTES); ?>',
+                      '<?php echo htmlspecialchars($row['postalcode'], ENT_QUOTES); ?>',
+                      '<?php echo htmlspecialchars($row['paymentmethod'], ENT_QUOTES); ?>'
+                    )"
+                    style="background:#0275d8;color:#fff;margin-left:4px;"
+                  >Details</button>
+                </td>
+              </tr>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <tr><td colspan="6">No orders found.</td></tr>
+        <?php endif; ?>
         </tbody>
       </table>
+      <!-- Modal for order details -->
+      <div id="detailsModal" class="modal">
+        <div class="modal-content">
+          <span class="close-modal" onclick="closeDetailsModal()">&times;</span>
+          <h2>Order Details</h2>
+          <div class="detail-row"><span class="detail-label">Customer:</span> <span id="modalCustomer"></span></div>
+          <div class="detail-row"><span class="detail-label">Contact Number:</span> <span id="modalContact"></span></div>
+          <div class="detail-row"><span class="detail-label">Address:</span> <span id="modalAddress"></span></div>
+          <div class="detail-row"><span class="detail-label">City:</span> <span id="modalCity"></span></div>
+          <div class="detail-row"><span class="detail-label">Postal Code:</span> <span id="modalPostal"></span></div>
+          <div class="detail-row"><span class="detail-label">Payment Method:</span> <span id="modalPayment"></span></div>
+        </div>
+      </div>
+      <script>
+        function showDetailsModal(customer, contact, address, city, postal, payment) {
+          document.getElementById('modalCustomer').textContent = customer;
+          document.getElementById('modalContact').textContent = contact;
+          document.getElementById('modalAddress').textContent = address;
+          document.getElementById('modalCity').textContent = city;
+          document.getElementById('modalPostal').textContent = postal;
+          document.getElementById('modalPayment').textContent = payment;
+          document.getElementById('detailsModal').style.display = 'block';
+        }
+        function closeDetailsModal() {
+          document.getElementById('detailsModal').style.display = 'none';
+        }
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+          var modal = document.getElementById('detailsModal');
+          if (event.target == modal) {
+            closeDetailsModal();
+          }
+        }
+      </script>
     </main>
   </div>
 </body>
