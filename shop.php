@@ -10,11 +10,11 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             // Get user id (now 'id' instead of 'user_id')
-            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
             $user_row = mysqli_fetch_assoc($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
-                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $product_code = $_POST['product_code'];
                 if ($_POST['wishlist_action'] === 'add') {
                     $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
                     if (mysqli_num_rows($check) == 0) {
@@ -38,11 +38,11 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
             $user_row = mysqli_fetch_assoc($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
-                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $product_code = $_POST['product_code'];
                 $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
                 // Check if already in cart
                 $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
@@ -66,7 +66,7 @@ if ($isLoggedIn) {
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         // Get user id (now 'id')
-        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
         $user_row = mysqli_fetch_assoc($user_q);
         if ($user_row) {
             $id = $user_row['id'];

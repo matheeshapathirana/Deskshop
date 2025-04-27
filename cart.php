@@ -15,7 +15,7 @@ if ($isLoggedIn) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".$user_email."' LIMIT 1");
         $user_row = mysqli_fetch_assoc($user_q);
         if ($user_row) {
             $id = $user_row['id'];
@@ -23,10 +23,10 @@ if ($isLoggedIn) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout'])) {
                 // Get form data
                 $contact_number = isset($_POST['phone']) ? intval($_POST['phone']) : '';
-                $address = isset($_POST['address']) ? mysqli_real_escape_string($con, $_POST['address']) : '';
-                $city = isset($_POST['city']) ? mysqli_real_escape_string($con, $_POST['city']) : '';
+                $address = isset($_POST['address']) ? $_POST['address'] : '';
+                $city = isset($_POST['city']) ? $_POST['city'] : '';
                 $postalcode = isset($_POST['postal']) ? intval($_POST['postal']) : '';
-                $paymentmethod = isset($_POST['payment']) ? mysqli_real_escape_string($con, $_POST['payment']) : '';
+                $paymentmethod = isset($_POST['payment']) ? $_POST['payment'] : '';
 
                 // Fetch cart items again for safety
                 $cart_q = mysqli_query($con, "
@@ -36,7 +36,7 @@ if ($isLoggedIn) {
                 ");
                 $orders_inserted = 0;
                 while ($cart_row = mysqli_fetch_assoc($cart_q)) {
-                    $product_code = mysqli_real_escape_string($con, $cart_row['product_code']);
+                    $product_code = $cart_row['product_code'];
                     $quantity = (int)$cart_row['quantity'];
                     $insert_q = mysqli_query($con, "
                         INSERT INTO orders (user_id, product_code, quantity, date, contact_number, address, city, postalcode, paymentmethod)
@@ -154,7 +154,7 @@ $grand_total = $total + $delivery_fee;
                                           <h3 class="product-name"><?php echo htmlspecialchars($item['product_name']); ?></h3>
                                           <p class="product-quantity">Qty : <?php echo $item['quantity']; ?></p>
                                       </div>
-                                      <form method="post" action="removeFromCart.php" style="display:inline;">
+                                      <form method="post" action="PHP/removeFromCart.php" style="display:inline;">
                                           <input type="hidden" name="cart_id" value="<?php echo $item['cart_id']; ?>">
                                           <button class="remove-item" type="submit">
                                               <img

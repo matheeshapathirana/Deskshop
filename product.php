@@ -8,11 +8,11 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
             $user_row = mysqli_fetch_assoc($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
-                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $product_code = $_POST['product_code'];
                 $qty = isset($_POST['wishlist_qty']) ? max(1, intval($_POST['wishlist_qty'])) : 1;
                 if ($_POST['wishlist_action'] === 'add') {
                     // Try to insert with quantity, or update if exists
@@ -39,11 +39,11 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
             $user_row = mysqli_fetch_assoc($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
-                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $product_code = $_POST['product_code'];
                 $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
                 // Check if already in cart
                 $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
@@ -67,12 +67,12 @@ if (isset($_POST['review_action'], $_POST['review_text'], $_POST['product_code']
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
             $user_row = mysqli_fetch_assoc($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
-                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
-                $review_text = mysqli_real_escape_string($con, trim($_POST['review_text']));
+                $product_code = $_POST['product_code'];
+                $review_text = trim($_POST['review_text']);
                 if ($review_text !== '') {
                     mysqli_query($con, "INSERT INTO reviews (ID, product_code, review_text) VALUES ($id, '$product_code', '$review_text')");
                 } else {
@@ -96,7 +96,7 @@ if ($isLoggedIn) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
         $user_row = mysqli_fetch_assoc($user_q);
         if ($user_row) {
             $id = $user_row['id'];
@@ -119,7 +119,7 @@ if (!$con) {
 // Get product code from URL
 $product = null;
 if (isset($_GET['code'])) {
-    $code = mysqli_real_escape_string($con, $_GET['code']);
+    $code = $_GET['code'];
     $sql = "SELECT p.product_code, p.name, p.price, p.image_url, p.stock, GROUP_CONCAT(c.category_name SEPARATOR ' ') as categories
             FROM products p
             LEFT JOIN product_categories pc ON p.product_code = pc.product_code
@@ -137,7 +137,7 @@ $reviews = [];
 if ($product) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
-        $code = mysqli_real_escape_string($con, $product['product_code']);
+        $code = $product['product_code'];
         $sql = "SELECT r.review_text, r.review_date, u.username as reviewer_name
                 FROM reviews r
                 JOIN user u ON r.ID = u.ID
