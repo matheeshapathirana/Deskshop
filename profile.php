@@ -106,7 +106,7 @@ if ($con) {
 
 <section class="action-buttons">
     <div class="top-buttons">
-        <button class="action-btn track-btn">Track Orders</button>
+        <button class="action-btn track-btn" onclick="window.location.href='track-orders.php'">Track Orders</button>
         <button class="action-btn password-btn" onclick="window.location.href='reset-password.php'" >Change<br />Password</button>
         <button class="action-btn signout-btn" onclick="window.location.href='PHP/logout.php'">Sign Out</button>
     </div>
