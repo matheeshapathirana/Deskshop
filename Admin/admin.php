@@ -166,6 +166,7 @@ if ($results && mysqli_num_rows($results) > 0) {
             <h2>Admin Panel</h2>
             <a href="#products" class="active">Products</a>
             <a href="orders.php">Orders</a>
+            <a href="manage_users.php">Manage Users</a>
             <a href="../index.php">DeskShop</a>
             <a href="#logout" onclick="window.location.href='../PHP/logout.php'">Logout</a>
         </div>
