@@ -122,7 +122,7 @@ $grand_total = $total + $delivery_fee;
                                           <h3 class="product-name"><?php echo htmlspecialchars($item['product_name']); ?></h3>
                                           <p class="product-quantity">Qty : <?php echo $item['quantity']; ?></p>
                                       </div>
-                                      <form method="post" action="remove_from_cart.php" style="display:inline;">
+                                      <form method="post" action="removeFromCart.php" style="display:inline;">
                                           <input type="hidden" name="cart_id" value="<?php echo $item['cart_id']; ?>">
                                           <button class="remove-item" type="submit">
                                               <img
