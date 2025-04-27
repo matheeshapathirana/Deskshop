@@ -60,6 +60,35 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
     exit;
 }
 
+// --- Review submission handler ---
+$review_error = '';
+if (isset($_POST['review_action'], $_POST['review_text'], $_POST['product_code']) && $_POST['review_action'] === 'add') {
+    if ($isLoggedIn) {
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
+            $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".mysqli_real_escape_string($con, $user_email)."' LIMIT 1");
+            $user_row = mysqli_fetch_assoc($user_q);
+            if ($user_row) {
+                $id = $user_row['id'];
+                $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
+                $review_text = mysqli_real_escape_string($con, trim($_POST['review_text']));
+                if ($review_text !== '') {
+                    mysqli_query($con, "INSERT INTO reviews (ID, product_code, review_text) VALUES ($id, '$product_code', '$review_text')");
+                } else {
+                    $review_error = "Review cannot be empty.";
+                }
+            }
+            mysqli_close($con);
+        }
+        // Redirect to avoid resubmission
+        header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : ''));
+        exit;
+    } else {
+        $review_error = "You must be logged in to submit a review.";
+    }
+}
+
 // Fetch user's wishlist product_codes for marking icons
 $user_wishlist_product_ids = [];
 $user_wishlist_qty = [];
@@ -100,6 +129,25 @@ if (isset($_GET['code'])) {
     $result = mysqli_query($con, $sql);
     if ($result && mysqli_num_rows($result) > 0) {
         $product = mysqli_fetch_assoc($result);
+    }
+}
+
+// Fetch reviews for this product
+$reviews = [];
+if ($product) {
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if ($con) {
+        $code = mysqli_real_escape_string($con, $product['product_code']);
+        $sql = "SELECT r.review_text, r.review_date, u.username as reviewer_name
+                FROM reviews r
+                JOIN user u ON r.ID = u.ID
+                WHERE r.product_code = '$code'
+                ORDER BY r.review_date DESC";
+        $result = mysqli_query($con, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $reviews[] = $row;
+        }
+        mysqli_close($con);
     }
 }
 ?>
@@ -241,81 +289,43 @@ if (isset($_GET['code'])) {
         <section class="reviews-section">
           <h3 class="section-title">Reviews</h3>
           <h4 class="review-form-title">Your Review</h4>
-          <form class="review-form">
-            <textarea class="review-input" required></textarea>
+          <?php if ($isLoggedIn): ?>
+          <form class="review-form" method="post" action="">
+            <textarea class="review-input" name="review_text" required></textarea>
+            <input type="hidden" name="review_action" value="add">
+            <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
             <button type="submit" class="submit-btn">Submit</button>
           </form>
+          <?php if ($review_error): ?>
+            <div style="color:red; margin-top:8px;"><?php echo htmlspecialchars($review_error); ?></div>
+          <?php endif; ?>
+          <?php else: ?>
+            <div style="margin-bottom:16px; color:#a00;">You must <a href="signup.php">log in</a> to submit a review.</div>
+          <?php endif; ?>
 
           <div class="reviews-container">
-            <article class="review-row">
-              <div class="review-item">
-                <div class="review-content">
-                  <div class="review-header">
-                    <div class="review-text-container">
-                      <h5 class="reviewer-name">Test User</h5>
-                      <p class="review-text">
-                        The erasers are of excellent quality, effectively
-                        removing pencil marks without leaving smudges or tearing
-                        the paper.
-                      </p>
+            <?php if (count($reviews) === 0): ?>
+              <div style="padding:20px; color:#888;">No reviews yet.</div>
+            <?php else: ?>
+              <?php foreach ($reviews as $review): ?>
+                <article class="review-row">
+                  <div class="review-item">
+                    <div class="review-content">
+                      <div class="review-header">
+                        <div class="review-text-container">
+                          <h5 class="reviewer-name"><?php echo htmlspecialchars($review['reviewer_name']); ?></h5>
+                          <p class="review-text">
+                            <?php echo nl2br(htmlspecialchars($review['review_text'])); ?>
+                          </p>
+                        </div>
+                      </div>
+                      <hr class="review-divider" />
                     </div>
+                    <p class="review-date">Posted on <?php echo date('F d, Y', strtotime($review['review_date'])); ?></p>
                   </div>
-                  <hr class="review-divider" />
-                </div>
-                <p class="review-date">Posted on March 01, 2025</p>
-              </div>
-              <div class="review-item">
-                <div class="review-content">
-                  <div class="review-header">
-                    <div class="review-text-container">
-                      <h5 class="reviewer-name">Test User</h5>
-                      <p class="review-text">
-                        The erasers are of excellent quality, effectively
-                        removing pencil marks without leaving smudges or tearing
-                        the paper.
-                      </p>
-                    </div>
-                  </div>
-                  <hr class="review-divider" />
-                </div>
-                <p class="review-date">Posted on March 01, 2025</p>
-              </div>
-            </article>
-
-            <article class="review-row">
-              <div class="review-item">
-                <div class="review-content">
-                  <div class="review-header">
-                    <div class="review-text-container">
-                      <h5 class="reviewer-name">Test User</h5>
-                      <p class="review-text">
-                        The erasers are of excellent quality, effectively
-                        removing pencil marks without leaving smudges or tearing
-                        the paper.
-                      </p>
-                    </div>
-                  </div>
-                  <hr class="review-divider" />
-                </div>
-                <p class="review-date">Posted on March 01, 2025</p>
-              </div>
-              <div class="review-item">
-                <div class="review-content">
-                  <div class="review-header">
-                    <div class="review-text-container">
-                      <h5 class="reviewer-name">Test User</h5>
-                      <p class="review-text">
-                        The erasers are of excellent quality, effectively
-                        removing pencil marks without leaving smudges or tearing
-                        the paper.
-                      </p>
-                    </div>
-                  </div>
-                  <hr class="review-divider" />
-                </div>
-                <p class="review-date">Posted on March 01, 2025</p>
-              </div>
-            </article>
+                </article>
+              <?php endforeach; ?>
+            <?php endif; ?>
           </div>
 
           <button class="load-more-btn">Load More Reviews</button>

@@ -46,7 +46,7 @@ if (isset($_POST['login-btn'])) {
             header("Location: ../profile.php");
         }
     } else {
-        header("Location: ../signin.php");
+        header("Location: ../signin.php?error=invalid");
     }
 }
 ?>

@@ -74,7 +74,7 @@
                         class="form-input"/>
                         <img src="Assets/icons/eye-off.svg" alt="Show/Hide Password" class="eye-icon" id="togglePassword" />
                                 </div>
-                        <a href="#" class="forgot-password">forgot password</a>
+                        <a href="reset-password.php" class="forgot-password">forgot password</a>
                         <input type="checkbox" name="remember" id="remember" checked>
                         <label class="remember-label" for="remember">Remember Me</label>
                         </div>
@@ -144,6 +144,11 @@
                 eyeIcon.src = 'Assets/icons/eye-off.svg';
         }
         });
+
+        // Show alert if password is incorrect
+        if (window.location.search.includes('error=invalid')) {
+                alert('Incorrect email or password. Please try again.');
+        }
 
         // function validateLogin(event) {
         //         event.preventDefault();
