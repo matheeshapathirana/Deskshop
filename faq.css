@@ -53,10 +53,9 @@ nav.nav-menu {
     text-align: center;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 0px;
+    margin-top: 0;
     width: 584px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 0;
     font-family: Montserrat, sans-serif;
 }
 
@@ -82,7 +81,7 @@ div.products-dropdown-content {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     opacity: 0;
     transform: rotateX(-90deg);
@@ -107,10 +106,6 @@ div.products-dropdown:hover .products-dropdown-content {
     visibility: visible;
     opacity: 1;
     transform: rotateX(0);
-}
-
-div.products-dropdown:hover .dropbtn {
-    background-color: #575757;
 }
 
 a.nav-item {
@@ -154,13 +149,13 @@ button.signup-btn {
     position: relative;
     overflow: hidden;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s ease, box-shadow 0.5s ease, color 0.5s ease;
 }
 
 button.signup-btn:hover {
     background: #fff;
     box-shadow: 0px 2px 10px 5px #2b1b12;
     color: #2b1b12;
-    transition: background 0.3s ease, box-shadow 0.5s ease, color 0.5s ease;
 }
 
 button.signup-btn::after {
@@ -188,7 +183,6 @@ button.signup-btn:active::after {
     text-align: center;
     font-family: Montserrat;
     font-size: 40px;
-    font-style: normal;
     font-weight: 800;
     line-height: 150%;
     text-transform: capitalize;
@@ -281,7 +275,7 @@ footer.footer {
     flex-direction: column;
     line-height: normal;
     width: 30%;
-    margin-left: 0px;
+    margin-left: 0;
     position: relative;
 }
 
@@ -311,7 +305,7 @@ footer.footer {
 
 .footer-copyright {
     opacity: 0.5;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     margin-top: 10px;
 }
 
@@ -415,7 +409,7 @@ footer.footer {
     .footer-row, .footer-columns-wrapper {
         flex-direction: column;
         align-items: stretch;
-        gap: 0px;
+        gap: 0;
     }
     
     .footer-column, .footer-links-column, .footer-contact-column {
