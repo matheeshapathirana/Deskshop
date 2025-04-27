@@ -57,26 +57,32 @@ if ($results && mysqli_num_rows($results) > 0) {
             <td>1001</td>
             <td>John Doe</td>
             <td>$120.00</td>
-            <td>Processing</td>
+            <td>
+              <select name="status_1001">
+                <option value="Pending" selected>Pending</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </td>
             <td class="action-buttons">
-              <button class="edit-button" title="Edit">Edit</button>
-              <button class="delete-button" title="Delete">Delete</button>
-              <button class="button" title="View">View</button>
-              <button class="button" title="Mark as Shipped">Mark as Shipped</button>
-              <button class="button" title="Print">Print</button>
+              <button class="delete-button button" title="Delete">Delete</button>
+              <a href="../product.php?code=WT.SI.OI-AHG-004" class="view-button button" title="View">View</a>
             </td>
           </tr>
           <tr>
             <td>1002</td>
             <td>Jane Smith</td>
             <td>$250.00</td>
-            <td>Shipped</td>
+            <td>
+              <select name="status_1002">
+                <option value="Pending">Pending</option>
+                <option value="Shipped" selected>Shipped</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            </td>
             <td class="action-buttons">
-              <button class="edit-button" title="Edit">Edit</button>
-              <button class="delete-button" title="Delete">Delete</button>
-              <button class="button" title="View">View</button>
-              <button class="button" title="Mark as Shipped">Mark as Shipped</button>
-              <button class="button" title="Print">Print</button>
+              <button class="delete-button button" title="Delete">Delete</button>
+              <a href="../product.php?code=SI.BK-AA-005" class="view-button button" title="View">View</a>
             </td>
           </tr>
         </tbody>

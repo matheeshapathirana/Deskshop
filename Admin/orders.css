@@ -61,18 +61,31 @@ h1 {
     margin-bottom: 20px;
 }
 
-.button {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-bottom: 20px;
+.button, .action-buttons .button {
+  display: inline-block;
+  padding: 6px 16px;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-right: 5px;
 }
 
-.button:hover {
-    background-color: #0056b3;
+.delete-button.button {
+  background: #dc3545; /* red */
+}
+.delete-button.button:hover {
+  background: #a71d2a; /* darker red */
+}
+
+.view-button.button {
+  background: #007bff; /* blue */
+}
+.view-button.button:hover {
+  background: #0056b3; /* darker blue */
 }
 
 table {
@@ -163,4 +176,29 @@ table th {
 
 .print-button:hover {
     background-color: #565e64;
+}
+
+/* Style for the status dropdown */
+select[name^="status_"] {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  font-size: 1em;
+  transition: border-color 0.2s;
+  outline: none;
+}
+select[name^="status_"]:focus {
+  border-color: #007bff;
+  background: #fff;
+}
+/* Optional: color code by status */
+select[name^="status_"] option[value="Pending"] {
+  color: #ff9800;
+}
+select[name^="status_"] option[value="Shipped"] {
+  color: #2196f3;
+}
+select[name^="status_"] option[value="Delivered"] {
+  color: #4caf50;
 }
