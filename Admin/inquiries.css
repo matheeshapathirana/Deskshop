@@ -1,0 +1,121 @@
+/* manage_inquiries.css - Custom styles for Manage Inquiries admin page */
+
+body {
+    background: #f7f7f7;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.admin-panel {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 200px;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    color: #333;
+    min-height: 100vh;
+    box-shadow: none;
+    display: block;
+    flex-direction: unset;
+    align-items: unset;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    letter-spacing: normal;
+    font-weight: normal;
+    font-family: Arial, sans-serif;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar ul li {
+    margin-bottom: 0;
+}
+.sidebar ul li a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 15px;
+    border-left: none;
+    background: none;
+    transition: background 0.2s, color 0.2s;
+    font-family: Arial, sans-serif;
+}
+.sidebar ul li a.active,
+.sidebar ul li a:hover {
+    background-color: #ddd;
+    color: #333;
+    font-weight: normal;
+    border-left: none;
+}
+.main-content {
+    flex: 1;
+    padding: 40px 50px;
+    background: #f7f7f7;
+    font-family: Arial, sans-serif;
+}
+.main-content h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #222d32;
+    font-family: Arial, sans-serif;
+}
+.table-responsive {
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+table th, table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+    font-size: 1em;
+}
+table th {
+    background: #f1f1f1;
+    color: #222d32;
+    font-weight: 600;
+}
+table tr:last-child td {
+    border-bottom: none;
+}
+.button {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #337ab7;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.2s;
+}
+.button:hover {
+    background: #23527c;
+}
+.delete-button {
+    background: #d9534f;
+    color: #fff;
+}
+.delete-button:hover {
+    background: #b52b27;
+}
