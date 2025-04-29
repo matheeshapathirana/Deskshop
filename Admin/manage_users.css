@@ -174,54 +174,49 @@ button.button:nth-child(1) {
     padding: 2px 6px;
     margin-right: 4px;
 }
-@media (max-width: 700px) {
-    .user-form-section, .table-responsive {
-        padding: 8px;
-    }
-    .user-form-section {
-        max-width: 100%;
-    }
-}
-
-.horizontal-form {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 16px;
-    align-items: flex-end;
-    width: 100%;
-    overflow: visible !important;
-}
-.horizontal-form .form-group {
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
-    margin-bottom: 0;
-    flex: 1 1 0;
-}
-.horizontal-form label {
-    margin-bottom: 4px;
-    font-weight: 500;
-}
-.horizontal-form input,
-.horizontal-form select {
-    width: 100%;
-    padding: 6px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
 @media (max-width: 1100px) {
     .horizontal-form {
         flex-wrap: wrap;
     }
 }
 @media (max-width: 900px) {
-    .horizontal-form {
-        flex-direction: column;
-        gap: 0;
-    }
-    .horizontal-form .form-group {
-        min-width: 0;
-        margin-bottom: 12px;
-    }
+  .admin-panel {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 10px;
+    min-height: unset;
+  }
+  .main-content {
+    padding: 12px 6px;
+  }
+}
+@media (max-width: 700px) {
+  .sidebar {
+    padding: 8px 4px;
+  }
+  .main-content {
+    padding: 8px 2px;
+  }
+  table, .main-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table thead, table tbody, table th, table td, table tr {
+    display: block;
+  }
+  table th, table td {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 4px;
+  }
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
 }

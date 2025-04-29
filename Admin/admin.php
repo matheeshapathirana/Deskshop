@@ -95,8 +95,73 @@ if ($results && mysqli_num_rows($results) > 0) {
     .modal-content button[type="submit"]:hover {
         background: #0056b3;
     }
+    /* Hamburger styles */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1200;
+      margin: 8px 0 8px 8px;
+    }
+    .hamburger .bar {
+      width: 28px;
+      height: 3px;
+      background: #2b1b12;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+    @media (max-width: 900px) {
+      .hamburger {
+        display: flex;
+      }
+      .sidebar {
+        position: fixed;
+        left: -220px;
+        top: 0;
+        height: 100vh;
+        z-index: 1100;
+        transition: left 0.3s;
+        width: 200px;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+      }
+      .sidebar.open {
+        left: 0;
+      }
+      .sidebar-backdrop {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.2);
+        z-index: 1099;
+      }
+      .sidebar-backdrop.active {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0 !important;
+      }
+    }
     </style>
     <script>
+    function toggleSidebar() {
+      var sidebar = document.querySelector('.sidebar');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      sidebar.classList.toggle('open');
+      backdrop.classList.toggle('active');
+    }
+    function closeSidebar() {
+      var sidebar = document.querySelector('.sidebar');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('active');
+    }
     function editProduct(code, name, price, stock, image_url = '') {
         // Show a modal for editing (with file input)
         let modal = document.createElement('div');
@@ -161,8 +226,14 @@ if ($results && mysqli_num_rows($results) > 0) {
     </script>
 </head>
 <body>
+    <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="admin-sidebar" onclick="toggleSidebar()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    <div id="sidebar-backdrop" class="sidebar-backdrop" onclick="closeSidebar()"></div>
     <div class="admin-panel">
-        <div class="sidebar">
+        <div class="sidebar" id="admin-sidebar">
             <h2>Admin Panel</h2>
             <a href="admin.php" class="active">Products</a>
             <a href="orders.php">Orders</a>

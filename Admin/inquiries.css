@@ -119,3 +119,40 @@ table tr:last-child td {
 .delete-button:hover {
     background: #b52b27;
 }
+@media (max-width: 900px) {
+  .admin-panel {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 10px;
+    min-height: unset;
+  }
+  .main-content {
+    padding: 12px 6px;
+  }
+}
+@media (max-width: 700px) {
+  .sidebar {
+    padding: 8px 4px;
+  }
+  .main-content {
+    padding: 8px 2px;
+  }
+  .table-responsive, table, .main-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table thead, table tbody, table th, table td, table tr {
+    display: block;
+  }
+  table th, table td {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 4px;
+  }
+}
