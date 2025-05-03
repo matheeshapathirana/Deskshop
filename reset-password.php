@@ -96,10 +96,6 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
                         
 
                         <button type="submit" name="reset-password-submit-btn" class="reset-password-submit">Reset Password</button>
-                        <div class="login-link">
-                        <span>Have an account?</span>
-                        <a href="signin.php" class="sign-in">Sign In</a>
-                </div>
                 </form>
         </section>
         </main>
