@@ -43,6 +43,11 @@ if ($isLoggedIn) {
                         VALUES ($id, '$product_code', $quantity, NOW(), $contact_number, '$address', '$city', $postalcode, '$paymentmethod')
                     ");
                     if ($insert_q) $orders_inserted++;
+                    // Reduce stock after order
+                    mysqli_query($con, "
+                        UPDATE products SET stock = stock - $quantity
+                        WHERE product_code = '$product_code'
+                    ");
                 }
                 // Clear user's cart
                 mysqli_query($con, "DELETE FROM cart WHERE ID = $id");
