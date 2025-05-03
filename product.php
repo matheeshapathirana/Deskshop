@@ -13,7 +13,16 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
+                // Fetch product stock
+                $stock_q = mysqli_query($con, "SELECT stock FROM products WHERE product_code = '$product_code' LIMIT 1");
+                $stock_row = mysqli_fetch_assoc($stock_q);
+                $stock = $stock_row ? intval($stock_row['stock']) : 1;
+                if ($stock <= 0) {
+                    echo "<script>alert('Out of Stock'); window.location.href='" . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : '') . "';</script>";
+                    exit;
+                }
                 $qty = isset($_POST['wishlist_qty']) ? max(1, intval($_POST['wishlist_qty'])) : 1;
+                $qty = min($qty, $stock); // Limit to stock
                 if ($_POST['wishlist_action'] === 'add') {
                     // Try to insert with quantity, or update if exists
                     $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
@@ -44,7 +53,16 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
+                // Fetch product stock
+                $stock_q = mysqli_query($con, "SELECT stock FROM products WHERE product_code = '$product_code' LIMIT 1");
+                $stock_row = mysqli_fetch_assoc($stock_q);
+                $stock = $stock_row ? intval($stock_row['stock']) : 1;
+                if ($stock <= 0) {
+                    echo "<script>alert('Out of Stock'); window.location.href='" . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : '') . "';</script>";
+                    exit;
+                }
                 $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
+                $qty = min($qty, $stock); // Limit to stock
                 // Check if already in cart
                 $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
                 if (mysqli_num_rows($check) == 0) {
@@ -160,6 +178,10 @@ if ($product) {
     <link rel="icon" type="image/x-icon" href="Assets/icons/favicon.ico?v=2">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mynerve&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+      .out-of-stock-text {
+        color: #d00 !important;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -273,7 +295,7 @@ if ($product) {
                   </form>
                   <span class="wishlist-text" id="wishlist-text"><?php echo (isset($product) && in_array($product['product_code'], $user_wishlist_product_ids)) ? 'Remove from wishlist' : 'Add to Wish List'; ?></span>
                 </div>
-                <div style="margin-top:10px; font-size:14px; color:#888;">
+                <div style="margin-top:10px; font-size:14px; <?php if (isset($product) && $product['stock'] <= 0) echo 'color:#d00;font-weight:bold;'; else echo 'color:#888;'; ?>"<?php if (isset($product) && $product['stock'] <= 0) echo ' class="out-of-stock-text"'; ?>>
                   <?php echo (isset($product) && $product['stock'] > 0) ? 'In Stock' : 'Out of Stock'; ?>
                 </div>
               </div>
@@ -382,7 +404,32 @@ if ($product) {
           const quantityValue = document.getElementById('quantity-value');
           const wishlistQtyField = document.getElementById('wishlist-qty-field');
           const cartQtyField = document.getElementById('cart-qty-field');
+          // Set max stock from PHP
+          <?php if (isset($product)): ?>
+          const maxStock = <?php echo (int)$product['stock']; ?>;
+          <?php else: ?>
+          const maxStock = 1;
+          <?php endif; ?>
 
+          // Prevent add to cart/wishlist if out of stock
+          <?php if (isset($product) && $product['stock'] <= 0): ?>
+          const cartForm = document.getElementById('cart-form');
+          const wishlistForm = document.getElementById('wishlist-form');
+          if (cartForm) {
+              cartForm.onsubmit = function(e) {
+                  alert('Out of Stock');
+                  e.preventDefault();
+                  return false;
+              };
+          }
+          if (wishlistForm) {
+              wishlistForm.onsubmit = function(e) {
+                  alert('Out of Stock');
+                  e.preventDefault();
+                  return false;
+              };
+          }
+          <?php else: ?>
           function updateWishlistQty() {
               if (wishlistQtyField && quantityValue) {
                   wishlistQtyField.value = quantityValue.textContent;
@@ -402,8 +449,10 @@ if ($product) {
               };
               increaseButton.onclick = function() {
                   let currentValue = parseInt(quantityValue.textContent);
-                  quantityValue.textContent = currentValue + 1;
-                  updateWishlistQty();
+                  if (currentValue < maxStock) {
+                      quantityValue.textContent = currentValue + 1;
+                      updateWishlistQty();
+                  }
               };
           }
 
@@ -431,10 +480,13 @@ if ($product) {
           const addToCartBtn = document.getElementById('add-to-cart-btn');
           if (cartForm && addToCartBtn && cartQtyField && quantityValue) {
               cartForm.onsubmit = function(e) {
-                  cartQtyField.value = quantityValue.textContent;
+                  let qty = parseInt(quantityValue.textContent);
+                  if (qty > maxStock) qty = maxStock;
+                  cartQtyField.value = qty;
                   // allow submit
               };
           }
+          <?php endif; ?>
       };
     </script>
   </body>
