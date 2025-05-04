@@ -330,24 +330,22 @@ if ($result) {
         setTimeout(showSlides, 5000);
     }
 
-
-    document.querySelectorAll('.sort-dropdown-content button').forEach(button => {
-        button.addEventListener('click', function () {
-            const selectedCategory = this.getAttribute('data-category');
-            const products = document.querySelectorAll('.product-card');
-
-            products.forEach(product => {
-                const productCategories = product.getAttribute('data-category').split(' ');
-
-                if (selectedCategory === 'default' || productCategories.includes(selectedCategory)) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.sort-dropdown-content button[data-category]').forEach(button => {
+            button.addEventListener('click', function () {
+                const selectedCategory = this.getAttribute('data-category');
+                const products = document.querySelectorAll('.product-card');
+                products.forEach(product => {
+                    const productCategories = product.getAttribute('data-category').split(' ');
+                    if (selectedCategory === 'default' || productCategories.includes(selectedCategory)) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
             });
         });
     });
-
 
     document.addEventListener('DOMContentLoaded', function () {
         const searchInput = document.querySelector('.search-input');
@@ -467,6 +465,46 @@ if ($result) {
                 resetPagination();
             });
         }
+
+        // --- SORT BY FUNCTIONALITY ---
+        const sortButtons = document.querySelectorAll('.sort-dropdown-content button[data-sort]');
+        const productGrid = document.querySelector('.product-grid');
+        sortButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                let sortedProducts = [...products];
+                const sortType = this.getAttribute('data-sort');
+                if (sortType === 'az') {
+                    sortedProducts.sort((a, b) => {
+                        const nameA = a.querySelector('.product-title').textContent.trim().toLowerCase();
+                        const nameB = b.querySelector('.product-title').textContent.trim().toLowerCase();
+                        return nameA.localeCompare(nameB);
+                    });
+                } else if (sortType === 'za') {
+                    sortedProducts.sort((a, b) => {
+                        const nameA = a.querySelector('.product-title').textContent.trim().toLowerCase();
+                        const nameB = b.querySelector('.product-title').textContent.trim().toLowerCase();
+                        return nameB.localeCompare(nameA);
+                    });
+                } else if (sortType === 'low-high') {
+                    sortedProducts.sort((a, b) => {
+                        const priceA = parseFloat(a.querySelector('.product-price').textContent.replace(/[^\d.]/g, ''));
+                        const priceB = parseFloat(b.querySelector('.product-price').textContent.replace(/[^\d.]/g, ''));
+                        return priceA - priceB;
+                    });
+                } else if (sortType === 'high-low') {
+                    sortedProducts.sort((a, b) => {
+                        const priceA = parseFloat(a.querySelector('.product-price').textContent.replace(/[^\d.]/g, ''));
+                        const priceB = parseFloat(b.querySelector('.product-price').textContent.replace(/[^\d.]/g, ''));
+                        return priceB - priceA;
+                    });
+                }
+                // Remove all products from grid
+                sortedProducts.forEach(product => productGrid.appendChild(product));
+                // Reset pagination after sorting
+                resetPagination();
+            });
+        });
+        // --- END SORT BY FUNCTIONALITY ---
     });
     </script>
 </body>
