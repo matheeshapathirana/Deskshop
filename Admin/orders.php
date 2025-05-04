@@ -163,7 +163,7 @@ $order_result = mysqli_query($con, $order_query);
   <div id="sidebar-backdrop" class="sidebar-backdrop" onclick="closeSidebar()"></div>
   <div class="admin-panel">
     <aside class="sidebar" id="admin-sidebar">
-      <h2>Admin Panel</h2>
+      <h2>Deskshop Admin Panel</h2>
       <ul>
         <li><a href="admin.php">Products</a></li>
         <li><a href="#" class="active">Orders</a></li>

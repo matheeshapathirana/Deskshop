@@ -234,7 +234,7 @@ if ($results && mysqli_num_rows($results) > 0) {
     <div id="sidebar-backdrop" class="sidebar-backdrop" onclick="closeSidebar()"></div>
     <div class="admin-panel">
         <div class="sidebar" id="admin-sidebar">
-            <h2>Admin Panel</h2>
+            <h2>Deskshop Admin Panel</h2>
             <a href="admin.php" class="active">Products</a>
             <a href="orders.php">Orders</a>
             <a href="manage_users.php">Manage Users</a>
