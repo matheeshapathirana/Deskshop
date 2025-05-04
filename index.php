@@ -306,7 +306,7 @@ if ($con) {
             <div class="banner-content">
                 <h2 class="banner-title">Everything for the<br />Classroom</h2>
                 <p class="banner-description">Find all the essentials to create a perfect learning environment.</p>
-                <button class="banner-cta">Shop Now</button>
+                <button class="banner-cta" onclick="window.location.href='shop.php'">Shop Now</button>
             </div>
             </div>
         </div>
@@ -431,7 +431,7 @@ if ($con) {
             <div class="workspace-content">
                 <h2 class="workspace-title">Streamline Your Workspace</h2>
                 <p class="workspace-description">Upgrade your workspace with tools and essentials for efficiency.</p>
-                <button class="workspace-cta">Order Now</button>
+                <button class="workspace-cta" onclick="window.location.href='shop.php'">Order Now</button>
             </div>
             </div>
         </div>
