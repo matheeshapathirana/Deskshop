@@ -1,5 +1,8 @@
 <?php
-$isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+session_start();
+require_once 'PHP/AuthCheck.php';
+auto_login_from_cookie();
+$isLoggedIn = is_user_logged_in();
 
 if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     if ($isLoggedIn) {

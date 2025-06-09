@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once 'PHP/AuthCheck.php';
-$user = check_user_auth_and_status();
-$isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+auto_login_from_cookie();
+$isLoggedIn = is_user_logged_in();
 ?>
 
 <!doctype html>

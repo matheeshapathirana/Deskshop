@@ -6,27 +6,36 @@ function get_user_by_email($email, $con) {
     return ($results && mysqli_num_rows($results) > 0) ? mysqli_fetch_array($results) : null;
 }
 
-function check_user_auth_and_status() {
+function auto_login_from_cookie() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
-    if (!$con) {
-        die("Database connection failed.");
-    }
-    // Auto-login using cookie if session not set
     if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
-        $user = get_user_by_email($_COOKIE['user_email'], $con);
-        if ($user) {
-            $_SESSION['email'] = $user['email'];
+        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        if ($con) {
+            $user = get_user_by_email($_COOKIE['user_email'], $con);
+            if ($user) {
+                $_SESSION['email'] = $user['email'];
+            }
+            mysqli_close($con);
         }
     }
+}
+
+function is_user_logged_in() {
+    return isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+}
+
+function check_user_deactivated_and_logout() {
     if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
-        mysqli_close($con);
         echo "<script>alert('You must be signed in to access this page.'); window.location.href='signin.php';</script>";
         exit();
     }
     $user_email = isset($_SESSION['email']) ? $_SESSION['email'] : $_COOKIE['user_email'];
+    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    if (!$con) {
+        die("Database connection failed.");
+    }
     $user = get_user_by_email($user_email, $con);
     if ($user && isset($user['status']) && $user['status'] === 'deactive') {
         session_unset();

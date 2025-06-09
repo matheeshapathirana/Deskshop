@@ -1,7 +1,9 @@
 <?php
+session_start();
 require_once 'PHP/AuthCheck.php';
-$user = check_user_auth_and_status();
-$isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+auto_login_from_cookie();
+$user = check_user_deactivated_and_logout();
+$isLoggedIn = is_user_logged_in();
 
 $user_orders = [];
 if ($isLoggedIn) {
