@@ -202,7 +202,7 @@
 
         document.querySelector('.signup-form').addEventListener('submit', function (event) {
                 const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirm-password').value;                // Password validation: at least 8 chars, must contain at least one letter and one number (special characters allowed, optional)
+                const confirmPassword = document.getElementById('confirm-password').value;
                 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
                 if (!passwordRegex.test(password)) {
                         event.preventDefault();

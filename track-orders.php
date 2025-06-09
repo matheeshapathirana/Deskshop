@@ -1,24 +1,19 @@
 <?php
-session_start();
-if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
-    echo "<script>alert('Please sign in to access your orders.'); window.location.href='signin.php';</script>";
-    exit();
-}
+require_once 'PHP/AuthCheck.php';
+$user = check_user_auth_and_status();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
-// Fetch user's orders (using new orders table structure)
 $user_orders = [];
 if ($isLoggedIn) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-        $user_q = mysqli_query($con, "SELECT ID FROM user WHERE email = '$user_email' LIMIT 1");
-        $user_row = mysqli_fetch_assoc($user_q);
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
+        $user_row = mysqli_fetch_array($user_q);
         if ($user_row) {
-            $id = $user_row['ID'];
-            // orders table: order_id, user_id, product_code, quantity, status
+            $id = $user_row['id'];
             $order_q = mysqli_query($con, "SELECT product_code, quantity, status FROM orders WHERE user_id = $id");
-            while ($order_row = mysqli_fetch_assoc($order_q)) {
+            while ($order_row = mysqli_fetch_array($order_q)) {
                 $user_orders[] = [
                     'product_code' => $order_row['product_code'],
                     'quantity' => $order_row['quantity'],
@@ -113,7 +108,7 @@ if ($isLoggedIn) {
           foreach ($user_orders as $item):
               $code = $item['product_code'];
               $p_q = mysqli_query($con, "SELECT product_code, name, price, image_url FROM products WHERE product_code='$code' LIMIT 1");
-              $product = mysqli_fetch_assoc($p_q);
+              $product = mysqli_fetch_array($p_q);
               if (!$product) continue;
               // Status styling
               $status = strtolower($item['status']);

@@ -1,27 +1,24 @@
 <?php
 session_start();
-if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
-    echo "<script>alert('Please sign in to access your wish list.'); window.location.href='signin.php';</script>";
-    exit();
-}
+require_once 'PHP/AuthCheck.php';
+$user = check_user_auth_and_status();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
-// --- Wishlist handlers (with quantity) ---
+// --- Wishlist handlers ---
 if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     if ($isLoggedIn) {
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
                 $qty = isset($_POST['wishlist_qty']) ? max(1, intval($_POST['wishlist_qty'])) : 1;
                 if ($_POST['wishlist_action'] === 'add') {
-                    // Try to insert with quantity, or update if exists
                     $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
-                    if (mysqli_num_rows($check) == 0) {
+                    if (!mysqli_fetch_array($check)) {
                         mysqli_query($con, "INSERT INTO wishlists (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
                     } else {
                         mysqli_query($con, "UPDATE wishlists SET quantity=$qty WHERE id=$id AND product_code='$product_code'");
@@ -44,11 +41,11 @@ if ($isLoggedIn) {
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-        $user_row = mysqli_fetch_assoc($user_q);
+        $user_row = mysqli_fetch_array($user_q);
         if ($user_row) {
             $id = $user_row['id'];
             $wl_q = mysqli_query($con, "SELECT product_code, quantity FROM wishlists WHERE id = $id");
-            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+            while ($wl_row = mysqli_fetch_array($wl_q)) {
                 $user_wishlist[] = [
                     'product_code' => $wl_row['product_code'],
                     'quantity' => $wl_row['quantity']
@@ -132,7 +129,7 @@ if ($isLoggedIn) {
           foreach ($user_wishlist as $item):
               $code = $item['product_code'];
               $p_q = mysqli_query($con, "SELECT product_code, name, price, image_url FROM products WHERE product_code='$code' LIMIT 1");
-              $product = mysqli_fetch_assoc($p_q);
+              $product = mysqli_fetch_array($p_q);
               if (!$product) continue;
           ?>
           <article class="product-card">

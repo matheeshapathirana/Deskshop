@@ -1,23 +1,19 @@
 <?php
-session_start();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
-// --- Wishlist handlers (no AJAX) ---
-// Updated for new wishlists table structure (id, product_code)
 if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     if ($isLoggedIn) {
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-            // Get user id (now 'id' instead of 'user_id')
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
                 if ($_POST['wishlist_action'] === 'add') {
                     $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
-                    if (mysqli_num_rows($check) == 0) {
+                    if (!mysqli_fetch_array($check)) {
                         mysqli_query($con, "INSERT INTO wishlists (id, product_code) VALUES ($id, '$product_code')");
                     }
                 } elseif ($_POST['wishlist_action'] === 'remove') {
@@ -27,7 +23,6 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
             mysqli_close($con);
         }
     }
-    // Redirect to avoid form resubmission
     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
     exit;
 }
@@ -39,14 +34,14 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
                 $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
                 // Check if already in cart
                 $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
-                if (mysqli_num_rows($check) == 0) {
+                if (!mysqli_fetch_array($check)) {
                     mysqli_query($con, "INSERT INTO cart (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
                 } else {
                     mysqli_query($con, "UPDATE cart SET quantity=$qty WHERE id=$id AND product_code='$product_code'");
@@ -59,19 +54,17 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
     exit;
 }
 
-// Fetch user's wishlist product_codes for marking icons
 $user_wishlist_product_ids = [];
 if ($isLoggedIn) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-        // Get user id (now 'id')
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-        $user_row = mysqli_fetch_assoc($user_q);
+        $user_row = mysqli_fetch_array($user_q);
         if ($user_row) {
             $id = $user_row['id'];
             $wl_q = mysqli_query($con, "SELECT product_code FROM wishlists WHERE id = $id");
-            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+            while ($wl_row = mysqli_fetch_array($wl_q)) {
                 $user_wishlist_product_ids[] = $wl_row['product_code'];
             }
         }
@@ -79,7 +72,6 @@ if ($isLoggedIn) {
     }
 }
 
-// Database connection
 $con = mysqli_connect("localhost", "root", "", "deskshop");
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
@@ -94,7 +86,7 @@ $sql = "SELECT p.product_code, p.name, p.price, p.image_url, GROUP_CONCAT(c.cate
         GROUP BY p.product_code";
 $result = mysqli_query($con, $sql);
 if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         $products[] = $row;
     }
 }
@@ -112,7 +104,6 @@ if ($result) {
             text-decoration: none;
             color: inherit;
         }
-        /* Wishlist icon button style */
         .wishlist-icon-btn {
             background: none;
             border: none;
@@ -127,7 +118,7 @@ if ($result) {
             filter: drop-shadow(0 0 2px #e74c3c);
         }
         .wishlist-icon {
-            display: none; /* Hide old JS wishlist icon */
+            display: none;
         }
     </style>
 </head>
@@ -404,7 +395,6 @@ if ($result) {
             }
         }
 
-        // Initial display
         products.forEach((product, idx) => {
             product.style.display = (idx < PRODUCTS_PER_PAGE) ? 'block' : 'none';
         });
@@ -416,9 +406,7 @@ if ($result) {
 
         loadMoreBtn.addEventListener('click', loadMore);
 
-        // Integrate with category and search filters
         function resetPagination() {
-            // Only visible products are paginated
             const visibleProducts = products.filter(p => p.style.display !== 'none');
             visibleProducts.forEach((product, idx) => {
                 product.style.display = (idx < PRODUCTS_PER_PAGE) ? 'block' : 'none';
@@ -433,7 +421,6 @@ if ($result) {
             }
         }
 
-        // Patch category filter
         document.querySelectorAll('.sort-dropdown-content button[data-category]').forEach(button => {
             button.addEventListener('click', function () {
                 const selectedCategory = this.getAttribute('data-category');
@@ -449,7 +436,6 @@ if ($result) {
             });
         });
 
-        // Patch search filter
         const searchInput = document.querySelector('.search-input');
         if (searchInput) {
             searchInput.addEventListener('input', function () {
@@ -498,13 +484,10 @@ if ($result) {
                         return priceB - priceA;
                     });
                 }
-                // Remove all products from grid
                 sortedProducts.forEach(product => productGrid.appendChild(product));
-                // Reset pagination after sorting
                 resetPagination();
             });
         });
-        // --- END SORT BY FUNCTIONALITY ---
     });
     </script>
 </body>

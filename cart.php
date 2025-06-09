@@ -15,20 +15,17 @@ if ($isLoggedIn) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '".$user_email."' LIMIT 1");
-        $user_row = mysqli_fetch_assoc($user_q);
+        $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
+        $user_row = mysqli_fetch_array($user_q);
         if ($user_row) {
             $id = $user_row['id'];
-            // Handle checkout POST
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkout'])) {
-                // Get form data
                 $contact_number = isset($_POST['phone']) ? intval($_POST['phone']) : '';
                 $address = isset($_POST['address']) ? $_POST['address'] : '';
                 $city = isset($_POST['city']) ? $_POST['city'] : '';
                 $postalcode = isset($_POST['postal']) ? intval($_POST['postal']) : '';
                 $paymentmethod = isset($_POST['payment']) ? $_POST['payment'] : '';
 
-                // Fetch cart items again for safety
                 $cart_q = mysqli_query($con, "
                     SELECT c.cart_id, c.product_code, c.quantity
                     FROM cart c
@@ -43,26 +40,18 @@ if ($isLoggedIn) {
                         VALUES ($id, '$product_code', $quantity, NOW(), $contact_number, '$address', '$city', $postalcode, '$paymentmethod')
                     ");
                     if ($insert_q) $orders_inserted++;
-                    // Reduce stock after order
                     mysqli_query($con, "
                         UPDATE products SET stock = stock - $quantity
                         WHERE product_code = '$product_code'
                     ");
                 }
-                // Clear user's cart
                 mysqli_query($con, "DELETE FROM cart WHERE ID = $id");
-                // Show success message and reload
                 echo "<script>alert('Order placed successfully!'); window.location.href='cart.php';</script>";
                 exit();
             }
 
-            $cart_q = mysqli_query($con, "
-                SELECT c.cart_id, c.product_code, c.quantity, p.name AS product_name, p.price, p.image_url
-                FROM cart c
-                JOIN products p ON c.product_code = p.product_code
-                WHERE c.ID = $id
-            ");
-            while ($cart_row = mysqli_fetch_assoc($cart_q)) {
+            $cart_q = mysqli_query($con, "SELECT c.cart_id, c.product_code, c.quantity, p.name AS product_name, p.price, p.image_url FROM cart c JOIN products p ON c.product_code = p.product_code WHERE c.ID = $id");
+            while ($cart_row = mysqli_fetch_array($cart_q)) {
                 $user_cart[] = [
                     'cart_id' => $cart_row['cart_id'],
                     'product_code' => $cart_row['product_code'],
@@ -179,7 +168,6 @@ $grand_total = $total + $delivery_fee;
               </section>
           
               <section class="payment-section">
-                <!-- Change form to POST and submit to same page -->
                 <form class="payment-form" method="post" action="cart.php">
                   <h2 class="form-title">Payment Details</h2>
           
@@ -295,7 +283,6 @@ $grand_total = $total + $delivery_fee;
                   </button>
                 </form>
                 <script>
-                  // Show bank details if "Bank Transfer" is selected
                   document.addEventListener('DOMContentLoaded', function() {
                     const bankRadio = document.getElementById('bank-transfer');
                     const codRadio = document.getElementById('cash-on-delivery');
@@ -309,7 +296,6 @@ $grand_total = $total + $delivery_fee;
                     }
                     bankRadio.addEventListener('change', toggleBankDetails);
                     codRadio.addEventListener('change', toggleBankDetails);
-                    // On page load, check if bank transfer is pre-selected
                     toggleBankDetails();
                   });
                 </script>

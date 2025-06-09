@@ -1,8 +1,8 @@
 <?php
-session_start();
+require_once 'PHP/AuthCheck.php';
+$user = check_user_auth_and_status();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
-// --- Wishlist handlers (with quantity) ---
 if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     if ($isLoggedIn) {
         $con = mysqli_connect("localhost", "root", "", "deskshop");
@@ -22,9 +22,8 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
                     exit;
                 }
                 $qty = isset($_POST['wishlist_qty']) ? max(1, intval($_POST['wishlist_qty'])) : 1;
-                $qty = min($qty, $stock); // Limit to stock
+                $qty = min($qty, $stock);
                 if ($_POST['wishlist_action'] === 'add') {
-                    // Try to insert with quantity, or update if exists
                     $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
                     if (mysqli_num_rows($check) == 0) {
                         mysqli_query($con, "INSERT INTO wishlists (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
@@ -62,7 +61,7 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
                     exit;
                 }
                 $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
-                $qty = min($qty, $stock); // Limit to stock
+                $qty = min($qty, $stock);
                 // Check if already in cart
                 $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
                 if (mysqli_num_rows($check) == 0) {
@@ -99,7 +98,6 @@ if (isset($_POST['review_action'], $_POST['review_text'], $_POST['product_code']
             }
             mysqli_close($con);
         }
-        // Redirect to avoid resubmission
         header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : ''));
         exit;
     } else {
@@ -107,7 +105,6 @@ if (isset($_POST['review_action'], $_POST['review_text'], $_POST['product_code']
     }
 }
 
-// Fetch user's wishlist product_codes for marking icons
 $user_wishlist_product_ids = [];
 $user_wishlist_qty = [];
 if ($isLoggedIn) {
@@ -128,13 +125,11 @@ if ($isLoggedIn) {
     }
 }
 
-// Database connection
 $con = mysqli_connect("localhost", "root", "", "deskshop");
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Get product code from URL
 $product = null;
 if (isset($_GET['code'])) {
     $code = $_GET['code'];
@@ -150,7 +145,7 @@ if (isset($_GET['code'])) {
     }
 }
 
-// Fetch reviews for this product
+// Fetch reviews for the product
 $reviews = [];
 if ($product) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
@@ -261,7 +256,6 @@ if ($product) {
                       id="decrease-quantity"
                     />
                     <span class="quantity-value" id="quantity-value"><?php
-                    // If in wishlist, show wishlist quantity, else 1
                     $wishlist_qty = (isset($product) && isset($user_wishlist_qty[$product['product_code']]) ? $user_wishlist_qty[$product['product_code']] : 1);
                     echo $wishlist_qty;
                 ?></span>
@@ -398,20 +392,17 @@ if ($product) {
     <script>
       // Wishlist logic for product page
       window.onload = function() {
-          // Quantity selector logic
           const decreaseButton = document.getElementById('decrease-quantity');
           const increaseButton = document.getElementById('increase-quantity');
           const quantityValue = document.getElementById('quantity-value');
           const wishlistQtyField = document.getElementById('wishlist-qty-field');
           const cartQtyField = document.getElementById('cart-qty-field');
-          // Set max stock from PHP
           <?php if (isset($product)): ?>
           const maxStock = <?php echo (int)$product['stock']; ?>;
           <?php else: ?>
           const maxStock = 1;
           <?php endif; ?>
 
-          // Prevent add to cart/wishlist if out of stock
           <?php if (isset($product) && $product['stock'] <= 0): ?>
           const cartForm = document.getElementById('cart-form');
           const wishlistForm = document.getElementById('wishlist-form');
@@ -456,26 +447,21 @@ if ($product) {
               };
           }
 
-          // Wishlist icon submits the form (toggle action before submit)
           const wishlistForm = document.getElementById('wishlist-form');
           const wishlistBtn = document.getElementById('wishlist-btn');
           const wishlistActionField = document.getElementById('wishlist-action-field');
           <?php if (isset($product)): ?>
           if (wishlistForm && wishlistBtn && wishlistActionField) {
               wishlistForm.onsubmit = function(e) {
-                  // Always set the correct action before submit
-                  // If currently in wishlist, remove; else add
                   <?php if (in_array($product['product_code'], $user_wishlist_product_ids)): ?>
                       wishlistActionField.value = 'remove';
                   <?php else: ?>
                       wishlistActionField.value = 'add';
                   <?php endif; ?>
-                  // allow submit
               };
           }
           <?php endif; ?>
 
-          // Add to Cart button submits with current quantity
           const cartForm = document.getElementById('cart-form');
           const addToCartBtn = document.getElementById('add-to-cart-btn');
           if (cartForm && addToCartBtn && cartQtyField && quantityValue) {
@@ -483,7 +469,6 @@ if ($product) {
                   let qty = parseInt(quantityValue.textContent);
                   if (qty > maxStock) qty = maxStock;
                   cartQtyField.value = qty;
-                  // allow submit
               };
           }
           <?php endif; ?>

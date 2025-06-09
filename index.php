@@ -1,23 +1,21 @@
 <?php
-session_start();
+require_once 'PHP/AuthCheck.php';
+$user = check_user_auth_and_status();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
 
-// --- Wishlist handlers (no AJAX) ---
-// Updated for new wishlists table structure (id, product_code)
 if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     if ($isLoggedIn) {
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-            // Get user id (now 'id' instead of 'user_id')
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
                 if ($_POST['wishlist_action'] === 'add') {
                     $check = mysqli_query($con, "SELECT * FROM wishlists WHERE id=$id AND product_code='$product_code'");
-                    if (mysqli_num_rows($check) == 0) {
+                    if (!mysqli_fetch_array($check)) {
                         mysqli_query($con, "INSERT INTO wishlists (id, product_code) VALUES ($id, '$product_code')");
                     }
                 } elseif ($_POST['wishlist_action'] === 'remove') {
@@ -27,26 +25,24 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
             mysqli_close($con);
         }
     }
-    // Redirect to avoid form resubmission
     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?'));
     exit;
 }
 
-// --- Add to Cart handler (copied from shop.php) ---
 if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'] === 'add') {
     if ($isLoggedIn) {
         $con = mysqli_connect("localhost", "root", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
                 $qty = isset($_POST['cart_qty']) ? max(1, intval($_POST['cart_qty'])) : 1;
                 // Check if already in cart
                 $check = mysqli_query($con, "SELECT * FROM cart WHERE id=$id AND product_code='$product_code'");
-                if (mysqli_num_rows($check) == 0) {
+                if (!mysqli_fetch_array($check)) {
                     mysqli_query($con, "INSERT INTO cart (id, product_code, quantity) VALUES ($id, '$product_code', $qty)");
                 } else {
                     mysqli_query($con, "UPDATE cart SET quantity=$qty WHERE id=$id AND product_code='$product_code'");
@@ -59,19 +55,17 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
     exit;
 }
 
-// Fetch user's wishlist product_codes for marking icons
 $user_wishlist_product_ids = [];
 if ($isLoggedIn) {
     $con = mysqli_connect("localhost", "root", "", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
-        // Get user id (now 'id')
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-        $user_row = mysqli_fetch_assoc($user_q);
+        $user_row = mysqli_fetch_array($user_q);
         if ($user_row) {
             $id = $user_row['id'];
             $wl_q = mysqli_query($con, "SELECT product_code FROM wishlists WHERE id = $id");
-            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+            while ($wl_row = mysqli_fetch_array($wl_q)) {
                 $user_wishlist_product_ids[] = $wl_row['product_code'];
             }
         }
@@ -87,11 +81,10 @@ if (isset($_POST['newsletter-submit'])) {
     if (!$con) {
         $newsletter_message = "Connection failed: " . mysqli_connect_error();
     } else {
-        // Check for duplicates
         $sql = "SELECT * FROM NewsletterSubscriptions WHERE EmailAddress = '$email'";
         $result = mysqli_query($con, $sql);
 
-        if (mysqli_num_rows($result) > 0) {
+        if (mysqli_fetch_array($result)) {
             $newsletter_message = "Email already subscribed!";
         } else {
             $sql = "INSERT INTO NewsletterSubscriptions (EmailAddress) VALUES ('$email')";
@@ -107,24 +100,21 @@ if (isset($_POST['newsletter-submit'])) {
     }
 }
 
-// Fetch products for Hot Deals and Featured Products
 $con = mysqli_connect("localhost", "root", "", "deskshop");
 $hot_deals = [];
 $featured_products = [];
 if ($con) {
-    // Hot Deals: get 6 lowest price products (fixed selection)
     $sql_hot = "SELECT product_code, name, price, image_url FROM products ORDER BY price ASC, product_code ASC LIMIT 6";
     $result_hot = mysqli_query($con, $sql_hot);
     if ($result_hot) {
-        while ($row = mysqli_fetch_assoc($result_hot)) {
+        while ($row = mysqli_fetch_array($result_hot)) {
             $hot_deals[] = $row;
         }
     }
-    // Featured Products: get 6 latest products
     $sql_feat = "SELECT product_code, name, price, image_url FROM products ORDER BY product_code DESC LIMIT 6";
     $result_feat = mysqli_query($con, $sql_feat);
     if ($result_feat) {
-        while ($row = mysqli_fetch_assoc($result_feat)) {
+        while ($row = mysqli_fetch_array($result_feat)) {
             $featured_products[] = $row;
         }
     }
@@ -258,7 +248,6 @@ if ($con) {
                     <div class="product-column">
                         <div class="product-card">
                             <div class="product-image-container">
-                                <!-- Wishlist icon moved to top-right -->
                                 <form method="post" style="display:inline;">
                                     <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
                                     <input type="hidden" name="wishlist_action" value="<?php echo $is_in_wishlist ? 'remove' : 'add'; ?>">
@@ -321,7 +310,6 @@ if ($con) {
                 <div class="product-column">
                     <div class="product-card">
                         <div class="product-image-container">
-                            <!-- Wishlist icon moved to top-right -->
                             <form method="post" style="display:inline;">
                                 <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
                                 <input type="hidden" name="wishlist_action" value="<?php echo $is_in_wishlist ? 'remove' : 'add'; ?>">
@@ -365,7 +353,6 @@ if ($con) {
                 <div class="product-column">
                     <div class="product-card">
                         <div class="product-image-container">
-                            <!-- Wishlist icon moved to top-right -->
                             <form method="post" style="display:inline;">
                                 <input type="hidden" name="product_code" value="<?php echo htmlspecialchars($product['product_code']); ?>">
                                 <input type="hidden" name="wishlist_action" value="<?php echo $is_in_wishlist ? 'remove' : 'add'; ?>">

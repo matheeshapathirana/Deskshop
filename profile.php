@@ -1,53 +1,12 @@
 <?php
 session_start();
-
-// Auto-login using cookie if session not set
-if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
-    if ($con) {
-        $email = $_COOKIE['user_email'];
-        $sql = "SELECT * FROM user WHERE email = '$email'";
-        $results = mysqli_query($con, $sql);
-        if (mysqli_num_rows($results) > 0) {
-            $user = mysqli_fetch_assoc($results);
-            $_SESSION['email'] = $user['email'];
-            // Optionally, set other session variables if needed
-        }
-        mysqli_close($con);
-    }
-}
-
-if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
-    echo "<script>alert('You must be signed in to access this page.'); window.location.href='signin.php';</script>";
-    exit();
-}
+require_once 'PHP/AuthCheck.php';
+$user = check_user_auth_and_status();
 $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
+$user_name = $user ? $user['username'] : '';
+$user_email_display = $user ? $user['email'] : '';
+$user_role = $user && isset($user['role']) ? $user['role'] : '';
 
-// --- Fetch user info from database ---
-$user_email = isset($_SESSION['email']) ? $_SESSION['email'] : $_COOKIE['user_email'];
-$user_name = '';
-$user_email_display = '';
-$user_role = '';
-
-$con = mysqli_connect("localhost", "root", "", "deskshop");
-if ($con) {
-    $sql = "SELECT * FROM user WHERE email = '$user_email'";
-    $results = mysqli_query($con, $sql);
-    if ($row = mysqli_fetch_assoc($results)) {
-        if (isset($row['status']) && $row['status'] === 'deactive') {
-            session_unset();
-            session_destroy();
-            setcookie("user_email", "", time() - 3600, "/"); // Remove cookie
-            mysqli_close($con);
-            echo "<script>alert('Your account has been deactivated. Please contact support.'); window.location.href='contact-us.php?deactivated=1';</script>";
-            exit();
-        }
-        $user_name = $row['username'];
-        $user_email_display = $row['email'];
-        $user_role = isset($row['role']) ? $row['role'] : '';
-    }
-    mysqli_close($con);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

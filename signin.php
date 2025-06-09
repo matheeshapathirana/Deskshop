@@ -145,23 +145,9 @@
         }
         });
 
-        // Show alert if password is incorrect
         if (window.location.search.includes('error=invalid')) {
                 alert('Incorrect email or password. Please try again.');
         }
-
-        // function validateLogin(event) {
-        //         event.preventDefault();
-        //         const email = document.getElementById('email').value;
-        //         const password = document.getElementById('password').value;
-                
-        //         if (email && password) {
-        //                 alert('You have been signed in.');
-        //                 window.location.href = 'profile.php';
-        //                 return false;
-        //         }
-        //         return false;
-        // }
 </script>
 </body>
 </php>
