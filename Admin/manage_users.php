@@ -212,6 +212,7 @@ $users = mysqli_query($conn, 'SELECT * FROM user');
             <a href="orders.php">Orders</a>
             <a href="manage_users.php" class="active">Manage Users</a>
             <a href="inquiries.php">Inquiries</a>
+            <a href="reviews.php">Reviews</a>
             <a href="../index.php">DeskShop</a>
             <a href="#logout" onclick="window.location.href='../PHP/logout.php'">Logout</a>
         </div>

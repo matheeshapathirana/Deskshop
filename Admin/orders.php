@@ -161,6 +161,7 @@ $order_result = mysqli_query($con, $order_query);
         <li><a href="#" class="active">Orders</a></li>
         <li><a href="manage_users.php">Manage Users</a></li>
         <li><a href="inquiries.php">Inquiries</a></li>
+        <li><a href="reviews.php">Reviews</a></li>
         <li><a href="../index.php">DeskShop</a></li>
         <li><a href="#logout" onclick="window.location.href='../PHP/logout.php'">Logout</a></li>
       </ul>

@@ -232,6 +232,7 @@ if ($results && mysqli_num_rows($results) > 0) {
             <a href="orders.php">Orders</a>
             <a href="manage_users.php">Manage Users</a>
             <a href="inquiries.php">Inquiries</a>
+            <a href="reviews.php">Reviews</a>
             <a href="../index.php">DeskShop</a>
             <a href="#logout" onclick="window.location.href='../PHP/logout.php'">Logout</a>
         </div>
