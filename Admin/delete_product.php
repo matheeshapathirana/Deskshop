@@ -18,7 +18,7 @@ if (!$result || mysqli_num_rows($result) == 0) {
     header("Location: ../signin.php");
     exit();
 }
-$user = mysqli_fetch_assoc($result);
+$user = mysqli_fetch_array($result);
 if ($user['role'] !== 'admin') {
     header("Location: ../signin.php");
     exit();

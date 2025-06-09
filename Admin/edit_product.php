@@ -22,7 +22,6 @@ if (
     $price = floatval($_POST['price']);
     $stock = intval($_POST['stock']);
 
-    // Handle image upload if present
     $image_url = '';
     if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
         $target_dir = "../Assets/Product Page/";

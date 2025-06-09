@@ -11,7 +11,7 @@ $sql = "SELECT role FROM user WHERE email = '$email'";
 $results = mysqli_query($con, $sql);
 
 if ($results && mysqli_num_rows($results) > 0) {
-    $user = mysqli_fetch_assoc($results);
+    $user = mysqli_fetch_array($results);
     if ($user['role'] !== 'admin') {
         echo "<script>alert('Access denied. Admins only.'); window.location.href='../signin.php';</script>";
         exit();
@@ -29,7 +29,6 @@ if ($results && mysqli_num_rows($results) > 0) {
     <title>Admin Panel</title>
     <link rel="stylesheet" href="admin.css">
     <style>
-    /* Modal styles to match admin.css look */
     .modal,
     .modal-add {
         position: fixed;
@@ -95,7 +94,6 @@ if ($results && mysqli_num_rows($results) > 0) {
     .modal-content button[type="submit"]:hover {
         background: #0056b3;
     }
-    /* Hamburger styles */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -163,7 +161,6 @@ if ($results && mysqli_num_rows($results) > 0) {
       backdrop.classList.remove('active');
     }
     function editProduct(code, name, price, stock, image_url = '') {
-        // Show a modal for editing (with file input)
         let modal = document.createElement('div');
         modal.className = "modal";
         modal.innerHTML = `
@@ -184,7 +181,6 @@ if ($results && mysqli_num_rows($results) > 0) {
         document.body.appendChild(modal);
 
         document.getElementById('modal_edit_image_file').addEventListener('change', function() {
-            // If a file is selected, clear the image_url field
             if (this.files.length > 0) {
                 document.getElementById('modal_edit_image_url').value = '';
             }
@@ -192,7 +188,6 @@ if ($results && mysqli_num_rows($results) > 0) {
 
         document.getElementById('editProductModalForm').onsubmit = function(e) {
             e.preventDefault();
-            // Fill hidden form and submit
             document.getElementById('edit_code').value = code;
             document.getElementById('edit_name').value = document.getElementById('modal_edit_name').value;
             document.getElementById('edit_price').value = document.getElementById('modal_edit_price').value;
@@ -202,9 +197,7 @@ if ($results && mysqli_num_rows($results) > 0) {
             // Handle file input
             let fileInput = document.getElementById('modal_edit_image_file');
             if (fileInput.files.length > 0) {
-                // Copy file to hidden form
                 let realFileInput = document.getElementById('edit_image_file');
-                // Create a new DataTransfer to assign the file
                 let dt = new DataTransfer();
                 dt.items.add(fileInput.files[0]);
                 realFileInput.files = dt.files;
@@ -288,7 +281,7 @@ if ($results && mysqli_num_rows($results) > 0) {
                             FROM products p";
                     $result = mysqli_query($con, $sql);
                     if ($result && mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
+                        while ($row = mysqli_fetch_array($result)) {
                             echo "<tr>";
                             echo "<td>" . $row['product_code'] . "</td>";
                             echo "<td>" . $row['name'] . "</td>";

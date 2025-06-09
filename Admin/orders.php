@@ -6,28 +6,22 @@ if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Handle status update POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'], $_POST['order_id'], $_POST['status'])) {
     $order_id = $_POST['order_id'];
     $status = $_POST['status'];
     $update_sql = "UPDATE orders SET status='$status' WHERE order_id=$order_id";
     mysqli_query($con, $update_sql);
-    // Optional: Add a success/failure message or redirect
 }
 
-// Handle delete order POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_order'], $_POST['order_id'])) {
     $order_id = $_POST['order_id'];
     $delete_sql = "DELETE FROM orders WHERE order_id=$order_id";
     mysqli_query($con, $delete_sql);
-    // Optional: Add a success/failure message or redirect
 }
 
-// Handle delete all delivered orders POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_all_delivered'])) {
     $delete_delivered_sql = "DELETE FROM orders WHERE status='Delivered'";
     mysqli_query($con, $delete_delivered_sql);
-    // Optional: Add a success/failure message or redirect
 }
 
 $email = $_SESSION['email'];
@@ -35,7 +29,7 @@ $sql = "SELECT role FROM user WHERE email = '$email'";
 $results = mysqli_query($con, $sql);
 
 if ($results && mysqli_num_rows($results) > 0) {
-    $user = mysqli_fetch_assoc($results);
+    $user = mysqli_fetch_array($results);
     if ($user['role'] !== 'admin') {
         echo "<script>alert('Access denied. Admins only.'); window.location.href='../signin.php';</script>";
         exit();
@@ -45,10 +39,9 @@ if ($results && mysqli_num_rows($results) > 0) {
     exit();
 }
 
-// Fetch orders with user and product info, including contact and address details
 $order_query = "
     SELECT o.order_id, u.ID AS customer_id, u.username AS customer_name, o.status, o.quantity, o.product_code, p.price, p.name,
-           o.contact_number, o.address, o.city, o.postalcode, o.paymentmethod
+    o.contact_number, o.address, o.city, o.postalcode, o.paymentmethod
     FROM orders o
     JOIN user u ON o.user_id = u.ID
     JOIN products p ON o.product_code = p.product_code
@@ -64,7 +57,6 @@ $order_result = mysqli_query($con, $order_query);
   <title>Admin Panel - Orders</title>
   <link rel="stylesheet" href="orders.css">
   <style>
-    /* Modal styles */
     .modal {
       display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
       overflow: auto; background-color: rgba(0,0,0,0.4);
@@ -182,7 +174,7 @@ $order_result = mysqli_query($con, $order_query);
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Customer ID</th> <!-- Added Customer ID column header -->
+            <th>Customer ID</th>
             <th>Customer</th>
             <th>Product Name</th>
             <th>Product Code</th>
@@ -194,10 +186,10 @@ $order_result = mysqli_query($con, $order_query);
         </thead>
         <tbody>
         <?php if ($order_result && mysqli_num_rows($order_result) > 0): ?>
-            <?php while ($row = mysqli_fetch_assoc($order_result)): ?>
+            <?php while ($row = mysqli_fetch_array($order_result)): ?>
               <tr>
                 <td><?php echo htmlspecialchars($row['order_id']); ?></td>
-                <td><?php echo htmlspecialchars($row['customer_id']); ?></td> <!-- Show customer ID -->
+                <td><?php echo htmlspecialchars($row['customer_id']); ?></td>
                 <td><?php echo htmlspecialchars($row['customer_name']); ?></td>
                 <td><?php echo htmlspecialchars($row['name']); ?></td>
                 <td><?php echo htmlspecialchars($row['product_code']); ?></td>
@@ -272,7 +264,6 @@ $order_result = mysqli_query($con, $order_query);
         function closeDetailsModal() {
           document.getElementById('detailsModal').style.display = 'none';
         }
-        // Close modal when clicking outside content
         window.onclick = function(event) {
           var modal = document.getElementById('detailsModal');
           if (event.target == modal) {

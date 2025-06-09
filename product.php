@@ -9,13 +9,13 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
                 // Fetch product stock
                 $stock_q = mysqli_query($con, "SELECT stock FROM products WHERE product_code = '$product_code' LIMIT 1");
-                $stock_row = mysqli_fetch_assoc($stock_q);
+                $stock_row = mysqli_fetch_array($stock_q);
                 $stock = $stock_row ? intval($stock_row['stock']) : 1;
                 if ($stock <= 0) {
                     echo "<script>alert('Out of Stock'); window.location.href='" . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : '') . "';</script>";
@@ -48,13 +48,13 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
                 // Fetch product stock
                 $stock_q = mysqli_query($con, "SELECT stock FROM products WHERE product_code = '$product_code' LIMIT 1");
-                $stock_row = mysqli_fetch_assoc($stock_q);
+                $stock_row = mysqli_fetch_array($stock_q);
                 $stock = $stock_row ? intval($stock_row['stock']) : 1;
                 if ($stock <= 0) {
                     echo "<script>alert('Out of Stock'); window.location.href='" . strtok($_SERVER["REQUEST_URI"], '?') . (isset($_GET['code']) ? '?code=' . urlencode($_GET['code']) : '') . "';</script>";
@@ -85,7 +85,7 @@ if (isset($_POST['review_action'], $_POST['review_text'], $_POST['product_code']
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-            $user_row = mysqli_fetch_assoc($user_q);
+            $user_row = mysqli_fetch_array($user_q);
             if ($user_row) {
                 $id = $user_row['id'];
                 $product_code = $_POST['product_code'];
@@ -112,11 +112,11 @@ if ($isLoggedIn) {
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
-        $user_row = mysqli_fetch_assoc($user_q);
+        $user_row = mysqli_fetch_array($user_q);
         if ($user_row) {
             $id = $user_row['id'];
             $wl_q = mysqli_query($con, "SELECT product_code, quantity FROM wishlists WHERE id = $id");
-            while ($wl_row = mysqli_fetch_assoc($wl_q)) {
+            while ($wl_row = mysqli_fetch_array($wl_q)) {
                 $user_wishlist_product_ids[] = $wl_row['product_code'];
                 $user_wishlist_qty[$wl_row['product_code']] = $wl_row['quantity'];
             }
@@ -141,7 +141,7 @@ if (isset($_GET['code'])) {
             GROUP BY p.product_code";
     $result = mysqli_query($con, $sql);
     if ($result && mysqli_num_rows($result) > 0) {
-        $product = mysqli_fetch_assoc($result);
+        $product = mysqli_fetch_array($result);
     }
 }
 
@@ -157,7 +157,7 @@ if ($product) {
                 WHERE r.product_code = '$code'
                 ORDER BY r.review_date DESC";
         $result = mysqli_query($con, $sql);
-        while ($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $reviews[] = $row;
         }
         mysqli_close($con);

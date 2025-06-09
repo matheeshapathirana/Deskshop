@@ -11,7 +11,7 @@ $sql = "SELECT role FROM user WHERE email = '$email'";
 $results = mysqli_query($con, $sql);
 
 if ($results && mysqli_num_rows($results) > 0) {
-    $user = mysqli_fetch_assoc($results);
+    $user = mysqli_fetch_array($results);
     if ($user['role'] !== 'admin') {
         echo "<script>alert('Access denied. Admins only.'); window.location.href='../signin.php';</script>";
         exit();
@@ -24,7 +24,6 @@ if ($results && mysqli_num_rows($results) > 0) {
 header('Content-Type: text/html');
 
 function addProductWithCategories($con, $product, $categories) {
-    // Remove duplicate and empty category names
     $categories = array_unique(array_filter(array_map('trim', $categories)));
     if (empty($categories)) return false;
 
@@ -40,20 +39,17 @@ function addProductWithCategories($con, $product, $categories) {
     }
 
     foreach ($categories as $category) {
-        // 1. Try to get the category_id
         $sql = "SELECT category_id FROM categories WHERE category_name = '$category'";
         $result = mysqli_query($con, $sql);
-        if ($row = mysqli_fetch_assoc($result)) {
+        if ($row = mysqli_fetch_array($result)) {
             $category_id = $row['category_id'];
         } else {
-            // 2. Insert new category if not exists
             $sql = "INSERT INTO categories (category_name) VALUES ('$category')";
             if (!mysqli_query($con, $sql)) {
                 return false;
             }
             $category_id = mysqli_insert_id($con);
         }
-        // 3. Link product and category (avoid duplicates by using INSERT IGNORE)
         $sql = "INSERT IGNORE INTO product_categories (product_code, category_id) VALUES ('$code', $category_id)";
         if (!mysqli_query($con, $sql)) {
             return false;
@@ -67,14 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image_url = '';
     if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
         $target_dir = "../Assets/Product Page/";
-        // Ensure directory exists
         if (!is_dir($target_dir)) {
             mkdir($target_dir, 0777, true);
         }
         $filename = basename($_FILES["image_file"]["name"]);
         $target_file = $target_dir . $filename;
         if (move_uploaded_file($_FILES["image_file"]["tmp_name"], $target_file)) {
-            // Save relative path for DB
             $image_url = "Assets/Product Page/" . $filename;
         } else {
             echo "<script>alert('Image upload failed.');window.location.href='admin.php';</script>";
@@ -82,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     } else if (!empty($_POST['image_url'])) {
-        // Fallback: use provided image_url if no file uploaded
         $image_url = $_POST['image_url'];
     }
 

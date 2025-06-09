@@ -1,14 +1,10 @@
 <?php
-// manage_users.php - Admin panel for managing users
-
-// Example: Connect to database (update with your DB credentials)
 $conn = mysqli_connect("localhost", "root", "", "deskshop");
 if(!$conn)
 {
     die("Sorry, Connection failed: " . mysqli_connect_error());
 }
 
-// Handle add, edit, and role change actions here
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Add user
@@ -19,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'];
         $role = $_POST['role'];
 
-        // Directly insert values (not recommended for production)
         $sql = "INSERT INTO user (username, email, contact_number, password, role) VALUES (
             '$username',
             '$email',
@@ -37,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $contact_number = $_POST['contact_number'];
         $password = $_POST['password'];
 
-        // If password is empty, don't update it
         if (!empty($password)) {
             $sql = "UPDATE user SET username = '$username', contact_number = '$contact_number', password = '$password' WHERE ID = '$user_id'";
             mysqli_query($conn, $sql);
@@ -45,12 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "UPDATE user SET username = '$username', contact_number = '$contact_number' WHERE ID = '$user_id'";
             mysqli_query($conn, $sql);
         }
-        // Refresh to clear edit form
         header("Location: manage_users.php");
         exit;
     }
 
-    // Change user role
     if (isset($_POST['change_role'])) {
         $user_id = $_POST['user_id'];
         $role = $_POST['role'];
@@ -58,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_query($conn, $sql);
     }
 
-    // Toggle user status (activate/deactivate)
     if (isset($_POST['toggle_status'])) {
         $user_id = $_POST['user_id'];
         $current_status = $_POST['current_status'];
@@ -67,12 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_query($conn, $sql);
     }
 
-    // Delete user
     if (isset($_POST['delete_user'])) {
         $user_id = $_POST['user_id'];
         $sql = "DELETE FROM user WHERE ID = '$user_id'";
         mysqli_query($conn, $sql);
-        // Refresh to clear modal and update list
         header("Location: manage_users.php");
         exit;
     }
@@ -90,7 +79,6 @@ $users = mysqli_query($conn, 'SELECT * FROM user');
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="manage_users.css">
     <style>
-        /* Remove table row hover effect */
         table tr:hover {
             background: none !important;
         }
@@ -272,7 +260,7 @@ $users = mysqli_query($conn, 'SELECT * FROM user');
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while($user = mysqli_fetch_assoc($users)): ?>
+                    <?php while($user = mysqli_fetch_array($users)): ?>
                         <tr>
                             <td><?= $user['ID'] ?></td>
                             <td><?= $user['username'] ?></td>

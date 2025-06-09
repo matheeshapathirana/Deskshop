@@ -32,7 +32,7 @@ if ($isLoggedIn) {
                     WHERE c.ID = $id
                 ");
                 $orders_inserted = 0;
-                while ($cart_row = mysqli_fetch_assoc($cart_q)) {
+                while ($cart_row = mysqli_fetch_array($cart_q)) {
                     $product_code = $cart_row['product_code'];
                     $quantity = (int)$cart_row['quantity'];
                     $insert_q = mysqli_query($con, "

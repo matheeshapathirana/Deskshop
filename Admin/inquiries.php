@@ -1,7 +1,5 @@
 <?php
 session_start();
-// inquiries.php - Admin panel for managing user inquiries
-
 $conn = mysqli_connect("localhost", "root", "", "deskshop");
 if(!$conn) {
     die("Sorry, Connection failed: " . mysqli_connect_error());
@@ -21,7 +19,7 @@ $sql = "SELECT role FROM user WHERE email = '$email'";
 $results = mysqli_query($conn, $sql);
 
 if ($results && mysqli_num_rows($results) > 0) {
-    $user = mysqli_fetch_assoc($results);
+    $user = mysqli_fetch_array($results);
     if ($user['role'] !== 'admin') {
         echo "<script>alert('Access denied. Admins only.'); window.location.href='../signin.php';</script>";
         exit();
@@ -144,7 +142,7 @@ $inquiries = mysqli_query($conn, 'SELECT * FROM contactinquiries ORDER BY Submis
                         </tr>
                     </thead>
                     <tbody>
-                    <?php while($inq = mysqli_fetch_assoc($inquiries)): ?>
+                    <?php while($inq = mysqli_fetch_array($inquiries)): ?>
                         <tr>
                             <td><?= $inq['InquiryID'] ?></td>
                             <td><?= htmlspecialchars($inq['FullName']) ?></td>
