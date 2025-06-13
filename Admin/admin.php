@@ -146,6 +146,49 @@ if ($results && mysqli_num_rows($results) > 0) {
         margin-left: 0 !important;
       }
     }
+
+    body.dark-mode {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+    body.dark-mode .modal-content {
+        background: #1e1e1e;
+        color: #e0e0e0;
+    }
+    body.dark-mode .close {
+        color: #bbb;
+    }
+    body.dark-mode h2 {
+        color: #fff;
+    }
+    body.dark-mode label {
+        color: #ddd;
+    }
+    body.dark-mode input[type="text"],
+    body.dark-mode input[type="number"],
+    body.dark-mode input[type="file"] {
+        background: #333;
+        color: #fff;
+        border: 1px solid #555;
+    }
+    body.dark-mode button[type="submit"] {
+        background: #007bff;
+        color: #fff;
+    }
+    body.dark-mode button[type="submit"]:hover {
+        background: #0056b3;
+    }
+    body.dark-mode .sidebar {
+        background: #1e1e1e;
+        color: #e0e0e0;
+    }
+    body.dark-mode .sidebar a {
+        color: #e0e0e0;
+    }
+    body.dark-mode .sidebar a.active {
+        background: #007bff;
+        color: #fff;
+    }
     </style>
     <script>
     function toggleSidebar() {
@@ -218,7 +261,7 @@ if ($results && mysqli_num_rows($results) > 0) {
     }
     </script>
 </head>
-<body>
+<body class="dark-mode">
     <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="admin-sidebar" onclick="toggleSidebar()">
         <span class="bar"></span>
         <span class="bar"></span>

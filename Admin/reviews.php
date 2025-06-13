@@ -158,7 +158,7 @@ $result = mysqli_query($con, "SELECT * FROM reviews ORDER BY review_date DESC");
     }
     </style>
 </head>
-<body>
+<body class="dark-mode">
     <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="admin-sidebar" onclick="toggleSidebar()">
         <span class="bar"></span>
         <span class="bar"></span>

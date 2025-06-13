@@ -220,3 +220,78 @@ button.button:nth-child(1) {
     gap: 4px;
   }
 }
+
+.dark-mode body,
+.dark-mode {
+    background-color: #181a1b !important;
+    color: #e0e0e0 !important;
+}
+.dark-mode .sidebar {
+    background-color: #23272a !important;
+    border-right: 1px solid #333 !important;
+}
+.dark-mode .sidebar h2,
+.dark-mode .sidebar a {
+    color: #e0e0e0 !important;
+}
+.dark-mode .sidebar a.active,
+.dark-mode .sidebar a:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+.dark-mode .main-content {
+    background-color: #222 !important;
+    color: #e0e0e0 !important;
+}
+.dark-mode table,
+.dark-mode .table-responsive,
+.dark-mode .user-form-section,
+.dark-mode form {
+    background-color: #23272a !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+}
+.dark-mode th, .dark-mode td, .dark-mode .table-responsive th, .dark-mode .table-responsive td {
+    background-color: #23272a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+.dark-mode thead th, .dark-mode .table-responsive th {
+    background-color: #181a1b !important;
+    color: #fff !important;
+}
+.dark-mode tbody tr:nth-child(even) td {
+    background-color: #202225 !important;
+}
+.dark-mode tbody tr:hover td {
+    background-color: #333 !important;
+}
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea {
+    background-color: #23272a !important;
+    color: #e0e0e0 !important;
+    border: 1px solid #444 !important;
+}
+.dark-mode input:focus,
+.dark-mode select:focus,
+.dark-mode textarea:focus {
+    background-color: #181a1b !important;
+    color: #fff !important;
+    border: 1.5px solid #007bff !important;
+}
+.dark-mode button,
+.dark-mode .edit-button,
+.dark-mode .deactivate-button,
+.dark-mode .change-role-button {
+    color: #fff !important;
+}
+.dark-mode .edit-button {
+    background: #2563eb !important;
+}
+.dark-mode .deactivate-button {
+    background: #6c757d !important;
+}
+.dark-mode .change-role-button {
+    background: #17a2b8 !important;
+}

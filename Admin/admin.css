@@ -151,3 +151,61 @@ table th {
     gap: 4px;
   }
 }
+
+.dark-mode {
+    background-color: #181a1b !important;
+    color: #e0e0e0 !important;
+}
+.dark-mode .sidebar {
+    background-color: #23272a !important;
+    border-right: 1px solid #333 !important;
+}
+.dark-mode .sidebar h2,
+.dark-mode .sidebar a {
+    color: #e0e0e0 !important;
+}
+.dark-mode .sidebar a.active,
+.dark-mode .sidebar a:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+.dark-mode .main-content {
+    background-color: #222 !important;
+    color: #e0e0e0 !important;
+}
+.dark-mode .modal-content {
+    background: #23272a !important;
+    color: #e0e0e0 !important;
+}
+
+/* Dark mode table styles */
+.dark-mode table {
+    background-color: #23272a !important;
+    color: #e0e0e0 !important;
+}
+.dark-mode th, .dark-mode td {
+    background-color: #23272a !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+.dark-mode thead th {
+    background-color: #181a1b !important;
+    color: #fff !important;
+}
+.dark-mode tbody tr:nth-child(even) td {
+    background-color: #202225 !important;
+}
+.dark-mode tbody tr:hover td {
+    background-color: #333 !important;
+}
+.dark-mode .btn {
+    color: #fff;
+}
+.dark-mode .btn-primary {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+.dark-mode .btn-danger {
+    background-color: #dc2626;
+    border-color: #dc2626;
+}

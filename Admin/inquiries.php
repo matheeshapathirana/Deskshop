@@ -109,7 +109,7 @@ $inquiries = mysqli_query($conn, 'SELECT * FROM contactinquiries ORDER BY Submis
         }
     </script>
 </head>
-<body>
+<body class="dark-mode">
     <button class="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="admin-sidebar" onclick="toggleSidebar()">
         <span class="bar"></span>
         <span class="bar"></span>
