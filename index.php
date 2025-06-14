@@ -6,7 +6,7 @@ $isLoggedIn = is_user_logged_in();
 
 if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     if ($isLoggedIn) {
-        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "deskshop", "", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
