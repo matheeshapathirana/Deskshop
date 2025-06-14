@@ -4,7 +4,7 @@
     $email = $_POST['email'];
     $contact_number = $_POST['contact_number'];
 
-    $conn = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
+    $conn = mysqli_connect("localhost", "root", "", "deskshop");
     if(!$conn)
     {
         die("Sorry, Connection failed: " . mysqli_connect_error());
