@@ -12,7 +12,7 @@ $delivery_fee = 150;
 $grand_total = 0;
 
 if ($isLoggedIn) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");

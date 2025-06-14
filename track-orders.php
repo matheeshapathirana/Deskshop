@@ -7,7 +7,7 @@ $isLoggedIn = is_user_logged_in();
 
 $user_orders = [];
 if ($isLoggedIn) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
@@ -106,7 +106,7 @@ if ($isLoggedIn) {
           </div>
         <?php else: ?>
           <?php
-          $con = mysqli_connect("localhost", "root", "", "deskshop");
+          $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
           foreach ($user_orders as $item):
               $code = $item['product_code'];
               $p_q = mysqli_query($con, "SELECT product_code, name, price, image_url FROM products WHERE product_code='$code' LIMIT 1");

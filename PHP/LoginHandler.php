@@ -3,7 +3,7 @@ session_start();
 
 // Auto-login using cookie if session not set
 if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
     if ($con) {
         $email = $_COOKIE['user_email'];
         $sql = "SELECT * FROM user WHERE email = '$email'";
@@ -22,7 +22,7 @@ if (isset($_POST['login-btn'])) {
     $password = $_POST['password'];
     $remember = isset($_POST['remember']); // Check if "Remember Me" is selected
 
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
     if (!$con) {
         die("Connection failed: " . mysqli_connect_error());
     }

@@ -11,7 +11,7 @@ function auto_login_from_cookie() {
         session_start();
     }
     if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
-        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
         if ($con) {
             $user = get_user_by_email($_COOKIE['user_email'], $con);
             if ($user) {
@@ -32,7 +32,7 @@ function check_user_deactivated_and_logout() {
         exit();
     }
     $user_email = isset($_SESSION['email']) ? $_SESSION['email'] : $_COOKIE['user_email'];
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
     if (!$con) {
         die("Database connection failed.");
     }

@@ -6,7 +6,7 @@ $isLoggedIn = is_user_logged_in();
 
 if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
     if ($isLoggedIn) {
-        $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "deskshop", "", "deskshop");
+        $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
@@ -32,7 +32,7 @@ if (isset($_POST['wishlist_action'], $_POST['product_code'])) {
 
 if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'] === 'add') {
     if ($isLoggedIn) {
-        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
         if ($con) {
             $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
             $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
@@ -58,7 +58,7 @@ if (isset($_POST['cart_action'], $_POST['product_code']) && $_POST['cart_action'
 
 $user_wishlist_product_ids = [];
 if ($isLoggedIn) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
@@ -78,7 +78,7 @@ if ($isLoggedIn) {
 if (isset($_POST['newsletter-submit'])) {
     $email = $_POST['email'];
 
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
     if (!$con) {
         $newsletter_message = "Connection failed: " . mysqli_connect_error();
     } else {
@@ -101,7 +101,7 @@ if (isset($_POST['newsletter-submit'])) {
     }
 }
 
-$con = mysqli_connect("localhost", "root", "", "deskshop");
+$con = mysqli_connect("db.be-mons1.bengt.wasmernet.com", "d6c017297b5c8000c3e18e79253e", "0684d6c0-1729-7d0e-8000-e756ec962efd", "deskshop");
 $hot_deals = [];
 $featured_products = [];
 if ($con) {
