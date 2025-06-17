@@ -145,7 +145,11 @@ if ($isLoggedIn) {
               <div class="product-details">
                 <div class="product-info">
                   <div class="product-text">
-                    <h2 class="product-name"><?php echo htmlspecialchars($product['name']); ?></h2>
+                    <h2 class="product-name">
+                      <a href="product.php?code=<?php echo urlencode($product['product_code']); ?>" style="color:inherit; text-decoration:none;">
+                        <?php echo htmlspecialchars($product['name']); ?>
+                      </a>
+                    </h2>
                     <p class="product-quantity">Qty : <?php echo intval($item['quantity']); ?></p>
                   </div>
                   <form method="post" style="display:inline;">

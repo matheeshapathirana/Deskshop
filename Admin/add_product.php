@@ -21,8 +21,6 @@ if ($results && mysqli_num_rows($results) > 0) {
     exit();
 }
 
-header('Content-Type: text/html');
-
 function addProductWithCategories($con, $product, $categories) {
     $categories = array_unique(array_filter(array_map('trim', $categories)));
     if (empty($categories)) return false;
