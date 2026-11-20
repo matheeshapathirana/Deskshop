@@ -1,9 +1,10 @@
-<?php 
+<?php
+require_once __DIR__ . '/../db.php'; 
 session_start();
 
 // Auto-login using cookie if session not set
 if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if ($con) {
         $email = $_COOKIE['user_email'];
         $sql = "SELECT * FROM user WHERE email = '$email'";
@@ -22,7 +23,7 @@ if (isset($_POST['login-btn'])) {
     $password = $_POST['password'];
     $remember = isset($_POST['remember']); // Check if "Remember Me" is selected
 
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if (!$con) {
         die("Connection failed: " . mysqli_connect_error());
     }

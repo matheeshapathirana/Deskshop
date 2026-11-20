@@ -1,10 +1,11 @@
 <?php
+require_once __DIR__ . '/../db.php';
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $contact_number = $_POST['contact_number'];
 
-    $conn = mysqli_connect("localhost", "root", "", "deskshop");
+    $conn = db_connect();
     if(!$conn)
     {
         die("Sorry, Connection failed: " . mysqli_connect_error());

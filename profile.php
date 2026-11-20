@@ -117,7 +117,7 @@ $user_role = $user && isset($user['role']) ? $user['role'] : '';
                                         </p>
                                         <p class="footer-contact-email">
                                                 <strong>Email:</strong><br />
-                                                pathiranamatheesha@gmail.com
+                                                email@gmail.com
                                         </p>
                                 </div>
                         </div>

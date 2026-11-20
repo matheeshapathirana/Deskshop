@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/../db.php';
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "deskshop");
+$conn = db_connect();
 if(!$conn) {
     die("Sorry, Connection failed: " . mysqli_connect_error());
 }
@@ -39,7 +40,7 @@ $inquiries = mysqli_query($conn, 'SELECT * FROM contactinquiries ORDER BY Submis
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Inquiries - Admin</title>
     <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href="manage_inquiries.css">
+    <link rel="stylesheet" href="inquiries.css">
     <style>
         .hamburger {
           display: none;

@@ -10,3 +10,5 @@
 /Tests/
 categories.txt
 /Assets/Product Page/
+config.php
+.playwright-mcp/

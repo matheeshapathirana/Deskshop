@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../db.php';
 // User authentication and deactivated status check helper
 function get_user_by_email($email, $con) {
     $sql = "SELECT * FROM user WHERE email = '$email'";
@@ -11,7 +12,7 @@ function auto_login_from_cookie() {
         session_start();
     }
     if (!isset($_SESSION['email']) && isset($_COOKIE['user_email'])) {
-        $con = mysqli_connect("localhost", "root", "", "deskshop");
+        $con = db_connect();
         if ($con) {
             $user = get_user_by_email($_COOKIE['user_email'], $con);
             if ($user) {
@@ -32,7 +33,7 @@ function check_user_deactivated_and_logout() {
         exit();
     }
     $user_email = isset($_SESSION['email']) ? $_SESSION['email'] : $_COOKIE['user_email'];
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if (!$con) {
         die("Database connection failed.");
     }

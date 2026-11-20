@@ -1,7 +1,8 @@
 <?php
+require_once __DIR__ . '/../db.php';
 session_start();
 
-$con = mysqli_connect("localhost", "root", "", "deskshop");
+$con = db_connect();
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 }

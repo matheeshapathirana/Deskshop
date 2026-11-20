@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../db.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -11,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $conn = mysqli_connect("localhost", "root", "", "deskshop");
+    $conn = db_connect();
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }

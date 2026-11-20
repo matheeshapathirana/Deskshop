@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once __DIR__ . '/../db.php'; 
 session_start();
 
 if (isset($_POST['login-btn'])) {
@@ -6,7 +7,7 @@ if (isset($_POST['login-btn'])) {
     $password = $_POST['password'];
     $remember = isset($_POST['remember']); // Check if "Remember Me" is selected
 
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if (!$con) {
         die("Sorry, Connection failed: " . mysqli_connect_error());
     }
@@ -22,7 +23,7 @@ if (isset($_POST['login-btn'])) {
             setcookie("user_email", $email, time() + (86400 * 30), "/"); // Cookie valid for 30 days
         }
 
-        header("Location: ../profile.html");
+        header("Location: ../profile.php");
     } else {
         header("Location: ../signin.php");
     }

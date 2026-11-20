@@ -1,11 +1,12 @@
 <?php
+require_once __DIR__ . '/db.php';
 if (isset($_POST['submit-btn'])) {
     $fullName = $_POST['fullName'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $message = $_POST['message'];
 
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if (!$con) {
         die("Connection failed: " . mysqli_connect_error());
     }
@@ -146,7 +147,7 @@ $isLoggedIn = isset($_SESSION['email']) || isset($_COOKIE['user_email']);
                             </p>
                             <p class="footer-contact-email">
                                 <strong>Email:</strong><br />
-                                pathiranamatheesha@gmail.com
+                                email@gmail.com
                             </p>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "deskshop");
+require_once __DIR__ . '/../db.php';
+$conn = db_connect();
 if(!$conn)
 {
     die("Sorry, Connection failed: " . mysqli_connect_error());

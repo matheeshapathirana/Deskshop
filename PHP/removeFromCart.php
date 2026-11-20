@@ -1,13 +1,14 @@
 <?php
+require_once __DIR__ . '/../db.php';
 session_start();
 if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
-    header("Location: signin.php");
+    header("Location: ../signin.php");
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_id'])) {
     $cart_id = $_POST['cart_id'];
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");

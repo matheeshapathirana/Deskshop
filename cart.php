@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/db.php';
 session_start();
 if (!isset($_SESSION['email']) && !isset($_COOKIE['user_email'])) {
     echo "<script>alert('Please sign in to access your cart.'); window.location.href='signin.php';</script>";
@@ -12,7 +13,7 @@ $delivery_fee = 150;
 $grand_total = 0;
 
 if ($isLoggedIn) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
@@ -333,7 +334,7 @@ $grand_total = $total + $delivery_fee;
                                 </p>
                                 <p class="footer-contact-email">
                                     <strong>Email:</strong><br />
-                                    pathiranamatheesha@gmail.com
+                                    email@gmail.com
                                 </p>
                             </div>
                         </div>

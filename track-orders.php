@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/db.php';
 session_start();
 require_once 'PHP/AuthCheck.php';
 auto_login_from_cookie();
@@ -7,7 +8,7 @@ $isLoggedIn = is_user_logged_in();
 
 $user_orders = [];
 if ($isLoggedIn) {
-    $con = mysqli_connect("localhost", "root", "", "deskshop");
+    $con = db_connect();
     if ($con) {
         $user_email = $_SESSION['email'] ?? $_COOKIE['user_email'];
         $user_q = mysqli_query($con, "SELECT id FROM user WHERE email = '$user_email' LIMIT 1");
@@ -106,7 +107,7 @@ if ($isLoggedIn) {
           </div>
         <?php else: ?>
           <?php
-          $con = mysqli_connect("localhost", "root", "", "deskshop");
+          $con = db_connect();
           foreach ($user_orders as $item):
               $code = $item['product_code'];
               $p_q = mysqli_query($con, "SELECT product_code, name, price, image_url FROM products WHERE product_code='$code' LIMIT 1");
@@ -188,7 +189,7 @@ if ($isLoggedIn) {
                 </p>
                 <p class="footer-contact-email">
                   <strong>Email:</strong><br />
-                  pathiranamatheesha@gmail.com
+                  email@gmail.com
                 </p>
               </div>
             </div>
